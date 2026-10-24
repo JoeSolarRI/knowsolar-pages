@@ -303,10 +303,10 @@ boxes.forEach(function(b){b.addEventListener('change',drawScore);});
 var params=new URLSearchParams(location.search);
 var qCount=parseInt(params.get('q')||'0',10);
 if(isNaN(qCount)||qCount<0||qCount>3)qCount=0;
-var ctaIntro={0:'Starting from zero? Perfect — we&rsquo;ll get you real bids from every major installer, side by side.',
- 1:'One quote is a price tag, not a market. Send it — we&rsquo;ll put it up against real bids so you know if it&rsquo;s actually the best deal.',
- 2:'Two quotes is a real start. We&rsquo;ll bring the rest of the market to the table and rank every offer side by side.',
- 3:'You&rsquo;re a serious shopper — send them all. We&rsquo;ll line our bids up against every quote you&rsquo;re holding.'};
+var ctaIntro={0:'Starting from zero? Perfect — we’ll get you real bids from every major installer, side by side.',
+ 1:'One quote is a price tag, not a market. Send it — we’ll put it up against real bids so you know if it’s actually the best deal.',
+ 2:'Two quotes is a real start. We’ll bring the rest of the market to the table and rank every offer side by side.',
+ 3:'You’re a serious shopper — send them all. We’ll line our bids up against every quote you’re holding.'};
 document.getElementById('cta-intro').textContent=ctaIntro[qCount];
 var qForm=document.getElementById('q-form'),qDone=document.getElementById('q-done'),qErr=document.getElementById('q-err');
 qForm.addEventListener('submit',function(ev){
