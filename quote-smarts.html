@@ -243,8 +243,8 @@ function drawShowdown(){
   var P=parseFloat(PAY_INPUT.value)||150; if(P<25)P=25; if(P>2000)P=2000;
   var months=[]; for(var y=0;y<25;y++){var pm=P*Math.pow(1.029,y);for(var m=0;m<12;m++)months.push(pm);}
   var maxY=P*Math.pow(1.029,25)*1.08;
-  function pts(f){var s='';for(var i=0;i<=300;i++){var mm=i*3;var v=f(Math.min(mm,299));var x=20+(i/300)*520;var yv=210-(v/maxY)*190;s+=x.toFixed(1)+','+yv.toFixed(1)+' ';}return s.trim();}
-  var escPath=pts(function(mm){return months[Math.min(mm,299)];});
+  function pts(f){var s='';for(var i=0;i<=300;i++){var v=f(i);var x=20+(i/300)*520;var yv=210-(v/maxY)*190;s+=x.toFixed(1)+','+yv.toFixed(1)+' ';}return s.trim();}
+  var escPath=pts(function(mm){return P*Math.pow(1.029,Math.floor(mm/12));});
   var flatPath=pts(function(){return P;});
   var y25=(P*Math.pow(1.029,24));
   var totE=escTotal(P), totF=12*25*P, diff=totE-totF;
