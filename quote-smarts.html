@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>KnowSolar.com — Quote Smarts</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;background:#fff;color:#0E1B33;-webkit-font-smoothing:antialiased}
+.section{padding:64px 20px}
+.sec-inner{max-width:920px;margin:0 auto}
+.sec-inner.center{text-align:center}
+.sec-label{display:inline-block;font-size:11px;font-weight:800;letter-spacing:.14em;color:#0B4DA8;text-transform:uppercase}
+h2{font-size:clamp(24px,4vw,32px);font-weight:800;letter-spacing:-.01em;margin-top:10px;color:#0E1B33}
+h3{font-size:17px;font-weight:700;color:#0E1B33}
+.sec-intro{margin-top:14px;font-size:16px;line-height:1.7;color:#5A6577}
+.nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border-bottom:1px solid #E5EAF2}
+.nav-inner{max-width:1100px;margin:0 auto;padding:14px 20px;display:flex;align-items:center;justify-content:space-between}
+.logo{display:flex;align-items:center;gap:8px;font-weight:800;font-size:18px;color:#0E1B33;text-decoration:none}
+.logo .dot{color:#F59A1B}
+.band{background:#F2F6FD;border-top:1px solid #E5EAF2;border-bottom:1px solid #E5EAF2}
+.hero{padding:72px 20px 56px;text-align:center;max-width:840px;margin:0 auto}
+.hero h1{font-size:clamp(30px,5.4vw,46px);font-weight:800;letter-spacing:-.02em;line-height:1.12;color:#0E1B33}
+.hero h1 .hl{color:#0B4DA8}
+.hero p{margin-top:18px;font-size:17px;line-height:1.7;color:#5A6577;max-width:640px;margin-left:auto;margin-right:auto}
+.kicker{display:inline-block;font-size:11px;font-weight:800;letter-spacing:.16em;color:#0B4DA8;text-transform:uppercase;margin-bottom:16px}
+/* showdown tool */
+.tool{max-width:860px;margin:34px auto 0;background:#F6F9FF;border:1px solid #D7DEEA;border-radius:16px;padding:28px 24px;text-align:left}
+.tool-head{font-size:19px;font-weight:800;color:#0E1B33}
+.tool-sub{margin-top:6px;font-size:14px;color:#5A6577;line-height:1.6}
+input.big{width:100%;max-width:220px;padding:12px 14px;font-size:16px;font-weight:700;color:#0E1B33;background:#fff;border:2px solid #0B4DA8;border-radius:10px;font-family:inherit}
+input.big:focus{outline:none;box-shadow:0 0 0 3px rgba(11,77,168,.15)}
+.chart-wrap{margin-top:22px;background:#fff;border:1px solid #E5EAF2;border-radius:12px;padding:14px 10px 8px}
+.legend{display:flex;flex-wrap:wrap;gap:16px;font-size:12.5px;color:#5A6577;margin-top:8px;justify-content:center}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{width:18px;height:4px;border-radius:2px;display:inline-block}
+.res-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:18px}
+.res-card{background:#fff;border:1px solid #E5EAF2;border-radius:12px;padding:16px 14px;text-align:center}
+.res-card .lbl{font-size:11.5px;font-weight:700;letter-spacing:.06em;color:#5A6577;text-transform:uppercase}
+.res-card .val{margin-top:6px;font-size:clamp(20px,3vw,26px);font-weight:800;color:#0E1B33}
+.res-card .val.warn{color:#B3261E}
+.res-card .val.good{color:#0B7A4B}
+.punch{margin-top:18px;padding:16px 18px;background:#0B4DA8;color:#fff;border-radius:12px;font-size:15.5px;font-weight:600;line-height:1.55}
+.own-note{margin-top:12px;font-size:13.5px;color:#5A6577;line-height:1.6}
+/* toggle */
+.mode{display:inline-flex;background:#E5EAF2;border-radius:999px;padding:4px;margin-top:14px}
+.mode button{border:none;background:transparent;padding:9px 16px;font-size:13.5px;font-weight:700;color:#5A6577;border-radius:999px;cursor:pointer;font-family:inherit}
+.mode button.on{background:#0B4DA8;color:#fff}
+/* per-watt */
+.pw-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:18px}
+.pw-grid input{width:100%;padding:12px 14px;font-size:15px;font-weight:600;color:#0E1B33;background:#fff;border:1.5px solid #D7DEEA;border-radius:10px;font-family:inherit}
+.pw-grid input:focus{outline:none;border-color:#0B4DA8;box-shadow:0 0 0 3px rgba(11,77,168,.12)}
+.meter{margin-top:18px;height:14px;border-radius:999px;background:linear-gradient(90deg,#0B7A4B 0 40%,#FFC53D 40% 72%,#F59A1B 72% 88%,#B3261E 88% 100%);position:relative}
+.meter-dot{position:absolute;top:-5px;width:24px;height:24px;border-radius:50%;background:#0E1B33;border:3px solid #fff;box-shadow:0 1px 6px rgba(14,27,51,.4);left:50%;transform:translateX(-50%);transition:left .4s ease}
+.pw-verdict{margin-top:16px;font-size:16px;font-weight:700;text-align:center}
+.pw-verdict small{display:block;margin-top:4px;font-weight:500;font-size:13px;color:#5A6577}
+/* checklist */
+.chk-grid{max-width:680px;margin:26px auto 0;text-align:left;display:grid;gap:10px}
+.chk{display:flex;align-items:flex-start;gap:12px;background:#fff;border:1.5px solid #E5EAF2;border-radius:12px;padding:14px 16px;cursor:pointer;transition:border-color .15s}
+.chk:hover{border-color:#0B4DA8}
+.chk input{margin-top:2px;width:19px;height:19px;accent-color:#0B4DA8;flex-shrink:0}
+.chk .txt{font-size:14.5px;line-height:1.55;color:#0E1B33}
+.chk .txt b{font-weight:700}
+.chk .txt small{display:block;color:#5A6577;font-size:13px;margin-top:2px}
+.score{margin:24px auto 0;max-width:420px;background:#0E1B33;border-radius:14px;padding:22px;text-align:center;color:#fff}
+.score .n{font-size:40px;font-weight:800;color:#FFC53D}
+.score .t{margin-top:6px;font-size:14.5px;line-height:1.5;color:rgba(255,255,255,.85)}
+/* example quotes */
+.ex-table{max-width:760px;margin:26px auto 0;border:1px solid #E5EAF2;border-radius:14px;overflow:hidden}
+.ex-row{display:grid;grid-template-columns:1.1fr 1fr 1.4fr;padding:16px 18px;border-bottom:1px solid #E5EAF2;gap:10px}
+.ex-row:last-child{border-bottom:none}
+.ex-row.h{background:#F2F6FD;font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#5A6577}
+.ex-row .c1{font-weight:800;color:#0E1B33}
+.ex-row .c2{font-size:14px;color:#0E1B33;font-weight:600}
+.ex-row .c3{font-size:13.5px;color:#5A6577;line-height:1.5}
+.ex-row.best{background:#F0FAF4}
+.ex-row.best .c1::after{content:"★";color:#0B7A4B;margin-left:6px}
+/* CTA + form */
+.q-label{display:block;font-size:15px;font-weight:600;color:#5A6577;margin-bottom:16px}
+.q-form{margin-top:22px;text-align:left}
+.q-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.q-field label{display:block;font-size:12px;font-weight:600;color:#5A6577;margin-bottom:5px}
+.q-field input,.q-field select{width:100%;padding:11px 12px;font-size:14px;font-weight:500;color:#0E1B33;background:#fff;border:1.5px solid #D7DEEA;border-radius:8px;font-family:inherit}
+.q-field input:focus,.q-field select:focus{outline:none;border-color:#0B4DA8;box-shadow:0 0 0 3px rgba(11,77,168,.12)}
+.q-err{margin-top:14px;font-size:13px;font-weight:600;color:#B3261E;text-align:center}
+.btn-gold{margin-top:20px;display:inline-flex;align-items:center;justify-content:center;gap:8px;background:linear-gradient(90deg,#F59A1B,#FFC53D);color:#082B57;border-radius:10px;padding:15px 26px;font-size:16px;font-weight:700;border:none;cursor:pointer;box-shadow:0 3px 14px rgba(245,158,27,.4);font-family:inherit}
+.btn-gold:disabled{opacity:.6;cursor:default}
+.q-form .btn-gold{width:100%}
+.q-alt{margin-top:16px;font-size:12.5px;color:#5A6577;text-align:center}
+.q-done{text-align:center;padding:8px 0 4px}
+.q-done-big{font-size:20px;font-weight:800;color:#0B4DA8}
+.q-done-txt{margin-top:8px;font-size:14.5px;line-height:1.6;color:#5A6577}
+footer{padding:44px 20px;text-align:center;background:#0E1B33;color:rgba(255,255,255,.85);margin-top:70px}
+footer .logo{color:#fff;justify-content:center}
+.foot-meta{margin-top:10px;font-size:13px;color:rgba(255,255,255,.6)}
+.tip{margin-top:16px;font-size:13px;color:#5A6577;font-style:italic}
+@media(max-width:640px){.res-grid{grid-template-columns:1fr 1fr}.pw-grid{grid-template-columns:1fr}.q-grid{grid-template-columns:1fr}.ex-row{grid-template-columns:1fr;gap:4px}}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="logo" href="./index.html">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="4.6" fill="#F59A1B"/><g stroke="#FFC53D" stroke-width="2" stroke-linecap="round"><path d="M12 1.5v3M12 19.5v3M1.5 12h3M19.5 12h3M4.6 4.6l2.1 2.1M17.3 17.3l2.1 2.1M19.4 4.6l-2.1 2.1M6.7 17.3l-2.1 2.1"/></g></svg>
+      KnowSolar<span class="dot">.com</span>
+    </a>
+    <a href="#get-reviewed" style="font-size:14px;font-weight:700;color:#0B4DA8;text-decoration:none">Get My Quote Reviewed</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <span class="kicker">Free guide — no email required</span>
+  <h1>Not all solar quotes are created <span class="hl">equal</span>.</h1>
+  <p>Two quotes can show the same monthly payment and cost you <b>$20,000 more</b> over 25 years. Here&rsquo;s what installers don&rsquo;t spell out — and how to read any quote like a broker.</p>
+</div>
+
+<section class="section band">
+  <div class="sec-inner center">
+    <span class="sec-label">Interactive</span>
+    <h2>The 2.9% Lie</h2>
+    <p class="sec-intro">Lease escalators sound tiny. &ldquo;2.9% a year? Nothing.&rdquo; Watch what 2.9% does over 25 years, side by side with fixed-rate options.</p>
+
+    <div class="tool" id="showdown">
+      <div class="tool-head">The 25-Year Showdown</div>
+      <div class="tool-sub">Enter the monthly payment from a real quote and see the three structures play out.</div>
+      <label class="q-label" for="s-payment" style="margin-top:16px">Monthly payment quoted to you: $</label>
+      <input class="big" id="s-payment" type="number" min="25" max="2000" step="1" value="150" inputmode="decimal">
+      <div class="chart-wrap">
+        <svg id="s-chart" viewBox="0 0 560 240" style="width:100%;height:auto" role="img" aria-label="Monthly payment over 25 years"></svg>
+        <div class="legend">
+          <span><i style="background:#B3261E"></i>Lease, 2.9% escalator</span>
+          <span><i style="background:#0B4DA8"></i>Lease, fixed</span>
+          <span><i style="background:#0B7A4B"></i>Ownership, fixed rate</span>
+        </div>
+      </div>
+      <div class="res-grid">
+        <div class="res-card"><div class="lbl">Escalating lease, yr 25</div><div class="val warn" id="s-end-payment">$&mdash;</div></div>
+        <div class="res-card"><div class="lbl">25-yr cost, escalating</div><div class="val warn" id="s-total-esc">$&mdash;</div></div>
+        <div class="res-card"><div class="lbl">25-yr cost, fixed</div><div class="val good" id="s-total-fixed">$&mdash;</div></div>
+      </div>
+      <div class="punch" id="s-punch"></div>
+      <p class="own-note">And here&rsquo;s the part the lease pitch skips: with <b>ownership</b>, those fixed payments end and the system is <b>yours</b> — 25 years of electricity, $0/month, and it adds value when you sell. With a lease, you keep paying, forever, for panels on your own roof.</p>
+      <p class="tip">Illustrative math, not a quote: payments level within each year, escalator compounding annually.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="sec-inner center">
+    <span class="sec-label">Tool #2</span>
+    <h2>The Only Number That Compares Apples to Apples</h2>
+    <p class="sec-intro">Monthly payments hide the truth. <b>Price per watt</b> is how installers actually compare quotes. Divide the price by system size and see where your quote lands.</p>
+    <div class="tool" style="text-align:left">
+      <div class="pw-grid">
+        <div><label class="q-label" for="pw-size" style="margin-bottom:8px">System size (kW)</label><input id="pw-size" type="number" min="1" max="50" step="0.1" value="8.5" inputmode="decimal"></div>
+        <div><label class="q-label" for="pw-price" style="margin-bottom:8px">Quote price ($)</label><input id="pw-price" type="number" min="1000" max="200000" step="100" value="29750" inputmode="decimal"></div>
+      </div>
+      <div class="meter"><div class="meter-dot" id="pw-dot"></div></div>
+      <div class="pw-verdict" id="pw-verdict"></div>
+      <p class="own-note">Green: strong deal. Yellow: typical range. Orange: high — worth shopping. Red: scrutinize hard unless it includes a battery. Cash and financed quotes are different sports: dealer fees can add 15&ndash;30% to a financed system, so compare financed-to-financed and cash-to-cash.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section band">
+  <div class="sec-inner center">
+    <span class="sec-label">Checklist</span>
+    <h2>Does Your Quote Have All 8?</h2>
+    <p class="sec-intro">A real quote answers these in writing. Check off everything yours covers.</p>
+    <div class="chk-grid" id="chk-grid">
+      <label class="chk"><input type="checkbox"><span class="txt"><b>Total system size in kW</b> — not just a panel count.<small>&ldquo;32 panels&rdquo; means nothing if a panel is 400W or 500W.</small></span></label>
+      <label class="chk"><input type="checkbox"><span class="txt"><b>Price per watt ($/W)</b> — the only apples-to-apples number.<small>Price ÷ system size. If it&rsquo;s not on the quote, do the math.</small></span></label>
+      <label class="chk"><input type="checkbox"><span class="txt"><b>Year-1 production estimate in kWh, in writing</b>.<small>&ldquo;It&rsquo;ll cover your bill&rdquo; is a pitch, not a number.</small></span></label>
+      <label class="chk"><input type="checkbox"><span class="txt"><b>Panel and inverter brands + model numbers</b>.<small>Name-brand with specs, or &ldquo;whatever&rsquo;s in the truck&rdquo;?</small></span></label>
+      <label class="chk"><input type="checkbox"><span class="txt"><b>Warranty terms spelled out</b> — 25-yr parts &amp; performance, plus workmanship.<small>Who honors it, for how long, labor included?</small></span></label>
+      <label class="chk"><input type="checkbox"><span class="txt"><b>If leased: the escalator % in the contract</b>.<small>2.9% compounding annually? Flat? It changes everything — see the tool above.</small></span></label>
+      <label class="chk"><input type="checkbox"><span class="txt"><b>Full financing terms</b> — rate, term, fees, total cost over the life.<small>The monthly payment is marketing. The 25-year total is reality.</small></span></label>
+      <label class="chk"><input type="checkbox"><span class="txt"><b>Who services it — and what happens if they vanish</b>.<small>Installers exit markets. Ask what happens to your warranty then.</small></span></label>
+    </div>
+    <div class="score"><div class="n" id="chk-n">0 / 8</div><div class="t" id="chk-t">Nothing checked yet — tap the items your quote covers.</div></div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="sec-inner center">
+    <span class="sec-label">Real world</span>
+    <h2>Same Roof, Three Quotes</h2>
+    <p class="sec-intro">An actual pattern we see on Rhode Island homes. Only one of these was the right answer.</p>
+    <div class="ex-table">
+      <div class="ex-row h"><div>Quote</div><div>The pitch</div><div>What it actually is</div></div>
+      <div class="ex-row"><div class="c1">Quote A</div><div class="c2">$159/mo lease</div><div class="c3">2.9% escalator, year-25 payment hits $310/mo. $57k+ over 25 years for panels you never own.</div></div>
+      <div class="ex-row best"><div class="c1">Quote B</div><div class="c2">$2.80/W, cash</div><div class="c3">Fair price, owned outright, no escalator ever. Fixed cost, then free power. The quiet winner.</div></div>
+      <div class="ex-row"><div class="c1">Quote C</div><div class="c2">&ldquo;Lowest payment!&rdquo;</div><div class="c3">$4.10/W financed with a fat dealer fee buried in the loan. &ldquo;Low&rdquo; monthly, highest total cost on the block.</div></div>
+    </div>
+    <p class="sec-intro" style="max-width:640px;margin:26px auto 0">This is why KnowSolar exists. We put your roof in front of every major installer — locally and nationally — and make them compete. You see the real options side by side, in plain English.</p>
+  </div>
+</section>
+
+<section class="section band" id="get-reviewed">
+  <div class="sec-inner center">
+    <span class="sec-label">Ready when you are</span>
+    <h2>Get Your Quote Reviewed — Free</h2>
+    <p class="sec-intro" id="cta-intro">Drop your details and we&rsquo;ll put your number up against real bids from every major installer.</p>
+    <div class="quote-box" style="max-width:660px;margin:26px auto 0;background:#F6F9FF;border:1px solid #D7DEEA;border-radius:16px;padding:30px 26px">
+      <form class="q-form" id="q-form" novalidate>
+        <div class="q-grid">
+          <div class="q-field"><label for="q-name">Your name *</label><input id="q-name" type="text" autocomplete="name"></div>
+          <div class="q-field"><label for="q-phone">Phone</label><input id="q-phone" type="tel" autocomplete="tel"></div>
+          <div class="q-field"><label for="q-email">Email</label><input id="q-email" type="email" autocomplete="email"></div>
+          <div class="q-field"><label for="q-town">Town or ZIP</label><input id="q-town" type="text" autocomplete="postal-code"></div>
+          <div class="q-field"><label for="q-total">Best quote total ($)</label><input id="q-total" type="number" min="0" inputmode="decimal" placeholder="e.g. 42000"></div>
+          <div class="q-field"><label for="q-kw">System size (kW) — if you know it</label><input id="q-kw" type="text" inputmode="decimal"></div>
+          <div class="q-field"><label for="q-fin">Financing on the quote</label><select id="q-fin"><option value="">Choose&hellip;</option><option>Cash</option><option>Loan</option><option>Lease / PPA</option><option>Not sure</option></select></div>
+        </div>
+        <p class="q-err" id="q-err" hidden></p>
+        <button class="btn-gold" type="submit" id="q-submit">Send My Quote For Review</button>
+        <p class="q-alt">Prefer to text it? Send a photo of your quote to <strong>(401) 358-6062</strong>.</p>
+      </form>
+      <div class="q-done" id="q-done" hidden>
+        <p class="q-done-big">Got it — we&rsquo;re on it.</p>
+        <p class="q-done-txt">We&rsquo;ll put your number up against real bids from every major installer and get back to you with the honest market picture.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="logo">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="4.6" fill="#F59A1B"/><g stroke="#FFC53D" stroke-width="2" stroke-linecap="round"><path d="M12 1.5v3M12 19.5v3M1.5 12h3M19.5 12h3M4.6 4.6l2.1 2.1M17.3 17.3l2.1 2.1M19.4 4.6l-2.1 2.1M6.7 17.3l-2.1 2.1"/></g></svg>
+    KnowSolar<span class="dot">.com</span>
+  </div>
+  <div class="foot-meta">We Shop &mdash; You Save. &middot; RI &middot; MA &middot; CT</div>
+  <div class="foot-meta">(401) 358-6062 &middot; 8am&ndash;8pm EST</div>
+  <div class="foot-meta">&copy; 2026 KnowSolar.com &mdash; All Rights Reserved.</div>
+</footer>
+
+<script>
+// ---- 1. The 2.9% Showdown ----
+var PAY_INPUT=document.getElementById('s-payment');
+function escTotal(P){var t=0;for(var y=0;y<25;y++){t+=12*P*Math.pow(1.029,y);}return t;}
+function drawShowdown(){
+  var P=parseFloat(PAY_INPUT.value)||150; if(P<25)P=25; if(P>2000)P=2000;
+  var months=[]; for(var y=0;y<25;y++){var pm=P*Math.pow(1.029,y);for(var m=0;m<12;m++)months.push(pm);}
+  var maxY=P*Math.pow(1.029,25)*1.08;
+  function pts(f){var s='';for(var i=0;i<=300;i++){var mm=i*3;var v=f(Math.min(mm,299));var x=20+(i/300)*520;var yv=210-(v/maxY)*190;s+=x.toFixed(1)+','+yv.toFixed(1)+' ';}return s.trim();}
+  var escPath=pts(function(mm){return months[Math.min(mm,299)];});
+  var flatPath=pts(function(){return P;});
+  var y25=(P*Math.pow(1.029,24));
+  var totE=escTotal(P), totF=12*25*P, diff=totE-totF;
+  document.getElementById('s-chart').innerHTML=
+    '<rect x="0" y="0" width="560" height="240" fill="#fff"/>'+
+    '<line x1="20" y1="210" x2="540" y2="210" stroke="#E5EAF2" stroke-width="1"/>'+
+    '<line x1="20" y1="15" x2="540" y2="15" stroke="#E5EAF2" stroke-width="1" stroke-dasharray="4,4"/>'+
+    '<polyline points="'+escPath+'" fill="none" stroke="#B3261E" stroke-width="3" stroke-linecap="round"/>'+
+    '<polyline points="'+flatPath+'" fill="none" stroke="#0B4DA8" stroke-width="3" stroke-linecap="round" opacity=".85"/>'+
+    '<polyline points="'+flatPath+'" fill="none" stroke="#0B7A4B" stroke-width="3" stroke-dasharray="1,7" stroke-linecap="round"/>'+
+    '<text x="24" y="34" font-size="11" fill="#5A6577">monthly payment, yr 0 &rarr; 25</text>';
+  document.getElementById('s-end-payment').textContent='$'+Math.round(y25)+'/mo';
+  document.getElementById('s-total-esc').textContent='$'+Math.round(totE).toLocaleString();
+  document.getElementById('s-total-fixed').textContent='$'+Math.round(totF).toLocaleString();
+  document.getElementById('s-punch').textContent='That tiny 2.9% costs you $'+Math.round(diff).toLocaleString()+' over 25 years — your payment climbs from $'+Math.round(P)+' to $'+Math.round(y25)+' a month while the fixed options never move.';
+}
+PAY_INPUT.addEventListener('input',drawShowdown);
+drawShowdown();
+
+// ---- 2. Price-per-watt meter ----
+var PW_SIZE=document.getElementById('pw-size'),PW_PRICE=document.getElementById('pw-price');
+function fmtW(w){return (Math.round(w*100)/100).toFixed(2);}
+function drawPW(){
+  var size=parseFloat(PW_SIZE.value),price=parseFloat(PW_PRICE.value);
+  var v=document.getElementById('pw-verdict'),dot=document.getElementById('pw-dot');
+  if(!size||!price||size<=0||price<=0){v.innerHTML='Enter your numbers &mdash; no email, no call, just the answer.';dot.style.left='50%';return;}
+  var w=price/(size*1000);
+  var pct,txt,cls;
+  if(w<2.75){pct=15;txt='Strong deal';cls='good';}
+  else if(w<3.50){pct=50;txt='Typical range';cls='good';}
+  else if(w<4.25){pct=78;txt='High — worth shopping';cls='warn';}
+  else{pct=96;txt='Scrutinize hard';cls='warn';}
+  dot.style.left=pct+'%';
+  v.innerHTML='<span class="'+(cls==='good'?'':'warn')+'" style="color:'+(cls==='good'?'#0B7A4B':'#B3261E')+'">'+txt+' &mdash; $'+fmtW(w)+' per watt</span><small>$'+price.toLocaleString()+' &divide; '+(size*1000)+'W. Cash or financed? Compare like with like.</small>';
+}
+PW_SIZE.addEventListener('input',drawPW);PW_PRICE.addEventListener('input',drawPW);drawPW();
+
+// ---- 3. Checklist ----
+var boxes=document.querySelectorAll('#chk-grid input');
+var verdicts=[
+ 'Nothing checked yet — tap the items your quote covers.',
+ '1 of 8. A menu, not a quote. Ask for the rest in writing.',
+ '2 of 8. Getting somewhere — but gaps are where overpayments hide.',
+ '3 of 8. Half a quote. Worth sending for a second opinion.',
+ '4 of 8. Decent — the missing half is where deals go bad.',
+ '5 of 8. Solid quote. Send it in — we&rsquo;ll pressure-test the rest.',
+ '6 of 8. Strong. One or two details from complete confidence.',
+ '7 of 8. Very good — let&rsquo;s find the last one together.',
+ '8 of 8. Textbook quote. Now find out if it&rsquo;s the best price on your roof.'
+];
+function drawScore(){var n=0;boxes.forEach(function(b){if(b.checked)n++;});
+ document.getElementById('chk-n').textContent=n+' / 8';document.getElementById('chk-t').innerHTML=verdicts[n];}
+boxes.forEach(function(b){b.addEventListener('change',drawScore);});
+
+// ---- 4. Quote review form -> quoteSubmit ----
+var params=new URLSearchParams(location.search);
+var qCount=parseInt(params.get('q')||'0',10);
+if(isNaN(qCount)||qCount<0||qCount>3)qCount=0;
+var ctaIntro={0:'Starting from zero? Perfect — we&rsquo;ll get you real bids from every major installer, side by side.',
+ 1:'One quote is a price tag, not a market. Send it — we&rsquo;ll put it up against real bids so you know if it&rsquo;s actually the best deal.',
+ 2:'Two quotes is a real start. We&rsquo;ll bring the rest of the market to the table and rank every offer side by side.',
+ 3:'You&rsquo;re a serious shopper — send them all. We&rsquo;ll line our bids up against every quote you&rsquo;re holding.'};
+document.getElementById('cta-intro').textContent=ctaIntro[qCount];
+var qForm=document.getElementById('q-form'),qDone=document.getElementById('q-done'),qErr=document.getElementById('q-err');
+qForm.addEventListener('submit',function(ev){
+  ev.preventDefault();
+  var name=document.getElementById('q-name').value.trim(),
+      phone=document.getElementById('q-phone').value.trim(),
+      email=document.getElementById('q-email').value.trim();
+  qErr.hidden=true;
+  if(!name){qErr.textContent='Add your name so we know who we\u2019re shopping for.';qErr.hidden=false;return;}
+  if(!phone&&!email){qErr.textContent='Add a phone or email so we can reach you.';qErr.hidden=false;return;}
+  var btn=document.getElementById('q-submit'),orig=btn.textContent;
+  btn.disabled=true;btn.textContent='Sending\u2026';
+  fetch('https://base44.app/api/apps/6a7c869d66bdff99fbcc0bb6/functions/quoteSubmit',{
+    method:'POST',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({name:name,phone:phone,email:email,
+      townZip:document.getElementById('q-town').value.trim(),
+      quoteCount:qCount,
+      quoteTotal:document.getElementById('q-total').value,
+      systemSizeKw:document.getElementById('q-kw').value.trim(),
+      financing:document.getElementById('q-fin').value,
+      source:'quote-smarts-page'})
+  }).then(function(r){return r.json();}).then(function(d){
+    if(d.ok){qForm.hidden=true;qDone.hidden=false;}
+    else{btn.disabled=false;btn.textContent=orig;qErr.textContent='Something went wrong \u2014 try again, or text your quote to (401) 358-6062.';qErr.hidden=false;}
+  }).catch(function(){btn.disabled=false;btn.textContent=orig;qErr.textContent='No connection \u2014 check your signal and try again.';qErr.hidden=false;});
+});
+</script>
+</body>
+</html>
