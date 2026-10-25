@@ -308,7 +308,7 @@ function finish(){
   var offset = 0.90;
   var kwh = annual * offset / RATES[state];
   var kw = kwh / 1350;
-  var gross = kw * 1000 * 2.40;
+  var gross = kw * 1000 * 2.80;
   var credit = gross * 0.40;
   var macrs = (gross - credit) * 0.85 * 0.21;
   var net = gross - credit - macrs;
