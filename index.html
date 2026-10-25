@@ -97,6 +97,14 @@ footer{border-top:1px solid #E5EAF2;background:#fff;padding:34px 20px;text-align
 }
 .q-response{margin:20px auto 0;max-width:520px;font-size:15px;line-height:1.65;color:#0E1B33;font-weight:500}
 .q-cta{margin-top:20px;display:inline-flex;align-items:center;gap:8px;background:linear-gradient(90deg,#F59A1B,#FFC53D);color:#082B57;border-radius:10px;padding:15px 26px;font-size:16px;font-weight:700;border:none;cursor:pointer;box-shadow:0 3px 14px rgba(245,158,27,.4);font-family:inherit;text-decoration:none}
+.proj-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:26px}
+.proj-card{border-radius:12px;overflow:hidden;background:#F4F7FB;box-shadow:0 1px 6px rgba(8,43,87,.08)}
+.proj-card img{width:100%;display:block;aspect-ratio:1200/628;object-fit:cover}
+.proj-cap{display:flex;justify-content:space-between;align-items:baseline;padding:10px 12px;font-size:13px}
+.proj-cap strong{color:#082B57}
+.proj-cap span{color:#5B6B7F}
+.proj-more{display:inline-block;margin-top:22px;color:#0B4A8F;font-weight:700;text-decoration:none}
+@media(min-width:760px){.proj-grid{grid-template-columns:repeat(4,1fr);gap:16px}}
 </style>
 </head>
 <body>
@@ -149,20 +157,7 @@ footer{border-top:1px solid #E5EAF2;background:#fff;padding:34px 20px;text-align
 </section>
 
 
-<section class="band">
-  <div class="section wpri-section">
-    <div class="sec-inner center">
-      <div class="wpri-txt">As seen on Channel 12 WPRI</div>
-      <h2 class="h-big">Meet the Broker</h2>
-      <p class="sec-intro centered">Joe sat down with WPRI 12 &mdash; the CBS affiliate serving Rhode Island and Southeastern Massachusetts on Channel 12 &mdash; for their &ldquo;Who to Know&rdquo; segment. 90 seconds on what a solar broker actually does, and why it saves you money.</p>
-      <div class="video big">
-        <div class="play big"><svg width="34" height="34" viewBox="0 0 24 24"><polygon points="7,4 21,12 7,20" fill="#F59A1B"/></svg></div>
-        <span class="video-tag">WPRI &ldquo;Who to Know&rdquo; &middot; 90 seconds</span>
-      </div>
-      <p class="video-cap big">One place to get multiple quotes &mdash; with the time, energy, and risk taken out of shopping for solar.</p>
-    </div>
-  </div>
-</section>
+
 
 <section class="section">
   <div class="sec-inner">
@@ -190,6 +185,21 @@ footer{border-top:1px solid #E5EAF2;background:#fff;padding:34px 20px;text-align
         <h3>Abandoned System? Still Covered</h3>
         <p>Even if your original installer left the market, our relationships with local electricians and third-party warranty providers keep you protected.</p>
       </div>
+    </div>
+  </div>
+</section>
+
+<section class="band">
+  <div class="section wpri-section">
+    <div class="sec-inner center">
+      <div class="wpri-txt">As seen on Channel 12 WPRI</div>
+      <h2 class="h-big">Meet the Broker</h2>
+      <p class="sec-intro centered">Joe sat down with WPRI 12 &mdash; the CBS affiliate serving Rhode Island and Southeastern Massachusetts on Channel 12 &mdash; for their &ldquo;Who to Know&rdquo; segment. 90 seconds on what a solar broker actually does, and why it saves you money.</p>
+      <div class="video big">
+        <div class="play big"><svg width="34" height="34" viewBox="0 0 24 24"><polygon points="7,4 21,12 7,20" fill="#F59A1B"/></svg></div>
+        <span class="video-tag">WPRI &ldquo;Who to Know&rdquo; &middot; 90 seconds</span>
+      </div>
+      <p class="video-cap big">One place to get multiple quotes &mdash; with the time, energy, and risk taken out of shopping for solar.</p>
     </div>
   </div>
 </section>
@@ -258,7 +268,19 @@ footer{border-top:1px solid #E5EAF2;background:#fff;padding:34px 20px;text-align
     </div>
   </div>
 </section>
-      <section class="section">
+      <div class="cta">
+  <div class="cta-inner">
+    <h2>See what your roof can do.</h2>
+    <p>Free instant analysis powered by real solar data &mdash; see your estimated production and grant eligibility before you ever talk to a single salesperson.</p>
+    <button class="btn-cta">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M8 6h8"/><path d="M8 11h.01M12 11h.01M16 11h.01M8 15h.01M12 15h.01M16 15h.01M8 19h.01M12 19h.01M16 19h.01"/></svg>
+      Run My Free Solar Analysis
+    </button>
+    <p class="cta-phone">or call (401) 358-6062 &middot; 8am&ndash;8pm EST</p>
+  </div>
+</div>
+
+<section class="section">
   <div class="sec-inner">
     <span class="sec-label">The KnowSolar Video Series</span>
     <h2>Get Educated</h2>
@@ -300,17 +322,67 @@ footer{border-top:1px solid #E5EAF2;background:#fff;padding:34px 20px;text-align
 
 
 
-<div class="cta">
-  <div class="cta-inner">
-    <h2>See what your roof can do.</h2>
-    <p>Free instant analysis powered by real solar data &mdash; see your estimated production and grant eligibility before you ever talk to a single salesperson.</p>
-    <button class="btn-cta">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M8 6h8"/><path d="M8 11h.01M12 11h.01M16 11h.01M8 15h.01M12 15h.01M16 15h.01M8 19h.01M12 19h.01M16 19h.01"/></svg>
-      Run My Free Solar Analysis
-    </button>
-    <p class="cta-phone">or call (401) 358-6062 &middot; 8am&ndash;8pm EST</p>
+
+
+
+<section class="section" id="projects">
+  <div class="sec-inner">
+    <span class="sec-label">Project Gallery</span>
+    <h2>No Clip Art Here &mdash; Just Real. Local. Projects.</h2>
+    <p class="sec-intro">Every one of these went through the broker model. Real roofs, real families, real numbers &mdash; across Rhode Island, Massachusetts, and Connecticut.</p>
+    <div class="proj-grid">
+        <div class="proj-card">
+          <img loading="lazy" src="https://knowsolar.com/wp-content/uploads/2024/01/website-gallery-universal-92-600x314.png" alt="Solar project in Cranston, RI">
+          <div class="proj-cap"><strong>Cranston, RI</strong><span>6kw System</span></div>
+        </div>
+        <div class="proj-card">
+          <img loading="lazy" src="https://knowsolar.com/wp-content/uploads/2024/01/website-gallery-universal-73-600x314.png" alt="Solar project in Warwick, RI">
+          <div class="proj-cap"><strong>Warwick, RI</strong><span>25kw System</span></div>
+        </div>
+        <div class="proj-card">
+          <img loading="lazy" src="https://knowsolar.com/wp-content/uploads/2024/01/website-gallery-universal-2024-01-08T214256.898-600x314.png" alt="Solar project in Putnam, CT">
+          <div class="proj-cap"><strong>Putnam, CT</strong><span>15kw System</span></div>
+        </div>
+        <div class="proj-card">
+          <img loading="lazy" src="https://knowsolar.com/wp-content/uploads/2024/01/website-gallery-universal-2024-01-08T213800.382-600x314.png" alt="Solar project in Providence, RI">
+          <div class="proj-cap"><strong>Providence, RI</strong><span>10kw System</span></div>
+        </div>
+        <div class="proj-card">
+          <img loading="lazy" src="https://knowsolar.com/wp-content/uploads/2024/01/website-gallery-universal-61-600x314.png" alt="Solar project in South Kingstown, RI">
+          <div class="proj-cap"><strong>South Kingstown, RI</strong><span>20kw System</span></div>
+        </div>
+        <div class="proj-card">
+          <img loading="lazy" src="https://knowsolar.com/wp-content/uploads/2024/01/website-gallery-universal-2024-01-08T213712.758-600x314.png" alt="Solar project in Foster, RI">
+          <div class="proj-cap"><strong>Foster, RI</strong><span>14kw System</span></div>
+        </div>
+        <div class="proj-card">
+          <img loading="lazy" src="https://knowsolar.com/wp-content/uploads/2024/01/website-gallery-universal-56-600x314.png" alt="Solar project in Swansea, MA">
+          <div class="proj-cap"><strong>Swansea, MA</strong><span>6kw System</span></div>
+        </div>
+        <div class="proj-card">
+          <img loading="lazy" src="https://knowsolar.com/wp-content/uploads/2024/01/website-gallery-universal-84-600x314.png" alt="Solar project in South Kingstown, RI">
+          <div class="proj-cap"><strong>South Kingstown, RI</strong><span>20kw System</span></div>
+        </div>
+        <div class="proj-card">
+          <img loading="lazy" src="https://knowsolar.com/wp-content/uploads/2024/01/website-gallery-universal-2024-01-08T214210.000-600x314.png" alt="Solar project in Tiverton, RI">
+          <div class="proj-cap"><strong>Tiverton, RI</strong><span>7kw System</span></div>
+        </div>
+        <div class="proj-card">
+          <img loading="lazy" src="https://knowsolar.com/wp-content/uploads/2024/01/website-gallery-universal-2024-01-08T213834.033-600x314.png" alt="Solar project in East Providence, RI">
+          <div class="proj-cap"><strong>East Providence, RI</strong><span>9kw System</span></div>
+        </div>
+        <div class="proj-card">
+          <img loading="lazy" src="https://knowsolar.com/wp-content/uploads/2024/01/website-gallery-universal-37-600x314.png" alt="Solar project in Cranston, RI">
+          <div class="proj-cap"><strong>Cranston, RI</strong><span>7kw System</span></div>
+        </div>
+        <div class="proj-card">
+          <img loading="lazy" src="https://knowsolar.com/wp-content/uploads/2024/01/website-gallery-universal-2024-01-08T205042.867-600x314.png" alt="Solar project in Bellingham, MA">
+          <div class="proj-cap"><strong>Bellingham, MA</strong><span>15kw System</span></div>
+        </div>
+    </div>
+    <a class="proj-more" href="https://knowsolar.com/about/projects/">See all 69 real projects &rarr;</a>
   </div>
-</div>
+</section>
 
 <footer>
   <div class="logo" style="justify-content:center">
