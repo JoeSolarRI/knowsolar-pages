@@ -105,6 +105,24 @@ footer{border-top:1px solid #E5EAF2;background:#fff;padding:34px 20px;text-align
 .proj-cap span{color:#5B6B7F}
 .proj-more{display:inline-block;margin-top:22px;color:#0B4A8F;font-weight:700;text-decoration:none}
 @media(min-width:760px){.proj-grid{grid-template-columns:repeat(4,1fr);gap:16px}}
+.marquee{overflow:hidden;margin-top:26px;-webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
+.mq-track{display:flex;gap:12px;width:max-content;padding-bottom:2px}
+.mq-projects{animation:mq-a 90s linear infinite}
+.mq-reviews{animation:mq-a 55s linear infinite;gap:14px}
+@keyframes mq-a{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.marquee:hover .mq-track,.marquee:focus-within .mq-track{animation-play-state:paused}
+@media (prefers-reduced-motion:reduce){.mq-track{animation:none}}
+.mq-item{flex:0 0 auto}
+.proj-card{width:250px}
+.proj-card img{width:250px}
+.rev-card{width:300px;background:#fff;border:1px solid #E3E9F2;border-radius:14px;padding:16px 18px;box-shadow:0 1px 6px rgba(8,43,87,.07)}
+.rev-top{display:flex;align-items:center;gap:8px;justify-content:space-between;margin-bottom:8px}
+.stars{color:#F59A1B;font-size:14px;letter-spacing:1px}
+.rev-text{font-size:13.5px;line-height:1.5;color:#33475B;margin:0 0 10px}
+.rev-name{font-size:12.5px;font-weight:700;color:#082B57}
+.social-row{display:flex;justify-content:center;gap:14px;margin-top:22px;flex-wrap:wrap}
+.social-chip{display:inline-flex;align-items:center;gap:8px;padding:10px 16px;border-radius:999px;background:#F4F7FB;border:1px solid #E3E9F2;font-size:14px;font-weight:700;color:#082B57;text-decoration:none}
+.social-chip:hover{background:#EDF3FA}
 </style>
 </head>
 <body>
@@ -280,6 +298,41 @@ footer{border-top:1px solid #E5EAF2;background:#fff;padding:34px 20px;text-align
   </div>
 </div>
 
+
+<section class="section" id="reviews">
+  <div class="sec-inner center">
+    <span class="sec-label">Google Reviews</span>
+    <h2>5.0 Stars. 22 Reviews. Real People.</h2>
+    <p class="sec-intro">No paid actors. No stock photos. Just Rhode Island homeowners telling it straight.</p>
+  </div>
+  <div class="marquee" aria-label="Google reviews, scrolling">
+    <div class="mq-track mq-reviews">
+<div class="mq-item rev-card"><div class="rev-top"><svg class="g-mark" width="16" height="16" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.7 32.7 29.3 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.9 1.2 8 3l5.7-5.7C34 6.1 29.3 4 24 4 13 4 4 13 4 24s9 20 20 20 20-9 20-20c0-1.2-.1-2.3-.4-3.5z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.7 15.1 19 12 24 12c3.1 0 5.9 1.2 8 3l5.7-5.7C34 6.1 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35.1 26.7 36 24 36c-5.3 0-9.7-3.3-11.3-8l-6.5 5C9.5 39.6 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.3-2.3 4.3-4.1 5.6l6.2 5.2C41 35.1 44 30 44 24c0-1.2-.1-2.3-.4-3.5z"/></svg><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span></div><p class="rev-text">&ldquo;Joe is a wealth of knowledge and passionate about his business. His honesty and integrity are second to none!&rdquo;</p><div class="rev-name">Al Georgio</div></div>
+<div class="mq-item rev-card"><div class="rev-top"><svg class="g-mark" width="16" height="16" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.7 32.7 29.3 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.9 1.2 8 3l5.7-5.7C34 6.1 29.3 4 24 4 13 4 4 13 4 24s9 20 20 20 20-9 20-20c0-1.2-.1-2.3-.4-3.5z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.7 15.1 19 12 24 12c3.1 0 5.9 1.2 8 3l5.7-5.7C34 6.1 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35.1 26.7 36 24 36c-5.3 0-9.7-3.3-11.3-8l-6.5 5C9.5 39.6 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.3-2.3 4.3-4.1 5.6l6.2 5.2C41 35.1 44 30 44 24c0-1.2-.1-2.3-.4-3.5z"/></svg><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span></div><p class="rev-text">&ldquo;Joe made this entire process painless and saved my family so much money on energy bills. We never felt pressure to move forward and because he is a broker he was able to find the perfect fit for our home.&rdquo;</p><div class="rev-name">Jennifer McAuslin</div></div>
+<div class="mq-item rev-card"><div class="rev-top"><svg class="g-mark" width="16" height="16" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.7 32.7 29.3 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.9 1.2 8 3l5.7-5.7C34 6.1 29.3 4 24 4 13 4 4 13 4 24s9 20 20 20 20-9 20-20c0-1.2-.1-2.3-.4-3.5z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.7 15.1 19 12 24 12c3.1 0 5.9 1.2 8 3l5.7-5.7C34 6.1 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35.1 26.7 36 24 36c-5.3 0-9.7-3.3-11.3-8l-6.5 5C9.5 39.6 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.3-2.3 4.3-4.1 5.6l6.2 5.2C41 35.1 44 30 44 24c0-1.2-.1-2.3-.4-3.5z"/></svg><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span></div><p class="rev-text">&ldquo;If you want solar for your house, you need to talk to Joe! He is very transparent, easy to work with and provides several options. My solar was installed within 2 months of signing up.&rdquo;</p><div class="rev-name">Jeff Pratt</div></div>
+<div class="mq-item rev-card"><div class="rev-top"><svg class="g-mark" width="16" height="16" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.7 32.7 29.3 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.9 1.2 8 3l5.7-5.7C34 6.1 29.3 4 24 4 13 4 4 13 4 24s9 20 20 20 20-9 20-20c0-1.2-.1-2.3-.4-3.5z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.7 15.1 19 12 24 12c3.1 0 5.9 1.2 8 3l5.7-5.7C34 6.1 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35.1 26.7 36 24 36c-5.3 0-9.7-3.3-11.3-8l-6.5 5C9.5 39.6 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.3-2.3 4.3-4.1 5.6l6.2 5.2C41 35.1 44 30 44 24c0-1.2-.1-2.3-.4-3.5z"/></svg><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span></div><p class="rev-text">&ldquo;Being a broker, he did all the leg work with ~8 other solar companies and presented the best options for our layout. Professional, knowledgeable and kind while not being a pushy salesman.&rdquo;</p><div class="rev-name">Jeff Sardelli</div></div>
+<div class="mq-item rev-card"><div class="rev-top"><svg class="g-mark" width="16" height="16" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.7 32.7 29.3 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.9 1.2 8 3l5.7-5.7C34 6.1 29.3 4 24 4 13 4 4 13 4 24s9 20 20 20 20-9 20-20c0-1.2-.1-2.3-.4-3.5z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.7 15.1 19 12 24 12c3.1 0 5.9 1.2 8 3l5.7-5.7C34 6.1 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35.1 26.7 36 24 36c-5.3 0-9.7-3.3-11.3-8l-6.5 5C9.5 39.6 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.3-2.3 4.3-4.1 5.6l6.2 5.2C41 35.1 44 30 44 24c0-1.2-.1-2.3-.4-3.5z"/></svg><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span></div><p class="rev-text">&ldquo;In an industry that sometimes resembles the Wild West, Joe is no cowboy. He&rsquo;s the real deal and I highly recommend him and Know Solar!&rdquo;</p><div class="rev-name">Geoff Schoos</div></div>
+<div aria-hidden="true" class="mq-item rev-card"><div class="rev-top"><svg class="g-mark" width="16" height="16" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.7 32.7 29.3 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.9 1.2 8 3l5.7-5.7C34 6.1 29.3 4 24 4 13 4 4 13 4 24s9 20 20 20 20-9 20-20c0-1.2-.1-2.3-.4-3.5z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.7 15.1 19 12 24 12c3.1 0 5.9 1.2 8 3l5.7-5.7C34 6.1 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35.1 26.7 36 24 36c-5.3 0-9.7-3.3-11.3-8l-6.5 5C9.5 39.6 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.3-2.3 4.3-4.1 5.6l6.2 5.2C41 35.1 44 30 44 24c0-1.2-.1-2.3-.4-3.5z"/></svg><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span></div><p class="rev-text">&ldquo;Joe is a wealth of knowledge and passionate about his business. His honesty and integrity are second to none!&rdquo;</p><div class="rev-name">Al Georgio</div></div>
+<div aria-hidden="true" class="mq-item rev-card"><div class="rev-top"><svg class="g-mark" width="16" height="16" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.7 32.7 29.3 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.9 1.2 8 3l5.7-5.7C34 6.1 29.3 4 24 4 13 4 4 13 4 24s9 20 20 20 20-9 20-20c0-1.2-.1-2.3-.4-3.5z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.7 15.1 19 12 24 12c3.1 0 5.9 1.2 8 3l5.7-5.7C34 6.1 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35.1 26.7 36 24 36c-5.3 0-9.7-3.3-11.3-8l-6.5 5C9.5 39.6 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.3-2.3 4.3-4.1 5.6l6.2 5.2C41 35.1 44 30 44 24c0-1.2-.1-2.3-.4-3.5z"/></svg><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span></div><p class="rev-text">&ldquo;Joe made this entire process painless and saved my family so much money on energy bills. We never felt pressure to move forward and because he is a broker he was able to find the perfect fit for our home.&rdquo;</p><div class="rev-name">Jennifer McAuslin</div></div>
+<div aria-hidden="true" class="mq-item rev-card"><div class="rev-top"><svg class="g-mark" width="16" height="16" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.7 32.7 29.3 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.9 1.2 8 3l5.7-5.7C34 6.1 29.3 4 24 4 13 4 4 13 4 24s9 20 20 20 20-9 20-20c0-1.2-.1-2.3-.4-3.5z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.7 15.1 19 12 24 12c3.1 0 5.9 1.2 8 3l5.7-5.7C34 6.1 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35.1 26.7 36 24 36c-5.3 0-9.7-3.3-11.3-8l-6.5 5C9.5 39.6 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.3-2.3 4.3-4.1 5.6l6.2 5.2C41 35.1 44 30 44 24c0-1.2-.1-2.3-.4-3.5z"/></svg><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span></div><p class="rev-text">&ldquo;If you want solar for your house, you need to talk to Joe! He is very transparent, easy to work with and provides several options. My solar was installed within 2 months of signing up.&rdquo;</p><div class="rev-name">Jeff Pratt</div></div>
+<div aria-hidden="true" class="mq-item rev-card"><div class="rev-top"><svg class="g-mark" width="16" height="16" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.7 32.7 29.3 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.9 1.2 8 3l5.7-5.7C34 6.1 29.3 4 24 4 13 4 4 13 4 24s9 20 20 20 20-9 20-20c0-1.2-.1-2.3-.4-3.5z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.7 15.1 19 12 24 12c3.1 0 5.9 1.2 8 3l5.7-5.7C34 6.1 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35.1 26.7 36 24 36c-5.3 0-9.7-3.3-11.3-8l-6.5 5C9.5 39.6 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.3-2.3 4.3-4.1 5.6l6.2 5.2C41 35.1 44 30 44 24c0-1.2-.1-2.3-.4-3.5z"/></svg><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span></div><p class="rev-text">&ldquo;Being a broker, he did all the leg work with ~8 other solar companies and presented the best options for our layout. Professional, knowledgeable and kind while not being a pushy salesman.&rdquo;</p><div class="rev-name">Jeff Sardelli</div></div>
+<div aria-hidden="true" class="mq-item rev-card"><div class="rev-top"><svg class="g-mark" width="16" height="16" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.7 32.7 29.3 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.9 1.2 8 3l5.7-5.7C34 6.1 29.3 4 24 4 13 4 4 13 4 24s9 20 20 20 20-9 20-20c0-1.2-.1-2.3-.4-3.5z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.7 15.1 19 12 24 12c3.1 0 5.9 1.2 8 3l5.7-5.7C34 6.1 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35.1 26.7 36 24 36c-5.3 0-9.7-3.3-11.3-8l-6.5 5C9.5 39.6 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.3-2.3 4.3-4.1 5.6l6.2 5.2C41 35.1 44 30 44 24c0-1.2-.1-2.3-.4-3.5z"/></svg><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span></div><p class="rev-text">&ldquo;In an industry that sometimes resembles the Wild West, Joe is no cowboy. He&rsquo;s the real deal and I highly recommend him and Know Solar!&rdquo;</p><div class="rev-name">Geoff Schoos</div></div>
+    </div>
+  </div>
+  <div class="sec-inner center">
+    <div class="social-row">
+      <a class="social-chip" href="https://www.facebook.com/JoeSolarRI/" target="_blank" rel="noopener">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="#1877F2"><path d="M24 12.07C24 5.4 18.63 0 12 0S0 5.4 0 12.07C0 18.1 4.39 23.09 10.13 24v-8.44H7.08v-3.49h3.04V9.41c0-3.02 1.79-4.7 4.53-4.7 1.31 0 2.68.24 2.68.24v2.97H15.83c-1.51 0-1.98.94-1.98 1.91v2.25h3.37l-.54 3.49h-2.83V24C19.61 23.09 24 18.1 24 12.07z"/></svg>
+        JoeSolarRI
+      </a>
+      <a class="social-chip" href="https://www.instagram.com/joesolarri/" target="_blank" rel="noopener">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#E1306C" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4.5"/><circle cx="17.5" cy="6.5" r="1.2" fill="#E1306C" stroke="none"/></svg>
+        @joesolarri
+      </a>
+    </div>
+  </div>
+</section>
+
 <section class="section">
   <div class="sec-inner">
     <span class="sec-label">The KnowSolar Video Series</span>
@@ -330,58 +383,61 @@ footer{border-top:1px solid #E5EAF2;background:#fff;padding:34px 20px;text-align
     <span class="sec-label">Project Gallery</span>
     <h2>No Clip Art Here &mdash; Just Real. Local. Projects.</h2>
     <p class="sec-intro">Every one of these went through the broker model. Real roofs, real families, real numbers &mdash; across Rhode Island, Massachusetts, and Connecticut.</p>
-    <div class="proj-grid">
-        <div class="proj-card">
-          <img loading="lazy" src="https://knowsolar.com/wp-content/uploads/2024/01/website-gallery-universal-92-600x314.png" alt="Solar project in Cranston, RI">
-          <div class="proj-cap"><strong>Cranston, RI</strong><span>6kw System</span></div>
-        </div>
-        <div class="proj-card">
-          <img loading="lazy" src="https://knowsolar.com/wp-content/uploads/2024/01/website-gallery-universal-73-600x314.png" alt="Solar project in Warwick, RI">
-          <div class="proj-cap"><strong>Warwick, RI</strong><span>25kw System</span></div>
-        </div>
-        <div class="proj-card">
-          <img loading="lazy" src="https://knowsolar.com/wp-content/uploads/2024/01/website-gallery-universal-2024-01-08T214256.898-600x314.png" alt="Solar project in Putnam, CT">
-          <div class="proj-cap"><strong>Putnam, CT</strong><span>15kw System</span></div>
-        </div>
-        <div class="proj-card">
-          <img loading="lazy" src="https://knowsolar.com/wp-content/uploads/2024/01/website-gallery-universal-2024-01-08T213800.382-600x314.png" alt="Solar project in Providence, RI">
-          <div class="proj-cap"><strong>Providence, RI</strong><span>10kw System</span></div>
-        </div>
-        <div class="proj-card">
-          <img loading="lazy" src="https://knowsolar.com/wp-content/uploads/2024/01/website-gallery-universal-61-600x314.png" alt="Solar project in South Kingstown, RI">
-          <div class="proj-cap"><strong>South Kingstown, RI</strong><span>20kw System</span></div>
-        </div>
-        <div class="proj-card">
-          <img loading="lazy" src="https://knowsolar.com/wp-content/uploads/2024/01/website-gallery-universal-2024-01-08T213712.758-600x314.png" alt="Solar project in Foster, RI">
-          <div class="proj-cap"><strong>Foster, RI</strong><span>14kw System</span></div>
-        </div>
-        <div class="proj-card">
-          <img loading="lazy" src="https://knowsolar.com/wp-content/uploads/2024/01/website-gallery-universal-56-600x314.png" alt="Solar project in Swansea, MA">
-          <div class="proj-cap"><strong>Swansea, MA</strong><span>6kw System</span></div>
-        </div>
-        <div class="proj-card">
-          <img loading="lazy" src="https://knowsolar.com/wp-content/uploads/2024/01/website-gallery-universal-84-600x314.png" alt="Solar project in South Kingstown, RI">
-          <div class="proj-cap"><strong>South Kingstown, RI</strong><span>20kw System</span></div>
-        </div>
-        <div class="proj-card">
-          <img loading="lazy" src="https://knowsolar.com/wp-content/uploads/2024/01/website-gallery-universal-2024-01-08T214210.000-600x314.png" alt="Solar project in Tiverton, RI">
-          <div class="proj-cap"><strong>Tiverton, RI</strong><span>7kw System</span></div>
-        </div>
-        <div class="proj-card">
-          <img loading="lazy" src="https://knowsolar.com/wp-content/uploads/2024/01/website-gallery-universal-2024-01-08T213834.033-600x314.png" alt="Solar project in East Providence, RI">
-          <div class="proj-cap"><strong>East Providence, RI</strong><span>9kw System</span></div>
-        </div>
-        <div class="proj-card">
-          <img loading="lazy" src="https://knowsolar.com/wp-content/uploads/2024/01/website-gallery-universal-37-600x314.png" alt="Solar project in Cranston, RI">
-          <div class="proj-cap"><strong>Cranston, RI</strong><span>7kw System</span></div>
-        </div>
-        <div class="proj-card">
-          <img loading="lazy" src="https://knowsolar.com/wp-content/uploads/2024/01/website-gallery-universal-2024-01-08T205042.867-600x314.png" alt="Solar project in Bellingham, MA">
-          <div class="proj-cap"><strong>Bellingham, MA</strong><span>15kw System</span></div>
-        </div>
-    </div>
     <a class="proj-more" href="https://knowsolar.com/about/projects/">See all 69 real projects &rarr;</a>
   </div>
+  <div class="marquee" aria-label="Real KnowSolar projects, scrolling gallery">
+    <div class="mq-track mq-projects">
+<div class="mq-item proj-card"><img loading="lazy" src="https://knowsolar.com/wp-content/uploads/2024/01/website-gallery-universal-92-400x209.png" alt="Solar project in Cranston, RI"><div class="proj-cap"><strong>Cranston, RI</strong><span>6kw System</span></div></div>
+<div class="mq-item proj-card"><img loading="lazy" src="https://knowsolar.com/wp-content/uploads/2024/01/website-gallery-universal-73-400x209.png" alt="Solar project in Warwick, RI"><div class="proj-cap"><strong>Warwick, RI</strong><span>25kw System</span></div></div>
+<div class="mq-item proj-card"><img loading="lazy" src="https://knowsolar.com/wp-content/uploads/2024/01/website-gallery-universal-2024-01-08T214256.898-400x209.png" alt="Solar project in Putnam, CT"><div class="proj-cap"><strong>Putnam, CT</strong><span>15kw System</span></div></div>
+<div class="mq-item proj-card"><img loading="lazy" src="https://knowsolar.com/wp-content/uploads/2024/01/website-gallery-universal-2024-01-08T213800.382-400x209.png" alt="Solar project in Providence, RI"><div class="proj-cap"><strong>Providence, RI</strong><span>10kw System</span></div></div>
+<div class="mq-item proj-card"><img loading="lazy" src="https://knowsolar.com/wp-content/uploads/2024/01/website-gallery-universal-61-400x209.png" alt="Solar project in South Kingstown, RI"><div class="proj-cap"><strong>South Kingstown, RI</strong><span>20kw System</span></div></div>
+<div class="mq-item proj-card"><img loading="lazy" src="https://knowsolar.com/wp-content/uploads/2024/01/website-gallery-universal-2024-01-08T213712.758-400x209.png" alt="Solar project in Foster, RI"><div class="proj-cap"><strong>Foster, RI</strong><span>14kw System</span></div></div>
+<div class="mq-item proj-card"><img loading="lazy" src="https://knowsolar.com/wp-content/uploads/2024/01/website-gallery-universal-56-400x209.png" alt="Solar project in Swansea, MA"><div class="proj-cap"><strong>Swansea, MA</strong><span>6kw System</span></div></div>
+<div class="mq-item proj-card"><img loading="lazy" src="https://knowsolar.com/wp-content/uploads/2024/01/website-gallery-universal-84-400x209.png" alt="Solar project in South Kingstown, RI"><div class="proj-cap"><strong>South Kingstown, RI</strong><span>20kw System</span></div></div>
+<div class="mq-item proj-card"><img loading="lazy" src="https://knowsolar.com/wp-content/uploads/2024/01/website-gallery-universal-2024-01-08T214210.000-400x209.png" alt="Solar project in Tiverton, RI"><div class="proj-cap"><strong>Tiverton, RI</strong><span>7kw System</span></div></div>
+<div class="mq-item proj-card"><img loading="lazy" src="https://knowsolar.com/wp-content/uploads/2024/01/website-gallery-universal-2024-01-08T213834.033-400x209.png" alt="Solar project in East Providence, RI"><div class="proj-cap"><strong>East Providence, RI</strong><span>9kw System</span></div></div>
+<div class="mq-item proj-card"><img loading="lazy" src="https://knowsolar.com/wp-content/uploads/2024/01/website-gallery-universal-37-400x209.png" alt="Solar project in Cranston, RI"><div class="proj-cap"><strong>Cranston, RI</strong><span>7kw System</span></div></div>
+<div class="mq-item proj-card"><img loading="lazy" src="https://knowsolar.com/wp-content/uploads/2024/01/website-gallery-universal-2024-01-08T205042.867-400x209.png" alt="Solar project in Bellingham, MA"><div class="proj-cap"><strong>Bellingham, MA</strong><span>15kw System</span></div></div>
+<div class="mq-item proj-card"><img loading="lazy" src="https://knowsolar.com/wp-content/uploads/2024/01/website-gallery-universal-2024-01-08T203600.493.png" alt="Solar project in Johnston, RI"><div class="proj-cap"><strong>Johnston, RI</strong><span>6kw System</span></div></div>
+<div class="mq-item proj-card"><img loading="lazy" src="https://knowsolar.com/wp-content/uploads/2024/01/website-gallery-universal-41-400x209.png" alt="Solar project in East Greenwich, RI"><div class="proj-cap"><strong>East Greenwich, RI</strong><span>9kw System</span></div></div>
+<div class="mq-item proj-card"><img loading="lazy" src="https://knowsolar.com/wp-content/uploads/2024/01/website-gallery-universal-2024-01-08T204831.225-400x209.png" alt="Solar project in Narragansett, RI"><div class="proj-cap"><strong>Narragansett, RI</strong><span>4kw System</span></div></div>
+<div class="mq-item proj-card"><img loading="lazy" src="https://knowsolar.com/wp-content/uploads/2024/01/website-gallery-universal-2024-01-08T203738.072-400x209.png" alt="Solar project in Narragansett, RI"><div class="proj-cap"><strong>Narragansett, RI</strong><span>4kw System</span></div></div>
+<div class="mq-item proj-card"><img loading="lazy" src="https://knowsolar.com/wp-content/uploads/2024/01/website-gallery-universal-22-400x209.png" alt="Solar project in East Greenwich, RI"><div class="proj-cap"><strong>East Greenwich, RI</strong><span>12kw System</span></div></div>
+<div class="mq-item proj-card"><img loading="lazy" src="https://knowsolar.com/wp-content/uploads/2024/01/website-gallery-universal-2024-01-08T204758.585-400x209.png" alt="Solar project in East Providence, RI"><div class="proj-cap"><strong>East Providence, RI</strong><span>4kw System</span></div></div>
+<div class="mq-item proj-card"><img loading="lazy" src="https://knowsolar.com/wp-content/uploads/2024/01/website-gallery-universal-90-400x209.png" alt="Solar project in Cranston, RI"><div class="proj-cap"><strong>Cranston, RI</strong><span>6kw &amp; 8kw Systems</span></div></div>
+<div class="mq-item proj-card"><img loading="lazy" src="https://knowsolar.com/wp-content/uploads/2024/01/website-gallery-universal-51-400x209.png" alt="Solar project in Smithfield, RI"><div class="proj-cap"><strong>Smithfield, RI</strong><span>8kw System</span></div></div>
+<div class="mq-item proj-card"><img loading="lazy" src="https://knowsolar.com/wp-content/uploads/2024/01/website-gallery-universal-2024-01-08T204152.863-400x209.png" alt="Solar project in North Providence, RI"><div class="proj-cap"><strong>North Providence, RI</strong><span>8kw System</span></div></div>
+<div class="mq-item proj-card"><img loading="lazy" src="https://knowsolar.com/wp-content/uploads/2024/01/website-gallery-universal-2024-01-08T203955.945-400x209.png" alt="Solar project in Warwick, RI"><div class="proj-cap"><strong>Warwick, RI</strong><span>9kw System</span></div></div>
+<div class="mq-item proj-card"><img loading="lazy" src="https://knowsolar.com/wp-content/uploads/2024/01/website-gallery-universal-55-400x209.png" alt="Solar project in Lincoln, RI"><div class="proj-cap"><strong>Lincoln, RI</strong><span>6kw System</span></div></div>
+<div class="mq-item proj-card"><img loading="lazy" src="https://knowsolar.com/wp-content/uploads/2024/01/website-gallery-universal-32-400x209.png" alt="Solar project in Richmond, RI"><div class="proj-cap"><strong>Richmond, RI</strong><span>9kw System</span></div></div>
+<div aria-hidden="true" class="mq-item proj-card"><img loading="lazy" src="https://knowsolar.com/wp-content/uploads/2024/01/website-gallery-universal-92-400x209.png" alt="Solar project in Cranston, RI"><div class="proj-cap"><strong>Cranston, RI</strong><span>6kw System</span></div></div>
+<div aria-hidden="true" class="mq-item proj-card"><img loading="lazy" src="https://knowsolar.com/wp-content/uploads/2024/01/website-gallery-universal-73-400x209.png" alt="Solar project in Warwick, RI"><div class="proj-cap"><strong>Warwick, RI</strong><span>25kw System</span></div></div>
+<div aria-hidden="true" class="mq-item proj-card"><img loading="lazy" src="https://knowsolar.com/wp-content/uploads/2024/01/website-gallery-universal-2024-01-08T214256.898-400x209.png" alt="Solar project in Putnam, CT"><div class="proj-cap"><strong>Putnam, CT</strong><span>15kw System</span></div></div>
+<div aria-hidden="true" class="mq-item proj-card"><img loading="lazy" src="https://knowsolar.com/wp-content/uploads/2024/01/website-gallery-universal-2024-01-08T213800.382-400x209.png" alt="Solar project in Providence, RI"><div class="proj-cap"><strong>Providence, RI</strong><span>10kw System</span></div></div>
+<div aria-hidden="true" class="mq-item proj-card"><img loading="lazy" src="https://knowsolar.com/wp-content/uploads/2024/01/website-gallery-universal-61-400x209.png" alt="Solar project in South Kingstown, RI"><div class="proj-cap"><strong>South Kingstown, RI</strong><span>20kw System</span></div></div>
+<div aria-hidden="true" class="mq-item proj-card"><img loading="lazy" src="https://knowsolar.com/wp-content/uploads/2024/01/website-gallery-universal-2024-01-08T213712.758-400x209.png" alt="Solar project in Foster, RI"><div class="proj-cap"><strong>Foster, RI</strong><span>14kw System</span></div></div>
+<div aria-hidden="true" class="mq-item proj-card"><img loading="lazy" src="https://knowsolar.com/wp-content/uploads/2024/01/website-gallery-universal-56-400x209.png" alt="Solar project in Swansea, MA"><div class="proj-cap"><strong>Swansea, MA</strong><span>6kw System</span></div></div>
+<div aria-hidden="true" class="mq-item proj-card"><img loading="lazy" src="https://knowsolar.com/wp-content/uploads/2024/01/website-gallery-universal-84-400x209.png" alt="Solar project in South Kingstown, RI"><div class="proj-cap"><strong>South Kingstown, RI</strong><span>20kw System</span></div></div>
+<div aria-hidden="true" class="mq-item proj-card"><img loading="lazy" src="https://knowsolar.com/wp-content/uploads/2024/01/website-gallery-universal-2024-01-08T214210.000-400x209.png" alt="Solar project in Tiverton, RI"><div class="proj-cap"><strong>Tiverton, RI</strong><span>7kw System</span></div></div>
+<div aria-hidden="true" class="mq-item proj-card"><img loading="lazy" src="https://knowsolar.com/wp-content/uploads/2024/01/website-gallery-universal-2024-01-08T213834.033-400x209.png" alt="Solar project in East Providence, RI"><div class="proj-cap"><strong>East Providence, RI</strong><span>9kw System</span></div></div>
+<div aria-hidden="true" class="mq-item proj-card"><img loading="lazy" src="https://knowsolar.com/wp-content/uploads/2024/01/website-gallery-universal-37-400x209.png" alt="Solar project in Cranston, RI"><div class="proj-cap"><strong>Cranston, RI</strong><span>7kw System</span></div></div>
+<div aria-hidden="true" class="mq-item proj-card"><img loading="lazy" src="https://knowsolar.com/wp-content/uploads/2024/01/website-gallery-universal-2024-01-08T205042.867-400x209.png" alt="Solar project in Bellingham, MA"><div class="proj-cap"><strong>Bellingham, MA</strong><span>15kw System</span></div></div>
+<div aria-hidden="true" class="mq-item proj-card"><img loading="lazy" src="https://knowsolar.com/wp-content/uploads/2024/01/website-gallery-universal-2024-01-08T203600.493.png" alt="Solar project in Johnston, RI"><div class="proj-cap"><strong>Johnston, RI</strong><span>6kw System</span></div></div>
+<div aria-hidden="true" class="mq-item proj-card"><img loading="lazy" src="https://knowsolar.com/wp-content/uploads/2024/01/website-gallery-universal-41-400x209.png" alt="Solar project in East Greenwich, RI"><div class="proj-cap"><strong>East Greenwich, RI</strong><span>9kw System</span></div></div>
+<div aria-hidden="true" class="mq-item proj-card"><img loading="lazy" src="https://knowsolar.com/wp-content/uploads/2024/01/website-gallery-universal-2024-01-08T204831.225-400x209.png" alt="Solar project in Narragansett, RI"><div class="proj-cap"><strong>Narragansett, RI</strong><span>4kw System</span></div></div>
+<div aria-hidden="true" class="mq-item proj-card"><img loading="lazy" src="https://knowsolar.com/wp-content/uploads/2024/01/website-gallery-universal-2024-01-08T203738.072-400x209.png" alt="Solar project in Narragansett, RI"><div class="proj-cap"><strong>Narragansett, RI</strong><span>4kw System</span></div></div>
+<div aria-hidden="true" class="mq-item proj-card"><img loading="lazy" src="https://knowsolar.com/wp-content/uploads/2024/01/website-gallery-universal-22-400x209.png" alt="Solar project in East Greenwich, RI"><div class="proj-cap"><strong>East Greenwich, RI</strong><span>12kw System</span></div></div>
+<div aria-hidden="true" class="mq-item proj-card"><img loading="lazy" src="https://knowsolar.com/wp-content/uploads/2024/01/website-gallery-universal-2024-01-08T204758.585-400x209.png" alt="Solar project in East Providence, RI"><div class="proj-cap"><strong>East Providence, RI</strong><span>4kw System</span></div></div>
+<div aria-hidden="true" class="mq-item proj-card"><img loading="lazy" src="https://knowsolar.com/wp-content/uploads/2024/01/website-gallery-universal-90-400x209.png" alt="Solar project in Cranston, RI"><div class="proj-cap"><strong>Cranston, RI</strong><span>6kw &amp; 8kw Systems</span></div></div>
+<div aria-hidden="true" class="mq-item proj-card"><img loading="lazy" src="https://knowsolar.com/wp-content/uploads/2024/01/website-gallery-universal-51-400x209.png" alt="Solar project in Smithfield, RI"><div class="proj-cap"><strong>Smithfield, RI</strong><span>8kw System</span></div></div>
+<div aria-hidden="true" class="mq-item proj-card"><img loading="lazy" src="https://knowsolar.com/wp-content/uploads/2024/01/website-gallery-universal-2024-01-08T204152.863-400x209.png" alt="Solar project in North Providence, RI"><div class="proj-cap"><strong>North Providence, RI</strong><span>8kw System</span></div></div>
+<div aria-hidden="true" class="mq-item proj-card"><img loading="lazy" src="https://knowsolar.com/wp-content/uploads/2024/01/website-gallery-universal-2024-01-08T203955.945-400x209.png" alt="Solar project in Warwick, RI"><div class="proj-cap"><strong>Warwick, RI</strong><span>9kw System</span></div></div>
+<div aria-hidden="true" class="mq-item proj-card"><img loading="lazy" src="https://knowsolar.com/wp-content/uploads/2024/01/website-gallery-universal-55-400x209.png" alt="Solar project in Lincoln, RI"><div class="proj-cap"><strong>Lincoln, RI</strong><span>6kw System</span></div></div>
+<div aria-hidden="true" class="mq-item proj-card"><img loading="lazy" src="https://knowsolar.com/wp-content/uploads/2024/01/website-gallery-universal-32-400x209.png" alt="Solar project in Richmond, RI"><div class="proj-cap"><strong>Richmond, RI</strong><span>9kw System</span></div></div>
+    </div>
+  </div>
+
 </section>
 
 <footer>
