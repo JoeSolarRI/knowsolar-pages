@@ -123,6 +123,13 @@ footer{border-top:1px solid #E5EAF2;background:#fff;padding:34px 20px;text-align
 .social-chip{display:inline-flex;align-items:center;gap:8px;padding:10px 16px;border-radius:999px;background:#F4F7FB;border:1px solid #E3E9F2;font-size:14px;font-weight:700;color:#082B57;text-decoration:none}
 .social-chip:hover{background:#EDF3FA}
 #quote-check .sec-intro{margin-left:auto;margin-right:auto;text-align:center}
+.video-poster{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:14px;cursor:pointer}
+.video.big[data-yt]{cursor:pointer}
+.yt-modal{position:fixed;inset:0;background:rgba(4,20,40,.86);display:none;align-items:center;justify-content:center;z-index:200;padding:20px}
+.yt-modal.open{display:flex}
+.yt-modal-frame{width:min(920px,100%);aspect-ratio:16/9;background:#000;border-radius:12px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+.yt-frame{width:100%;height:100%;border:0}
+.yt-modal-close{position:absolute;top:14px;right:18px;background:rgba(255,255,255,.14);color:#fff;border:none;font-size:26px;width:44px;height:44px;border-radius:50%;cursor:pointer;z-index:1}
 </style>
 </head>
 <body>
@@ -213,7 +220,8 @@ footer{border-top:1px solid #E5EAF2;background:#fff;padding:34px 20px;text-align
       <div class="wpri-txt">As seen on Channel 12 WPRI</div>
       <h2 class="h-big">Meet the Broker</h2>
       <p class="sec-intro centered">Joe sat down with WPRI 12 &mdash; the CBS affiliate serving Rhode Island and Southeastern Massachusetts on Channel 12 &mdash; for their &ldquo;Who to Know&rdquo; segment. 90 seconds on what a solar broker actually does, and why it saves you money.</p>
-      <div class="video big">
+      <div class="video big" data-yt="q3BuI9JLo94" role="button" tabindex="0" aria-label="Play the WPRI Who to Know segment">
+        <img class="video-poster" src="https://i.ytimg.com/vi/q3BuI9JLo94/maxresdefault.jpg" alt="Joe Moretti on WPRI 12">
         <div class="play big"><svg width="34" height="34" viewBox="0 0 24 24"><polygon points="7,4 21,12 7,20" fill="#F59A1B"/></svg></div>
         <span class="video-tag">WPRI &ldquo;Who to Know&rdquo; &middot; 90 seconds</span>
       </div>
@@ -456,6 +464,24 @@ footer{border-top:1px solid #E5EAF2;background:#fff;padding:34px 20px;text-align
     var v=qSel.value;
     if(v!=='' ){window.location.href='./quote-smarts.html?q='+v;}
   });}
+  (function(){
+    var m=document.getElementById('yt-modal');
+    var frame=m?m.querySelector('.yt-frame'):null;
+    function open(id){m.classList.add('open');frame.src='https://www.youtube.com/embed/'+id+'?autoplay=1&rel=0';}
+    function close(){m.classList.remove('open');frame.src='';}
+    document.addEventListener('click',function(e){
+      var t=e.target.closest?e.target.closest('[data-yt]'):null;
+      if(t){open(t.getAttribute('data-yt'));return;}
+      if(e.target===m||(e.target.closest&&e.target.closest('.yt-modal-close'))){close();}
+    });
+    document.addEventListener('keydown',function(e){if(e.key==='Escape')close();});
+  })();
 </script>
+
+<div class="yt-modal" id="yt-modal" role="dialog" aria-modal="true" aria-label="Video player">
+  <button class="yt-modal-close" aria-label="Close video">&times;</button>
+  <div class="yt-modal-frame"><iframe class="yt-frame" src="" title="KnowSolar video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen frameborder="0"></iframe></div>
+</div>
+
 </body>
 </html>
