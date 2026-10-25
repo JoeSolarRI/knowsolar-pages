@@ -163,6 +163,10 @@ footer{border-top:1px solid #E5EAF2;background:#fff;padding:34px 20px;text-align
 .roi-cta a{flex:1;min-width:180px;text-align:center;text-decoration:none;padding:14px 16px;border-radius:12px;font-weight:800;font-size:15px}
 .roi-cta .c1{background:#0B4DA8;color:#fff}
 .roi-cta .c2{background:linear-gradient(90deg,#F59A1B,#FFC53D);color:#082B57}
+.roi-ac{position:absolute;left:0;right:0;top:100%;margin-top:4px;background:#fff;border:1px solid #D6DEE9;border-radius:10px;box-shadow:0 8px 24px rgba(15,23,42,.14);max-height:230px;overflow:auto;display:none;z-index:20}
+.roi-ac div{padding:11px 14px;font-size:14px;color:#0E1B33;cursor:pointer;border-bottom:1px solid #F0F4F9}
+.roi-ac div:last-child{border-bottom:none}
+.roi-ac div:hover,.roi-ac div.sel{background:#EAF1FC}
 .roi-err{display:none;margin-top:12px;font-size:13px;color:#B3261E;background:#FDECEA;border-radius:8px;padding:10px 12px}
 </style>
 </head>
@@ -219,9 +223,10 @@ footer{border-top:1px solid #E5EAF2;background:#fff;padding:34px 20px;text-align
       <label for="r-biz">Business name</label>
       <input id="r-biz" type="text" placeholder="Saraiva Manufacturing Co.">
     </div>
-    <div class="roi-field">
+    <div class="roi-field" style="position:relative">
       <label for="r-addr">Street address or town</label>
-      <input id="r-addr" type="text" placeholder="123 Main St, East Greenwich, RI">
+      <input id="r-addr" type="text" placeholder="123 Main St, East Greenwich, RI" autocomplete="off">
+      <div class="roi-ac" id="r-ac"></div>
     </div>
     <div class="roi-err" id="err2">Add a business name to continue.</div>
     <button class="roi-next" onclick="go(3)">Next</button>
@@ -261,7 +266,7 @@ footer{border-top:1px solid #E5EAF2;background:#fff;padding:34px 20px;text-align
         <div><b id="o-25">$&mdash;</b><span>25-year net savings</span></div>
         <div><b id="o-bill">$&mdash;</b><span>Utility bill it replaces</span></div>
       </div>
-      <p class="roi-note">Estimates use New England commercial rates, ~90% bill offset, the 40% federal commercial tax credit, accelerated depreciation (MACRS), and $0 down financing. Your real numbers come from a free drone survey of your roof and your actual usage &mdash; usually within a few days.</p>
+      <p class="roi-note">Estimates use New England commercial rates, ~90% bill offset, the 40% federal commercial tax credit, accelerated depreciation (MACRS), and $0 down financing. Your real numbers come from a free drone survey of your roof and your actual usage &mdash; usually within a few days. Address search powered by OpenStreetMap.</p>
       <div class="roi-cta">
         <a class="c1" href="tel:+14013586062">Call (401) 358-6062</a>
         <a class="c2" href="sms:+14013586062">Text Us A Photo Of The Building</a>
@@ -344,6 +349,59 @@ function finish(){
     })
   }).catch(function(){});
 }
+
+// --- address autocomplete (photon / OpenStreetMap) ---
+var AC = $('r-ac'); var acTimer = null; var acSel = -1; var acItems = [];
+$('r-addr').addEventListener('input', function(){
+  clearTimeout(acTimer);
+  var q = this.value.trim();
+  if(q.length < 3){ AC.style.display='none'; return; }
+  acTimer = setTimeout(function(){
+    fetch('https://photon.komoot.io/api/?limit=5&lat=41.7&lon=-71.5&q=' + encodeURIComponent(q))
+      .then(function(r){ return r.json(); })
+      .then(function(d){
+        acItems = (d.features||[]).map(function(f){
+          var p = f.properties || {};
+          return { label: [p.name, p.street, p.city, p.state, p.postcode].filter(Boolean).join(', '), state: p.state };
+        }).filter(function(x){ return x.label; });
+        renderAc();
+      }).catch(function(){ AC.style.display='none'; });
+  }, 280);
+});
+function renderAc(){
+  if(!acItems.length){ AC.style.display='none'; return; }
+  AC.innerHTML = acItems.map(function(x,i){
+    return '<div data-i="'+i+'">'+x.label.replace(/</g,'&lt;')+'</div>';
+  }).join('');
+  acSel = -1; AC.style.display='block';
+}
+AC.addEventListener('mousedown', function(e){
+  var t = e.target.closest ? e.target.closest('[data-i]') : null;
+  if(!t) return;
+  pickAc(parseInt(t.getAttribute('data-i')));
+});
+function pickAc(i){
+  if(!acItems[i]) return;
+  $('r-addr').value = acItems[i].label;
+  var st = (acItems[i].state || '').toUpperCase().slice(0,2);
+  var sel = $('r-state');
+  if(['RI','MA','CT'].indexOf(st) > -1){ sel.value = st; }
+  AC.style.display='none';
+}
+$('r-addr').addEventListener('keydown', function(e){
+  if(AC.style.display !== 'block') return;
+  var kids = AC.querySelectorAll('[data-i]');
+  if(e.key === 'ArrowDown' || e.key === 'ArrowUp'){
+    e.preventDefault();
+    acSel = e.key === 'ArrowDown' ? Math.min(acSel+1, kids.length-1) : Math.max(acSel-1, 0);
+    kids.forEach(function(k,i){ k.className = (i===acSel) ? 'sel' : ''; });
+  } else if(e.key === 'Enter'){ e.preventDefault(); pickAc(acSel >= 0 ? acSel : 0); }
+  else if(e.key === 'Escape'){ AC.style.display='none'; }
+});
+document.addEventListener('click', function(e){
+  if(e.target !== $('r-addr')) AC.style.display='none';
+});
+
 </script>
 </body>
 </html>
