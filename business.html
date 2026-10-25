@@ -174,6 +174,13 @@ footer{border-top:1px solid #E5EAF2;background:#fff;padding:34px 20px;text-align
 .strip a{background:linear-gradient(90deg,#F59A1B,#FFC53D);color:#082B57;font-weight:800;font-size:14px;padding:12px 18px;border-radius:10px;text-decoration:none;white-space:nowrap}
 .strip a:hover{filter:brightness(1.06)}
 @media(max-width:640px){.strip{justify-content:center;text-align:center}}
+.timeline{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:24px}
+.tl-item img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:12px;display:block;box-shadow:0 1px 6px rgba(8,43,87,.12)}
+.tl-cap{margin-top:8px;text-align:center}
+.tl-cap b{display:block;font-size:13.5px;color:#0E1B33}
+.tl-cap span{display:block;font-size:12px;color:#5A6577;margin-top:2px}
+@media(max-width:820px){.timeline{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.timeline{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -211,15 +218,35 @@ footer{border-top:1px solid #E5EAF2;background:#fff;padding:34px 20px;text-align
 
 <section class="section"><div class="sec-inner">
   <span class="sec-label">Recent Commercial Job</span>
-  <h2>East Greenwich, RI &mdash; Drone Surveyed.</h2>
-  <div class="case-grid">
-    <img class="case-wide" src="./img/eg-18.jpg" alt="Aerial view of commercial solar installation, East Greenwich RI">
-    <img src="./img/eg-01.jpg" alt="Commercial rooftop solar array, East Greenwich RI">
-    <img src="./img/eg-05.jpg" alt="Commercial solar panels from above, East Greenwich RI">
-    <img src="./img/eg-13.jpg" alt="Commercial solar installation detail, East Greenwich RI">
-    <img src="./img/eg-16.jpg" alt="Commercial rooftop solar, East Greenwich RI">
+  <h2>East Greenwich, RI &mdash; Watch It Go Up.</h2>
+  <p class="sec-intro">Drone flights tracked this project from empty roof to finished array. The same documentation your project gets from day one.</p>
+  <div class="timeline">
+    <div class="tl-item">
+      <img src="./img/timeline/t1.jpg" alt="Drone survey of empty commercial roof, East Greenwich RI, July 2025">
+      <div class="tl-cap"><b>July 2025</b><span>Drone survey &mdash; before a single panel</span></div>
+    </div>
+    <div class="tl-item">
+      <img src="./img/timeline/t3.jpg" alt="Commercial solar system going up, East Greenwich RI, August 2025">
+      <div class="tl-cap"><b>August 2025</b><span>One month in &mdash; system going up</span></div>
+    </div>
+    <div class="tl-item">
+      <img src="./img/timeline/t4.jpg" alt="Commercial solar array mid-install from above, East Greenwich RI">
+      <div class="tl-cap"><b>August 2025</b><span>Array taking shape</span></div>
+    </div>
+    <div class="tl-item">
+      <img src="./img/timeline/t5.jpg" alt="Completed commercial solar array, East Greenwich RI, December 2025">
+      <div class="tl-cap"><b>December 2025</b><span>Array complete</span></div>
+    </div>
+    <div class="tl-item">
+      <img src="./img/timeline/t6.jpg" alt="Finished commercial solar installation, East Greenwich RI, March 2026">
+      <div class="tl-cap"><b>March 2026</b><span>Finished product</span></div>
+    </div>
+    <div class="tl-item">
+      <img src="./img/timeline/t7.jpg" alt="Final aerial of completed commercial solar, East Greenwich RI">
+      <div class="tl-cap"><b>March 2026</b><span>Done &mdash; and producing</span></div>
+    </div>
   </div>
-  <p class="case-note">Flown and surveyed by drone &mdash; the same level of detail your project gets before a single panel is ordered.</p>
+  <p class="case-note">Surveyed, tracked, and verified by drone &mdash; from empty roof to producing array.</p>
 </div></section>
 
 <section class="section band"><div class="sec-inner">
