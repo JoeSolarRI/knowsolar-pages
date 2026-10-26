@@ -175,6 +175,10 @@ footer{border-top:1px solid #E5EAF2;background:#fff;padding:34px 20px;text-align
 .strip a{background:linear-gradient(90deg,#F59A1B,#FFC53D);color:#082B57;font-weight:800;font-size:14px;padding:12px 18px;border-radius:10px;text-decoration:none;white-space:nowrap}
 .strip a:hover{filter:brightness(1.06)}
 @media(max-width:640px){.strip{justify-content:center;text-align:center}}
+.timeline-3{grid-template-columns:repeat(2,1fr)}
+.tl-wide{grid-column:1 / -1}
+.tl-wide img{aspect-ratio:16/9}
+@media(max-width:560px){.timeline-3{grid-template-columns:1fr}}
 .timeline{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:24px}
 .tl-item img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:12px;display:block;box-shadow:0 1px 6px rgba(8,43,87,.12)}
 .tl-cap{margin-top:8px;text-align:center}
@@ -224,7 +228,7 @@ footer{border-top:1px solid #E5EAF2;background:#fff;padding:34px 20px;text-align
   <span class="sec-label">Recent Commercial Job</span>
   <h2>East Greenwich, RI &mdash; Watch It Go Up.</h2>
   <p class="sec-intro">Drone flights tracked this project from empty roof to finished array. The same documentation your project gets from day one.</p>
-  <div class="timeline">
+  <div class="timeline timeline-3">
     <div class="tl-item">
       <img src="./img/timeline/t1.jpg" alt="Drone survey of empty commercial roof, East Greenwich RI, July 2025">
       <div class="tl-cap"><b>July 2025</b><span>Drone survey &mdash; before a single panel</span></div>
@@ -233,21 +237,9 @@ footer{border-top:1px solid #E5EAF2;background:#fff;padding:34px 20px;text-align
       <img src="./img/timeline/t3.jpg" alt="Commercial solar system going up, East Greenwich RI, August 2025">
       <div class="tl-cap"><b>August 2025</b><span>One month in &mdash; system going up</span></div>
     </div>
-    <div class="tl-item">
-      <img src="./img/timeline/t4.jpg" alt="Commercial solar array mid-install from above, East Greenwich RI">
-      <div class="tl-cap"><b>August 2025</b><span>Array taking shape</span></div>
-    </div>
-    <div class="tl-item">
-      <img src="./img/timeline/t5.jpg" alt="Completed commercial solar array, East Greenwich RI, December 2025">
-      <div class="tl-cap"><b>December 2025</b><span>Array complete</span></div>
-    </div>
-    <div class="tl-item">
-      <img src="./img/timeline/t6.jpg" alt="Completed commercial solar array from above, East Greenwich RI, March 2026">
+    <div class="tl-item tl-wide">
+      <img src="./img/timeline/t6.jpg" alt="Finished commercial solar array, East Greenwich RI, March 2026">
       <div class="tl-cap"><b>March 2026</b><span>Finished product</span></div>
-    </div>
-    <div class="tl-item">
-      <img src="./img/timeline/t7.jpg" alt="Close-up of finished commercial solar panels, East Greenwich RI">
-      <div class="tl-cap"><b>March 2026</b><span>Done &mdash; and producing</span></div>
     </div>
   </div>
   <p class="case-note">Surveyed, tracked, and verified by drone &mdash; from empty roof to producing array.</p>
