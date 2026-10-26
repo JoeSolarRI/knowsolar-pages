@@ -175,17 +175,18 @@ footer{border-top:1px solid #E5EAF2;background:#fff;padding:34px 20px;text-align
 .strip a{background:linear-gradient(90deg,#F59A1B,#FFC53D);color:#082B57;font-weight:800;font-size:14px;padding:12px 18px;border-radius:10px;text-decoration:none;white-space:nowrap}
 .strip a:hover{filter:brightness(1.06)}
 @media(max-width:640px){.strip{justify-content:center;text-align:center}}
-.timeline-3{grid-template-columns:repeat(2,1fr)}
-.tl-wide{grid-column:1 / -1}
-.tl-wide img{aspect-ratio:16/9}
+.timeline-3{grid-template-columns:repeat(3,1fr)}
 @media(max-width:560px){.timeline-3{grid-template-columns:1fr}}
 .timeline{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:24px}
-.tl-item img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:12px;display:block;box-shadow:0 1px 6px rgba(8,43,87,.12)}
+.timeline-3 .tl-item img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:12px;display:block;box-shadow:0 1px 6px rgba(8,43,87,.12)}
 .tl-cap{margin-top:8px;text-align:center}
 .tl-cap b{display:block;font-size:13.5px;color:#0E1B33}
 .tl-cap span{display:block;font-size:12px;color:#5A6577;margin-top:2px}
 @media(max-width:820px){.timeline{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:560px){.timeline{grid-template-columns:1fr}}
+.sec-inner.center .sec-intro{margin-left:auto;margin-right:auto;text-align:center}
+.textline.col{flex-direction:column;gap:12px}
+.tl-sub{color:#5A6577;font-size:13.5px}
 </style>
 </head>
 <body>
@@ -237,7 +238,7 @@ footer{border-top:1px solid #E5EAF2;background:#fff;padding:34px 20px;text-align
       <img src="./img/timeline/t3.jpg" alt="Commercial solar system going up, East Greenwich RI, August 2025">
       <div class="tl-cap"><b>August 2025</b><span>One month in &mdash; system going up</span></div>
     </div>
-    <div class="tl-item tl-wide">
+    <div class="tl-item">
       <img src="./img/timeline/t6.jpg" alt="Finished commercial solar array, East Greenwich RI, March 2026">
       <div class="tl-cap"><b>March 2026</b><span>Finished product</span></div>
     </div>
@@ -245,11 +246,11 @@ footer{border-top:1px solid #E5EAF2;background:#fff;padding:34px 20px;text-align
   <p class="case-note">Surveyed, tracked, and verified by drone &mdash; from empty roof to producing array.</p>
 </div></section>
 
-<section class="section band"><div class="sec-inner">
+<section class="section band"><div class="sec-inner center">
   <span class="sec-label">Why A Broker</span>
   <h2>The Bigger The Job, The More A Broker Matters.</h2>
   <p class="sec-intro">A commercial build is more money, more engineering, and more ways to overpay. We put it out to bid and make the installers earn it &mdash; you see every option side by side, and we stay through commissioning and beyond.</p>
-  <div class="textline"><a class="num" href="tel:+14013586062">Call (401) 358-6062</a><span style="color:#5A6577;font-size:13.5px">or text photos of your building and power bill</span></div>
+  <div class="textline col"><a class="num" href="tel:+14013586062">Call (401) 358-6062</a><span class="tl-sub">or text photos of your building and power bill</span></div>
   <p class="tiny">Quotes in plain English. No engineering-degree required.</p>
 </div></section>
 
