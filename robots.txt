@@ -1,5 +1,4 @@
 User-agent: *
 Allow: /
-Disallow: /rr-desk.html
 
-Sitemap: https://joesolarri.github.io/knowsolar-pages/sitemap.xml
+Sitemap: https://knowsolar.com/sitemap.xml
