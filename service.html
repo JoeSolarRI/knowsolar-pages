@@ -78,6 +78,12 @@ h2{font-size:clamp(24px,4vw,32px);font-weight:800;letter-spacing:-.01em;margin-t
 .video.big{max-width:1000px;margin-top:34px}
 .play.big{width:84px;height:84px}
 .video-cap.big{font-size:14.5px}
+/* service request form embed */
+.rr-shell{margin-top:26px;background:#fff;border:1px solid #E5EAF2;border-radius:16px;overflow:hidden;box-shadow:0 1px 3px rgba(15,23,42,.06),0 16px 40px rgba(15,23,42,.08)}
+.rr-frame{display:block;width:100%;height:1180px;border:0;background:#F4F6F8}
+.rr-alt{margin:0;padding:12px 16px;font-size:12.5px;color:#5A6577;background:#F6F9FF;border-top:1px solid #E5EAF2;text-align:center}
+.rr-alt a{color:#0B4DA8;font-weight:700;text-decoration:underline}
+@media(max-width:640px){.rr-frame{height:1420px}}
 .cta{margin:56px auto;max-width:1080px;padding:0 20px}
 .cta-inner{background:linear-gradient(150deg,#0A3F7E,#052A5E);border-radius:18px;text-align:center;padding:52px 24px;box-shadow:0 14px 40px rgba(5,42,94,.25)}
 .cta-inner h2{color:#fff}
@@ -198,12 +204,14 @@ footer{border-top:1px solid #E5EAF2;background:#fff;padding:34px 20px;text-align
   </div>
 </div></section>
 
-<section class="section band"><div class="sec-inner center">
-  <span class="sec-label">How It Works</span>
-  <h2>Text Us. That&rsquo;s Step One.</h2>
-  <p class="sec-intro" style="margin-left:auto;margin-right:auto">Send photos or a short video of the system to (401) 358-6062. We&rsquo;ll tell you straight what we see, what it likely is, and what the fix should run. No mystery, no runaround.</p>
-  <div class="textline"><a class="num" href="sms:+14013586062">Text (401) 358-6062</a></div>
-  <p class="tiny">Answered by a person who knows solar &mdash; not a call center.</p>
+<section class="section band" id="service-form"><div class="sec-inner center">
+  <span class="sec-label">Start Here</span>
+  <h2>Tell Us What&rsquo;s Going On.</h2>
+  <p class="sec-intro" style="margin-left:auto;margin-right:auto">Three quick questions, a photo of your meter area, and a $99 diagnostic that gets credited toward the repair. Joe calls you back within 24 hours &mdash; usually sooner.</p>
+  <div class="rr-shell">
+    <iframe class="rr-frame" src="https://base44.app/api/apps/6ae143a9272a9d701feb5eea/functions/svcRequest" title="Solar service request" loading="lazy"></iframe>
+    <p class="rr-alt">Form not loading? <a href="https://base44.app/api/apps/6ae143a9272a9d701feb5eea/functions/svcRequest" target="_blank" rel="noopener">Open it in a new tab</a>, or call (401) 358-6062.</p>
+  </div>
 </div></section>
 
 <section class="section"><div class="sec-inner center">
