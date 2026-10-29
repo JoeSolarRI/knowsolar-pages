@@ -172,6 +172,21 @@ footer{border-top:1px solid #E5EAF2;background:#fff;padding:34px 20px;text-align
 .ctastrip a{background:linear-gradient(90deg,#F59A1B,#FFC53D);color:#082B57;font-weight:800;font-size:14px;padding:12px 18px;border-radius:10px;text-decoration:none;white-space:nowrap}
 .ctastrip a:hover{filter:brightness(1.06)}
 @media(max-width:640px){.ctastrip{justify-content:center;text-align:center}}
+
+/* --- founder / video split --- */
+.wpri-grid{max-width:1080px;margin:0 auto;display:grid;grid-template-columns:1.05fr .95fr;gap:44px;align-items:center;text-align:left}
+.wpri-grid .video{margin:0;max-width:none}
+.wpri-grid .video-cap{text-align:left;margin-top:12px}
+.founder-copy .wpri-txt{margin-bottom:10px}
+.founder-copy h2{margin-bottom:16px}
+.founder-copy p{font-size:16.5px;line-height:1.62;color:#33415A;margin-bottom:14px}
+.founder-copy p.lede{font-size:20px;line-height:1.5;font-weight:700;color:#0E1B33;margin-bottom:16px}
+.founder-copy p strong{color:#0E1B33}
+.founder-sign{display:flex;align-items:center;gap:12px;margin:20px 0 22px;padding-top:18px;border-top:1px solid rgba(11,77,168,.15)}
+.founder-sign .fs-badge{width:42px;height:42px;border-radius:50%;background:linear-gradient(150deg,#1272D8,#0B4DA8);color:#fff;font-weight:800;font-size:15px;display:flex;align-items:center;justify-content:center;flex:0 0 auto}
+.founder-sign .fs-name{font-weight:800;color:#0E1B33;font-size:15px;line-height:1.2}
+.founder-sign .fs-role{font-size:13px;color:#5A6577}
+@media(max-width:880px){.wpri-grid{grid-template-columns:1fr;gap:32px}.wpri-grid .video{max-width:100%}}
 </style>
 <title>Solar for Your Home | KnowSolar.com</title>
 <meta name="description" content="Residential solar in RI, MA and CT without the sales pitch. We put your roof and usage in front of vetted installers and bring you the numbers side by side.">
@@ -200,17 +215,30 @@ footer{border-top:1px solid #E5EAF2;background:#fff;padding:34px 20px;text-align
   </div></div>
 <main>
 
-<section class="section band">
-  <div class="sec-inner center wpri-section">
-    <div class="wpri-txt">As seen on Channel 12 WPRI</div>
-    <h2 class="h-big">Meet the Broker</h2>
-    <p class="sec-intro centered">Joe sat down with WPRI 12 &mdash; the CBS affiliate serving Rhode Island and Southeastern Massachusetts on Channel 12 &mdash; for their &ldquo;Who to Know&rdquo; segment. 90 seconds on what a solar broker actually does, and why it saves you money.</p>
-    <div class="video big" data-yt="q3BuI9JLo94" role="button" tabindex="0" aria-label="Play the WPRI Who to Know segment">
-      <img class="video-poster" src="./img/wpri-poster.jpg" alt="Joe Moretti on WPRI 12 Who to Know">
-      <div class="play big"><svg width="34" height="34" viewBox="0 0 24 24"><polygon points="7,4 21,12 7,20" fill="#F59A1B"/></svg></div>
-      <span class="video-tag">WPRI &ldquo;Who to Know&rdquo; &middot; 90 seconds</span>
+<section class="band">
+  <div class="section wpri-section">
+    <div class="wpri-grid">
+      <div class="wpri-media">
+        <div class="video big" data-yt="q3BuI9JLo94" role="button" tabindex="0" aria-label="Play the WPRI Who to Know segment">
+              <img class="video-poster" src="./img/wpri-poster.jpg" alt="Joe Moretti on WPRI 12 Who to Know">
+              <div class="play big"><svg width="34" height="34" viewBox="0 0 24 24"><polygon points="7,4 21,12 7,20" fill="#F59A1B"/></svg></div>
+              <span class="video-tag">WPRI &ldquo;Who to Know&rdquo; &middot; 90 seconds</span>
+            </div>
+        <p class="video-cap big">One place to get multiple quotes &mdash; with the time, energy, and risk taken out of shopping for solar.</p>
+      </div>
+      <div class="founder-copy">
+        <div class="wpri-txt">As seen on Channel 12 WPRI</div>
+        <h2 class="h-big">Meet the Founder</h2>
+        <p class="lede">Early on, Joe worked for one installer. He learned the trade there, and he learned its limits.</p>
+        <p>That company did a few things really well. It didn&rsquo;t do everything. Different roofs need different mounts, some bills make more sense with a battery, and not every company offers the financing that fits. When the best answer lived somewhere else, his answer had to be no.</p>
+        <p><strong>Over 450 clients later, across Rhode Island, Massachusetts and Connecticut, Joe knows there&rsquo;s more than one right way to get this done. His job is to find the one that fits you, and ours is to make it happen.</strong></p>
+<div class="founder-sign">
+          <div class="fs-badge">JM</div>
+          <div><div class="fs-name">Joe Moretti</div><div class="fs-role">Founder, KnowSolar.com</div></div>
+        </div>
+        <a class="btn btn-grad" href="https://api.leadconnectorhq.com/widget/bookings/knowsolarcall" style="text-decoration:none">Book a call</a>
+      </div>
     </div>
-    <p class="video-cap big">One place to get multiple quotes &mdash; with the time, energy, and risk taken out of shopping for solar.</p>
   </div>
 </section>
 
