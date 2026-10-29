@@ -1,20 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://joesolarri.github.io/knowsolar-pages/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
-  <url><loc>https://joesolarri.github.io/knowsolar-pages/home.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://joesolarri.github.io/knowsolar-pages/business.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://joesolarri.github.io/knowsolar-pages/home.html</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://joesolarri.github.io/knowsolar-pages/business.html</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
   <url><loc>https://joesolarri.github.io/knowsolar-pages/service.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
   <url><loc>https://joesolarri.github.io/knowsolar-pages/removal-replacement.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://joesolarri.github.io/knowsolar-pages/east-greenwich.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://joesolarri.github.io/knowsolar-pages/warwick.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://joesolarri.github.io/knowsolar-pages/cranston.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://joesolarri.github.io/knowsolar-pages/north-kingstown.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://joesolarri.github.io/knowsolar-pages/south-kingstown.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://joesolarri.github.io/knowsolar-pages/coventry.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://joesolarri.github.io/knowsolar-pages/narragansett.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://joesolarri.github.io/knowsolar-pages/westerly.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://joesolarri.github.io/knowsolar-pages/service-areas.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://joesolarri.github.io/knowsolar-pages/roi.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://joesolarri.github.io/knowsolar-pages/educated.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://joesolarri.github.io/knowsolar-pages/quote-smarts.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://joesolarri.github.io/knowsolar-pages/projects.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://joesolarri.github.io/knowsolar-pages/educated.html</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://joesolarri.github.io/knowsolar-pages/quote-smarts.html</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://joesolarri.github.io/knowsolar-pages/roi.html</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
 </urlset>
