@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Vendor Quote Upload | KnowSolar.com</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#082B57">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='6' fill='%23F59A1B'/%3E%3C/svg%3E">
+<style>
+  :root{--navy:#082B57;--blue:#0B4DA8;--gold:#F59A1B;--sun:#FFC53D;--ink:#26313F;--muted:#5A6577;--line:#E3E9F2;--bg:#F7FAFD}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+  header{background:var(--navy);padding:16px 20px}
+  .logo{display:flex;align-items:center;gap:9px;color:#fff;font-weight:800;font-size:17px;letter-spacing:-.2px;max-width:960px;margin:0 auto}
+  .logo svg{flex:0 0 auto}
+  .logo .dot{color:var(--sun)}
+  main{max-width:960px;margin:0 auto;padding:26px 20px 60px}
+  h1{font-size:23px;line-height:1.25;margin:0 0 6px;color:var(--navy);letter-spacing:-.3px}
+  .sub{margin:0 0 22px;color:var(--muted);font-size:15px}
+  .card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px;box-shadow:0 2px 14px rgba(8,43,87,.06)}
+  iframe{width:100%;height:1700px;border:0;display:block;border-radius:8px}
+  .missing{display:none;text-align:center;padding:46px 18px}
+  .missing p{margin:0 0 10px}
+  .missing a{color:var(--blue);font-weight:700}
+  .call{display:inline-block;margin-top:16px;background:linear-gradient(90deg,var(--gold),var(--sun));color:var(--navy);text-decoration:none;font-weight:800;padding:13px 24px;border-radius:10px}
+  footer{text-align:center;color:var(--muted);font-size:13px;padding:0 20px 40px}
+  @media(max-width:600px){iframe{height:1900px}main{padding:20px 14px 50px}h1{font-size:20px}}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="4.6" fill="#F59A1B"/><g stroke="#FFC53D" stroke-width="2" stroke-linecap="round"><path d="M12 1.5v3M12 19.5v3M1.5 12h3M19.5 12h3M4.6 4.6l2.1 2.1M17.3 17.3l2.1 2.1M19.4 4.6l-2.1 2.1M6.7 17.3l-2.1 2.1"/></g></svg>
+    KnowSolar<span class="dot">.com</span>
+  </div>
+</header>
+<main>
+  <h1>Vendor quote upload</h1>
+  <p class="sub">Upload your quote for this job. Takes about two minutes.</p>
+  <div class="card">
+    <iframe id="ksqframe" title="Upload your quote" loading="eager"></iframe>
+  </div>
+  <div class="missing" id="ksqmsg">
+    <p><strong>This link is missing its code.</strong></p>
+    <p>Use the upload link from the email Joe sent you.</p>
+    <a class="call" href="tel:+14013586062">Text Joe: (401) 358-6062</a>
+  </div>
+</main>
+<footer>KnowSolar.com &middot; JoeSolar LLC &middot; Rhode Island</footer>
+<script>
+(function(){
+  var p=new URLSearchParams(window.location.search);
+  var t=p.get('token')||p.get('t')||'';
+  var f=document.getElementById('ksqframe');
+  if(!t){document.querySelector('.card').style.display='none';document.getElementById('ksqmsg').style.display='block';return;}
+  f.src='https://base44.app/api/apps/6ae143a9272a9d701feb5eea/functions/rrVendorQuote?token='+encodeURIComponent(t);
+})();
+</script>
+</body>
+</html>

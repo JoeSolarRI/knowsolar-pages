@@ -1,0 +1,410 @@
+[
+ {
+  "from": "/quote/",
+  "to": "/quote/",
+  "title": "Quote upload",
+  "status": "ok"
+ },
+ {
+  "from": "/joe/",
+  "to": "/",
+  "title": "Save Joe Solar's Contact",
+  "status": "ok"
+ },
+ {
+  "from": "/",
+  "to": "/",
+  "title": "Home",
+  "status": "ok"
+ },
+ {
+  "from": "/calculator/",
+  "to": "/roi.html",
+  "title": "Solar Savings Calculator",
+  "status": "ok"
+ },
+ {
+  "from": "/solar-score/",
+  "to": "/roi.html",
+  "title": "Solar Score",
+  "status": "ok"
+ },
+ {
+  "from": "/ref-grant/",
+  "to": "/educated.html",
+  "title": "REF Grant",
+  "status": "ok"
+ },
+ {
+  "from": "/privacy/",
+  "to": "/privacy/",
+  "title": "Privacy Policy",
+  "status": "ok"
+ },
+ {
+  "from": "/terms/",
+  "to": "/terms/",
+  "title": "Terms and Conditions",
+  "status": "ok"
+ },
+ {
+  "from": "/my-account/",
+  "to": "/",
+  "title": "My Account",
+  "status": "ok"
+ },
+ {
+  "from": "/checkout/",
+  "to": "/",
+  "title": "Checkout",
+  "status": "ok"
+ },
+ {
+  "from": "/cart/",
+  "to": "/",
+  "title": "Cart",
+  "status": "ok"
+ },
+ {
+  "from": "/shop/",
+  "to": "/",
+  "title": "Shop",
+  "status": "ok"
+ },
+ {
+  "from": "/compare/",
+  "to": "/projects.html",
+  "title": "Quote Compare",
+  "status": "ok"
+ },
+ {
+  "from": "/charactercon24/",
+  "to": "/",
+  "title": "Contact ( Cloned )",
+  "status": "ok"
+ },
+ {
+  "from": "/rr-request/",
+  "to": "/rr-request/",
+  "title": "Removal and Replacement",
+  "status": "ok"
+ },
+ {
+  "from": "/local-experts-only/",
+  "to": "/",
+  "title": "Book A Call",
+  "status": "ok"
+ },
+ {
+  "from": "/privacy-policy/",
+  "to": "/privacy/",
+  "title": "Privacy Policy",
+  "status": "ok"
+ },
+ {
+  "from": "/affiliates/kwkyle/",
+  "to": "/",
+  "title": "Kilowatt Kyle",
+  "status": "ok"
+ },
+ {
+  "from": "/affiliates/burns-roofing/",
+  "to": "/",
+  "title": "Burns Roofing",
+  "status": "ok"
+ },
+ {
+  "from": "/solar-service/",
+  "to": "/service.html",
+  "title": "Solar System Service Request",
+  "status": "ok"
+ },
+ {
+  "from": "/home2/",
+  "to": "/",
+  "title": "New Home 2",
+  "status": "ok"
+ },
+ {
+  "from": "/affiliates/fred-altieri/",
+  "to": "/",
+  "title": "Fred Altieri",
+  "status": "ok"
+ },
+ {
+  "from": "/mybill/",
+  "to": "/roi.html",
+  "title": "My Bill",
+  "status": "ok"
+ },
+ {
+  "from": "/affiliates/fci-cranston/",
+  "to": "/",
+  "title": "Floor Coverings International",
+  "status": "ok"
+ },
+ {
+  "from": "/affiliates/cyo-roofing/",
+  "to": "/",
+  "title": "CYO Roofing",
+  "status": "ok"
+ },
+ {
+  "from": "/affiliates/eandv/",
+  "to": "/",
+  "title": "Engel and Volkers",
+  "status": "ok"
+ },
+ {
+  "from": "/residential-solar/",
+  "to": "/",
+  "title": "Residential Solar",
+  "status": "ok"
+ },
+ {
+  "from": "/sitemap/",
+  "to": "/",
+  "title": "Sitemap",
+  "status": "ok"
+ },
+ {
+  "from": "/thank-you/",
+  "to": "/",
+  "title": "Thank You",
+  "status": "ok"
+ },
+ {
+  "from": "/affiliates/rhodyroofs/",
+  "to": "/",
+  "title": "Rhody Roofs",
+  "status": "ok"
+ },
+ {
+  "from": "/affiliates/horizon-hvac/",
+  "to": "/",
+  "title": "Horizon HVAC",
+  "status": "ok"
+ },
+ {
+  "from": "/affiliates/gmetz-moving/",
+  "to": "/",
+  "title": "Gmetz Moving and Storage",
+  "status": "ok"
+ },
+ {
+  "from": "/submission-complete/",
+  "to": "/",
+  "title": "Form Submissions Page",
+  "status": "ok"
+ },
+ {
+  "from": "/affiliates/impervious/",
+  "to": "/",
+  "title": "Impervious Exteriors",
+  "status": "ok"
+ },
+ {
+  "from": "/affiliates/conrad-yourfavlo/",
+  "to": "/",
+  "title": "Justin Conrad - Northpointe Bank",
+  "status": "ok"
+ },
+ {
+  "from": "/affiliates/bernard-the-barber/",
+  "to": "/",
+  "title": "Bernard - The King Of Barbers",
+  "status": "ok"
+ },
+ {
+  "from": "/vid-series-test-behind-men/",
+  "to": "/",
+  "title": "vid series test behind men",
+  "status": "ok"
+ },
+ {
+  "from": "/affiliates/balkun-title/",
+  "to": "/",
+  "title": "Balkun Title",
+  "status": "ok"
+ },
+ {
+  "from": "/solar-myths-popup-page/",
+  "to": "/",
+  "title": "Solar Myths - Popup Page",
+  "status": "ok"
+ },
+ {
+  "from": "/affiliates/bears-den-media/",
+  "to": "/",
+  "title": "Bear's Den Media",
+  "status": "ok"
+ },
+ {
+  "from": "/affiliates/affiliate-northeastern-tree/",
+  "to": "/",
+  "title": "North Eastern Tree Service",
+  "status": "ok"
+ },
+ {
+  "from": "/faqs/",
+  "to": "/educated.html",
+  "title": "FAQ's",
+  "status": "ok"
+ },
+ {
+  "from": "/affiliates/one-residential/",
+  "to": "/",
+  "title": "ONE Residential",
+  "status": "ok"
+ },
+ {
+  "from": "/affiliates/eagle-exteriors/",
+  "to": "/",
+  "title": "Eagle Exteriors",
+  "status": "ok"
+ },
+ {
+  "from": "/commercial-solar/",
+  "to": "/business.html",
+  "title": "Commercial Solar",
+  "status": "ok"
+ },
+ {
+  "from": "/series-intro/solar-power-101/",
+  "to": "/educated.html",
+  "title": "Solar Power 101",
+  "status": "ok"
+ },
+ {
+  "from": "/affiliates/capital-fence/",
+  "to": "/",
+  "title": "Capital Fence",
+  "status": "ok"
+ },
+ {
+  "from": "/series-intro/",
+  "to": "/educated.html",
+  "title": "Video Series Intro - Start Here",
+  "status": "ok"
+ },
+ {
+  "from": "/affiliates/",
+  "to": "/",
+  "title": "Affiliates",
+  "status": "ok"
+ },
+ {
+  "from": "/series-intro/equipment-2/",
+  "to": "/educated.html",
+  "title": "Equipment",
+  "status": "ok"
+ },
+ {
+  "from": "/series-intro/solar-plus/",
+  "to": "/educated.html",
+  "title": "Solar Plus",
+  "status": "ok"
+ },
+ {
+  "from": "/series-intro/solar-vs-traditional-power/",
+  "to": "/educated.html",
+  "title": "Solar vs Traditional Power",
+  "status": "ok"
+ },
+ {
+  "from": "/series-intro/changes-to-power-usage/",
+  "to": "/educated.html",
+  "title": "Power Changes",
+  "status": "ok"
+ },
+ {
+  "from": "/series-intro/lease-vs-own/",
+  "to": "/educated.html",
+  "title": "Lease vs Own",
+  "status": "ok"
+ },
+ {
+  "from": "/series-intro/tax-credit-2/",
+  "to": "/educated.html",
+  "title": "Tax Credit - Video Series",
+  "status": "ok"
+ },
+ {
+  "from": "/series-intro/homeonwer/",
+  "to": "/educated.html",
+  "title": "Qualified Homeowners",
+  "status": "ok"
+ },
+ {
+  "from": "/affiliates/tko-builders/",
+  "to": "/",
+  "title": "TKO Builders",
+  "status": "ok"
+ },
+ {
+  "from": "/affiliates/jperry-paving/",
+  "to": "/",
+  "title": "J. Perry Paving",
+  "status": "ok"
+ },
+ {
+  "from": "/knowsolar-calculator/",
+  "to": "/roi.html",
+  "title": "KnowSolar Calculator",
+  "status": "ok"
+ },
+ {
+  "from": "/affiliates/usa-insulation/",
+  "to": "/",
+  "title": "USA Insulation",
+  "status": "ok"
+ },
+ {
+  "from": "/series-intro/load-calculator/",
+  "to": "/educated.html",
+  "title": "Load Calculator",
+  "status": "ok"
+ },
+ {
+  "from": "/affiliates/ruggirello-realty/",
+  "to": "/",
+  "title": "The Ruggirello Group",
+  "status": "ok"
+ },
+ {
+  "from": "/solar-estimate/",
+  "to": "/roi.html",
+  "title": "aaa solar estimate template",
+  "status": "ok"
+ },
+ {
+  "from": "/new-home/",
+  "to": "/",
+  "title": "New Home",
+  "status": "ok"
+ },
+ {
+  "from": "/about/testimonials/",
+  "to": "/",
+  "title": "Real Testimonials",
+  "status": "ok"
+ },
+ {
+  "from": "/about/projects/",
+  "to": "/projects.html",
+  "title": "Project Gallery",
+  "status": "ok"
+ },
+ {
+  "from": "/about/",
+  "to": "/",
+  "title": "About",
+  "status": "ok"
+ },
+ {
+  "from": "/contact-3/",
+  "to": "/",
+  "title": "Contact",
+  "status": "ok"
+ }
+]
