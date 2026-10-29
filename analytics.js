@@ -10,7 +10,7 @@
  * instead of being pasted into 13 pages.
  */
 (function () {
-  var GA4_ID = "";
+  var GA4_ID = "G-6ZMKMGGH8N";
 
   if (!GA4_ID || GA4_ID.indexOf("G-") !== 0) return;
 
