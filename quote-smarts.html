@@ -111,6 +111,19 @@ footer .logo{color:#fff;justify-content:center}
   .chart-row .res-card{padding:13px 15px;flex:0 0 auto}
   .chart-row .res-card .val{font-size:clamp(26px,7.5vw,34px)}
 }
+
+/* --- payment slider --- */
+.pay-row{display:flex;align-items:flex-start;gap:16px;flex-wrap:wrap;margin-top:4px}
+.pay-row input.big{max-width:124px;flex:0 0 auto}
+.pay-slide{flex:1 1 280px;min-width:190px;padding-top:9px}
+.pay-range{-webkit-appearance:none;appearance:none;width:100%;height:10px;border-radius:999px;margin:0;outline:none;cursor:pointer;background:linear-gradient(90deg,#0B4DA8 0%,#1272D8 var(--pct,20%),#D7DEEA var(--pct,20%),#D7DEEA 100%)}
+.pay-range::-webkit-slider-thumb{-webkit-appearance:none;width:28px;height:28px;border-radius:50%;background:#0B4DA8;border:4px solid #fff;box-shadow:0 2px 8px rgba(5,42,94,.35);cursor:grab}
+.pay-range:active::-webkit-slider-thumb{cursor:grabbing;box-shadow:0 0 0 6px rgba(18,114,216,.16)}
+.pay-range::-moz-range-thumb{width:24px;height:24px;border-radius:50%;background:#0B4DA8;border:4px solid #fff;box-shadow:0 2px 8px rgba(5,42,94,.35);cursor:grab}
+.pay-range::-moz-range-track{height:10px;border-radius:999px;background:#D7DEEA}
+.pay-scale{display:flex;justify-content:space-between;margin-top:8px;font-size:11.5px;font-weight:600;color:#5A6577}
+.pay-scale span:nth-child(2){opacity:.55}
+@media(max-width:620px){.pay-row{gap:10px}.pay-row input.big{max-width:104px}.pay-slide{flex:1 1 100%;min-width:0;padding-top:2px}}
 </style>
 <title>Quote Smarts | KnowSolar.com</title>
 <meta name="description" content="How to read a solar quote like an installer. What the fine print hides, what to compare, and what to walk away from.">
@@ -157,7 +170,13 @@ footer .logo{color:#fff;justify-content:center}
       <div class="tool-head">The 25-Year Showdown</div>
       <div class="tool-sub">Enter the monthly payment from a real quote and see the three structures play out.</div>
       <label class="q-label" for="s-payment" style="margin-top:16px">Monthly payment quoted to you: $</label>
-      <input class="big" id="s-payment" type="number" min="25" max="2000" step="1" value="150" inputmode="decimal">
+      <div class="pay-row">
+        <input class="big" id="s-payment" type="number" min="25" max="2000" step="1" value="150" inputmode="decimal" aria-label="Monthly payment in dollars">
+        <div class="pay-slide">
+          <input type="range" class="pay-range" id="s-payment-range" min="50" max="600" step="1" value="150" aria-label="Monthly payment slider">
+          <div class="pay-scale"><span>$50</span><span>$325</span><span>$600</span></div>
+        </div>
+      </div>
       <div class="chart-row">
       <div class="chart-wrap">
         <svg id="s-chart" viewBox="0 0 560 240" style="width:100%;height:auto" role="img" aria-label="Monthly payment over 25 years"></svg>
@@ -295,9 +314,17 @@ function drawShowdown(){
   document.getElementById('s-end-payment').textContent='$'+Math.round(y25)+'/mo';
   document.getElementById('s-total-esc').textContent='$'+Math.round(totE).toLocaleString();
   document.getElementById('s-total-fixed').textContent='$'+Math.round(totF).toLocaleString();
-  document.getElementById('s-punch').textContent='That tiny 2.9% costs you $'+Math.round(diff).toLocaleString()+' over 25 years — your payment climbs from $'+Math.round(P)+' to $'+Math.round(y25)+' a month while the fixed options never move.';
+  document.getElementById('s-punch').textContent='That tiny 2.9% costs you $'+Math.round(diff).toLocaleString()+' over 25 years. Your payment climbs from $'+Math.round(P)+' to $'+Math.round(y25)+' a month while the fixed options never move.';
 }
-PAY_INPUT.addEventListener('input',drawShowdown);
+var PAY_RANGE=document.getElementById('s-payment-range');
+function paintRange(){var p=((PAY_RANGE.value-50)/550)*100;PAY_RANGE.style.setProperty('--pct',p.toFixed(1)+'%');}
+PAY_RANGE.addEventListener('input',function(){PAY_INPUT.value=PAY_RANGE.value;paintRange();drawShowdown();});
+PAY_INPUT.addEventListener('input',function(){
+  var v=parseFloat(PAY_INPUT.value);
+  if(!isNaN(v)){PAY_RANGE.value=Math.min(600,Math.max(50,v));}
+  paintRange();drawShowdown();
+});
+paintRange();
 drawShowdown();
 
 // ---- 2. Price-per-watt meter ----
