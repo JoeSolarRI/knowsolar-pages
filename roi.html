@@ -383,7 +383,7 @@ function finish(){
   $('o-bill').textContent = fmt(bill) + '/mo';
 
   for(var i=1;i<=3;i++) $('step'+i).style.display='none';
-  $('results').style.display='';
+  $('results').style.display='block';  /* class .roi-results is display:none, so clearing the inline style left it hidden (blank page) */
   window.scrollTo(0,0);
 
   fetch('https://base44.app/api/apps/6a7c869d66bdff99fbcc0bb6/functions/roiSubmit', {
