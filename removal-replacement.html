@@ -201,9 +201,35 @@ footer{border-top:1px solid #E5EAF2;background:#fff;padding:34px 20px;text-align
 <meta name="twitter:description" content="Saving you time, money, and the regret of getting it wrong.">
 <meta name="twitter:image" content="https://knowsolar.com/img/og-cover.jpg">
 <meta name="twitter:image:alt" content="KnowSolar.com logo">
+<style>
+/* nav: one horizontal row at every width, never stacked (Joe, Oct 30 2026) */
+.lbl-short{display:none}
+.nav .nav-inner,.nav-inner{display:flex;flex-wrap:nowrap;align-items:center;gap:10px}
+.nav .nav-links,.nav-links{display:flex!important;flex-wrap:nowrap!important;gap:0!important;flex:1 1 auto;min-width:0;overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;scrollbar-width:none;justify-content:flex-end}
+.nav .nav-links::-webkit-scrollbar,.nav-links::-webkit-scrollbar{display:none}
+.nav .nav-links a,.nav-links a{white-space:nowrap;flex:0 0 auto;font-size:12.5px;padding:8px 10px;border-radius:8px}
+.nav .nav-call,a.nav-call{flex:0 0 auto;font-size:12px;white-space:nowrap}
+@media(max-width:700px){
+ .nav .nav-inner,.nav-inner{flex-wrap:wrap;gap:6px 10px}
+ .nav .nav-call,a.nav-call{order:2;margin-left:auto;font-size:11.5px;padding:6px 8px}
+ .nav .nav-links,.nav-links{order:3;flex:0 0 100%;width:100%;justify-content:flex-start;padding-top:6px;border-top:1px solid #EEF2F8}
+ .nav .nav-links a,.nav-links a{font-size:11px;padding:7px 6px;letter-spacing:0}
+ .nav .nav-logo,.nav-logo{font-size:16px}
+ .lbl-long{display:none}
+ .lbl-short{display:inline}
+ .nav,nav{padding-left:12px;padding-right:12px;padding-top:8px;padding-bottom:8px}
+}
+@media(max-width:700px){
+ .phone-chip{order:2;margin-left:auto;font-size:11px;padding:5px 8px;gap:5px}
+}
+@media(max-width:400px){
+ .nav .nav-links a,.nav-links a{font-size:10.5px;padding:6px 5px}
+ .nav .nav-call,a.nav-call{font-size:11px;padding:5px 7px}
+}
+</style>
 </head>
 <body>
-<div class="nav"><div class="nav-inner"><a class="nav-logo" href="/">KnowSolar<span>.com</span></a><div class="nav-links"><a href="/">Home</a><a href="/business">Business</a><a href="/service">Service</a><a class="on" href="/removal-replacement">Removal &amp; Replacement</a><a href="/educated">Get Educated</a><a href="/projects">Projects</a></div><a class="nav-call" href="tel:+14013586062">(401) 358-6062</a></div></div>
+<div class="nav"><div class="nav-inner"><a class="nav-logo" href="/">KnowSolar<span>.com</span></a><div class="nav-links"><a href="/">Home</a><a href="/business">Business</a><a href="/service">Service</a><a class="on" href="/removal-replacement"><span class="lbl-long">Removal &amp; Replacement</span><span class="lbl-short">R&amp;R</span></a><a href="/educated"><span class="lbl-long">Get Educated</span><span class="lbl-short">Education</span></a><a href="/projects">Projects</a></div><a class="nav-call" href="tel:+14013586062">(401) 358-6062</a></div></div>
 <div class="hero page-hero"><div class="hero-glow"></div><div class="hero-inner">
     <span class="hero-chip">Roof First. Panels Second.</span>
     <h1>Removal &amp; <span class="blue">Replacement</span></h1>
