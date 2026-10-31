@@ -158,6 +158,14 @@ footer{border-top:1px solid #E5EAF2;background:#fff;padding:34px 20px;text-align
 .roi-hero-num b{font-size:clamp(30px,6vw,44px);font-weight:800;letter-spacing:-.02em;display:block}
 .roi-hero-num span{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;opacity:.85}
 .roi-note{font-size:12px;color:#8A93A6;margin-top:18px;line-height:1.6}
+.roi-ref{margin:16px 0 2px;border:1.5px solid #F2C46B;background:linear-gradient(180deg,#FFF9EC,#FFFDF8);border-radius:14px;padding:16px 18px}
+.roi-ref .rr-top{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px;justify-content:space-between}
+.roi-ref .rr-k{font-size:11.5px;font-weight:800;color:#8A5A00;text-transform:uppercase;letter-spacing:.07em}
+.roi-ref .rr-v{font-size:26px;font-weight:800;color:#8A5A00;letter-spacing:-.02em;line-height:1.1}
+.roi-ref p{font-size:12.5px;color:#6B5A3E;margin:8px 0 0;line-height:1.55}
+.roi-ref a{color:#0B4DA8;font-weight:800;text-decoration:underline}
+.roi-ref .rr-book{display:inline-block;margin-top:12px;background:linear-gradient(90deg,#F59A1B,#FFC53D);color:#082B57;padding:11px 18px;border-radius:10px;font-weight:800;font-size:14px;text-decoration:none}
+.roi-ref.alt{border-color:#DCE7F8;background:#F7FAFF}
 .roi-cta{display:flex;gap:10px;margin-top:20px;flex-wrap:wrap}
 .roi-cta a{flex:1;min-width:180px;text-align:center;text-decoration:none;padding:14px 16px;border-radius:12px;font-weight:800;font-size:15px}
 .roi-cta .c1{background:#0B4DA8;color:#fff}
@@ -317,6 +325,14 @@ footer{border-top:1px solid #E5EAF2;background:#fff;padding:34px 20px;text-align
         <div><b id="o-25">$&mdash;</b><span>25-year net savings</span></div>
         <div><b id="o-bill">$&mdash;</b><span>Utility bill it replaces</span></div>
       </div>
+      <div class="roi-ref" id="refbox">
+        <div class="rr-top">
+          <span class="rr-k" id="ref-k">Rhode Island REF grant potential</span>
+          <b class="rr-v" id="o-ref">$&mdash;</b>
+        </div>
+        <p id="ref-copy">That is not counted in the numbers above. REF pays a fixed amount per watt on an owned system, the fund is first come, and not every building qualifies. <a href="/book">Book now to see if you qualify</a>, or call <a href="tel:+14013586062">(401) 358-6062</a>.</p>
+        <a class="rr-book" href="/book">Book now to see if you qualify</a>
+      </div>
       <p class="roi-note">Estimates use New England commercial rates, ~90% bill offset, the 40% federal commercial tax credit, accelerated depreciation (MACRS), and $0 down financing. Your real numbers come from a free drone survey of your roof and your actual usage &mdash; usually within a few days. Address search powered by OpenStreetMap.</p>
       <div class="roi-cta">
         <a class="c1" href="tel:+14013586062">Call (401) 358-6062</a>
@@ -381,6 +397,27 @@ function finish(){
   $('o-net').textContent = fmt(net);
   $('o-25').textContent = fmt(net25);
   $('o-bill').textContent = fmt(bill) + '/mo';
+
+  /* Rhode Island REF grant: $0.70/W on the first 70 kW, $0.40/W above that.
+     Shown separately, never folded into the credit/MACRS math above. */
+  var REF_RATE_1 = 0.70, REF_RATE_2 = 0.40, REF_TIER_W = 70000;
+  var refBox = $('refbox'), refVal = $('o-ref'), refCopy = $('ref-copy'), refK = $('ref-k');
+  if(state === 'RI'){
+    var watts = kw * 1000;
+    var refRaw = Math.min(watts, REF_TIER_W) * REF_RATE_1 + Math.max(0, watts - REF_TIER_W) * REF_RATE_2;
+    var refRound = Math.round(refRaw / 100) * 100;
+    refK.textContent = 'Rhode Island REF grant potential';
+    refVal.textContent = fmt(refRound);
+    refVal.style.display = '';
+    refCopy.innerHTML = 'On top of the numbers above, not inside them. REF pays a published $0.70 per watt on the first 70 kW and $0.40 per watt after that, on an owned system. The fund is first come, rates reset each program round, and not every building qualifies. <a href="/book">Book now to see if you qualify</a>, or call <a href="tel:+14013586062">(401) 358-6062</a>.';
+    refBox.className = 'roi-ref';
+  } else {
+    refK.textContent = 'Incentives for ' + (state === 'MA' ? 'Massachusetts' : 'Connecticut');
+    refVal.textContent = '';
+    refVal.style.display = 'none';
+    refCopy.innerHTML = 'The Rhode Island REF grant is RI only. ' + (state === 'MA' ? 'Massachusetts' : 'Connecticut') + ' runs different programs with their own rules, so the only honest way to price yours is a call. <a href="/book">Book a call and we will run your state\u2019s programs</a>, or call <a href="tel:+14013586062">(401) 358-6062</a>.';
+    refBox.className = 'roi-ref alt';
+  }
 
   for(var i=1;i<=3;i++) $('step'+i).style.display='none';
   $('results').style.display='block';  /* class .roi-results is display:none, so clearing the inline style left it hidden (blank page) */
