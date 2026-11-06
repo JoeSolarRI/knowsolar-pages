@@ -187,8 +187,70 @@ footer{border-top:1px solid #E5EAF2;background:#fff;padding:34px 20px;text-align
 .founder-sign .fs-name{font-weight:800;color:#0E1B33;font-size:15px;line-height:1.2}
 .founder-sign .fs-role{font-size:13px;color:#5A6577}
 @media(max-width:880px){.wpri-grid{grid-template-columns:1fr;gap:32px}.wpri-grid .video{max-width:100%}}
-.calc-tall{height:1500px;min-height:1500px}
-@media(max-width:760px){.calc-tall{height:1700px;min-height:1700px}}
+
+/* ===== residential calculator ===== */
+.calc-shell{max-width:840px;margin:22px auto 0;background:#fff;border:1px solid #E5EAF2;border-radius:16px;box-shadow:0 1px 3px rgba(15,23,42,.06),0 16px 44px rgba(15,23,42,.10)}
+.calc-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 18px;border-bottom:1px solid #E5EAF2;background:#F7FAFF;flex-wrap:wrap;border-radius:16px 16px 0 0}
+.calc-bar .cb-l{display:flex;align-items:center;gap:10px;font-weight:800;font-size:14.5px;color:#082B57}
+.calc-bar .cb-l span{display:inline-flex;width:26px;height:26px;border-radius:50%;background:#0B4DA8;color:#fff;font-size:12.5px;align-items:center;justify-content:center}
+.calc-bar .cb-r{font-size:12.5px;font-weight:700;color:#5A6577}
+.calc-body{padding:22px 20px 24px}
+.calc-step{display:none}
+.calc-step.on{display:block}
+.calc-label{display:block;font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#0B4DA8;margin:0 0 8px}
+.calc-hint{font-size:13.5px;color:#5A6577;margin:0 0 18px}
+.ac-wrap{position:relative}
+#address{width:100%;padding:15px 16px;font-size:16px;font-family:inherit;font-weight:600;color:#0E1B33;border:2px solid #D7DEEA;border-radius:12px;background:#fff;outline:none;transition:border-color .15s,box-shadow .15s}
+#address:focus{border-color:#0B4DA8;box-shadow:0 0 0 4px rgba(11,77,168,.10)}
+#address::placeholder{font-weight:500;color:#98A2B3}
+.ac-list{position:absolute;left:0;right:0;top:calc(100% + 6px);background:#fff;border:1px solid #E3E9F2;border-radius:12px;box-shadow:0 14px 34px rgba(8,43,87,.16);z-index:40;overflow:hidden;display:none}
+.ac-list.show{display:block}
+.ac-list.above{top:auto;bottom:calc(100% + 6px)}
+.ac-item{padding:12px 14px;font-size:14.5px;color:#0E1B33;cursor:pointer;border-bottom:1px solid #F1F5FB}
+.ac-item:last-child{border-bottom:0}
+.ac-item:hover,.ac-item.active{background:#F2F7FE}
+.ac-item strong{display:block;font-weight:700}
+.ac-item em{display:block;font-style:normal;font-size:12.5px;color:#7B8798;margin-top:2px}
+.calc-confirmed{display:none;align-items:center;gap:8px;margin-top:10px;font-size:13px;font-weight:700;color:#1B7F4B}
+.calc-confirmed.show{display:flex}
+.bill-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:8px}
+@media(max-width:560px){.bill-grid{grid-template-columns:repeat(2,1fr)}}
+.bill-opt{border:2px solid #D7DEEA;border-radius:12px;background:#fff;padding:14px 8px;font-family:inherit;font-size:15px;font-weight:800;color:#33475B;cursor:pointer;transition:all .15s}
+.bill-opt:hover{border-color:#B9C9DE}
+.bill-opt.sel{border-color:#F59A1B;background:#FFF8EC;color:#082B57;box-shadow:0 2px 10px rgba(245,158,27,.22)}
+.calc-go{width:100%;margin-top:20px;padding:16px;border:0;border-radius:12px;font-family:inherit;font-size:16.5px;font-weight:800;color:#082B57;background:linear-gradient(90deg,#F59A1B,#FFC53D);box-shadow:0 4px 16px rgba(245,158,27,.34);cursor:pointer}
+.calc-go:disabled{background:#E9EEF5;color:#9AA6B6;box-shadow:none;cursor:not-allowed}
+.calc-go:hover:not(:disabled){filter:brightness(1.05)}
+.calc-spin{width:46px;height:46px;border-radius:50%;border:4px solid #E4ECF7;border-top-color:#0B4DA8;margin:26px auto 0;animation:spin .9s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+#loading-text{text-align:center;font-size:14.5px;font-weight:700;color:#5A6577;margin-top:16px;min-height:22px;transition:opacity .4s}
+#loading-text.fade{opacity:0}
+.score-wrap{display:flex;align-items:center;gap:20px;justify-content:center;margin:6px 0 20px}
+.score-ring{position:relative;width:132px;height:132px;flex:0 0 auto}
+.score-ring svg{transform:rotate(-90deg)}
+.score-mid{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.score-mid b{font-size:32px;font-weight:800;color:#082B57;line-height:1}
+.score-mid small{font-size:10.5px;font-weight:800;letter-spacing:.1em;color:#8A93A6;text-transform:uppercase;margin-top:4px}
+.score-side{max-width:260px}
+.score-side .addr{font-size:13.5px;font-weight:700;color:#0E1B33}
+.score-side .sub{font-size:12.5px;color:#7B8798;margin-top:4px}
+.stat-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.stat{border:1px solid #E5EAF2;border-radius:12px;padding:14px;background:#F9FBFF}
+.stat .k{font-size:10.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#7B8798}
+.stat .v{font-size:21px;font-weight:800;color:#082B57;margin-top:6px}
+.inc-banner{display:none;margin-top:16px;border:2px solid #F59A1B;background:linear-gradient(180deg,#FFF9EF,#FFF3DE);border-radius:14px;padding:16px}
+.inc-banner .t{font-size:15px;font-weight:800;color:#082B57}
+.inc-banner .b{font-size:26px;font-weight:800;color:#B76A00;margin-top:4px}
+.inc-banner p{font-size:13px;color:#6B6152;margin-top:6px}
+.inc-cta{display:inline-block;margin-top:10px;background:#082B57;color:#fff;border:0;border-radius:9px;padding:10px 16px;font-family:inherit;font-size:13.5px;font-weight:800;cursor:pointer}
+.lead-grid{display:grid;gap:12px;margin-top:6px}
+.lead-grid input{width:100%;padding:14px 15px;font-size:16px;font-family:inherit;font-weight:600;color:#0E1B33;border:2px solid #D7DEEA;border-radius:12px;outline:none}
+.lead-grid input:focus{border-color:#0B4DA8;box-shadow:0 0 0 4px rgba(11,77,168,.10)}
+.calc-note{font-size:12px;color:#8A93A6;margin-top:12px;text-align:center}
+.calc-link{background:none;border:0;font-family:inherit;font-size:13.5px;font-weight:800;color:#0B4A8F;cursor:pointer;text-decoration:underline;text-underline-offset:3px;padding:0}
+.calc-center{text-align:center}
+.big-check{width:56px;height:56px;border-radius:50%;background:#E9F8EF;color:#1B7F4B;display:flex;align-items:center;justify-content:center;margin:6px auto 14px;font-size:28px;font-weight:800}
+@media(max-width:640px){.calc-body{padding:18px 16px 20px}.score-wrap{flex-direction:column;gap:12px;text-align:center}.score-side{max-width:none}}
 </style>
 <style>
 /* --- booking page --- */
@@ -216,8 +278,8 @@ footer{border-top:1px solid #E5EAF2;background:#fff;padding:34px 20px;text-align
 .vid-cta a{display:inline-block;background:linear-gradient(135deg,#1272D8,#0B4DA8);color:#fff;font-weight:800;font-size:15px;padding:14px 24px;border-radius:10px;text-decoration:none;box-shadow:0 3px 14px rgba(11,77,168,.30)}
 .vid-cta a:hover{filter:brightness(1.06)}
 </style>
-<title>Solar Analysis for Your Roof | KnowSolar.com</title>
-<meta name="description" content="Free instant solar analysis for your address. Real Google Solar data, estimated production, and the Rhode Island incentives you may qualify for. No salesperson needed to see the numbers.">
+<title>Residential Solar Calculator | KnowSolar.com</title>
+<meta name="description" content="Free residential solar calculator for Rhode Island, Massachusetts and Connecticut. Enter your address and electric bill to see your roof's production, estimated savings and payback.">
 <link rel="canonical" href="https://knowsolar.com/book">
 <meta property="og:url" content="https://knowsolar.com/book">
 <meta property="og:site_name" content="KnowSolar.com">
@@ -266,30 +328,121 @@ footer{border-top:1px solid #E5EAF2;background:#fff;padding:34px 20px;text-align
 <body>
 <div class="nav"><div class="nav-inner"><a class="nav-logo" href="/">KnowSolar<span>.com</span></a><div class="nav-links"><a href="/">Home</a><a href="/business">Business</a><a href="/service">Service</a><a href="/removal-replacement"><span class="lbl-long">Removal &amp; Replacement</span><span class="lbl-short">R&amp;R</span></a><a href="/educated"><span class="lbl-long">Get Educated</span><span class="lbl-short">Education</span></a><a href="/projects">Projects</a></div><a class="nav-call" href="tel:+14013586062">(401) 358-6062</a></div></div>
 <div class="hero page-hero"><div class="hero-glow"></div><div class="hero-inner">
-  <span class="hero-chip">INSTANT ANALYSIS &middot; NO SALESPERSON</span>
+  <span class="hero-chip">FREE &middot; 30 SECONDS &middot; NO SALESPERSON</span>
   <h1>See What Your <span class="blue">Roof Can Do.</span></h1>
-  <p class="sub">Real production numbers for your actual address, in about thirty seconds.</p>
-  <p class="sub-sub">Google Solar data reads your roof, estimates what it will produce, and shows which Rhode Island incentives you may qualify for. See the numbers before you talk to anyone.</p>
+  <p class="sub">Type your address. Get real production numbers for your actual roof.</p>
+  <p class="sub-sub">Powered by Google Solar data: your roof's measured sun exposure, estimated system size, monthly savings and payback. See the numbers before you talk to anyone.</p>
 </div></div>
 <main>
 
-<section class="section band"><div class="sec-inner">
-  <div class="cal-shell">
-    <div class="cal-bar">
+<section class="section"><div class="sec-inner">
+  <div class="calc-shell">
+    <div class="calc-bar">
       <div class="cb-l"><span>&#9728;&#65039;</span> Solar Analysis &middot; 30 seconds</div>
       <div class="cb-r">Free &middot; No obligation</div>
     </div>
-    <iframe class="cal-frame calc-tall" src="https://solene-fbcc0bb6.base44.app/functions/calculatorPage" title="KnowSolar residential solar analysis" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-    <div class="cal-fallback">Analysis not loading? <a href="https://solene-fbcc0bb6.base44.app/functions/calculatorPage" target="_blank" rel="noopener">Open it in a new tab</a>, or call <a href="tel:+14013586062">(401) 358-6062</a>.</div>
+    <div class="calc-body">
+
+      <!-- STEP 1: address + bill -->
+      <div class="calc-step on" id="step-analyze">
+        <label class="calc-label" for="address">Your Home Address</label>
+        <div class="ac-wrap">
+          <input type="text" id="address" placeholder="Start typing your address" autocomplete="off" autocapitalize="words" spellcheck="false" aria-autocomplete="list" aria-controls="ac-list">
+          <div class="ac-list" id="ac-list" role="listbox" aria-label="Address suggestions"></div>
+        </div>
+        <div class="calc-confirmed" id="confirmed"><span>&#10003;</span> <span id="confirmed-text"></span></div>
+
+        <label class="calc-label" style="margin-top:20px">Monthly Electric Bill</label>
+        <div class="bill-grid" id="bill-grid">
+          <button type="button" class="bill-opt" data-bill="100">$100</button>
+          <button type="button" class="bill-opt sel" data-bill="150">$150</button>
+          <button type="button" class="bill-opt" data-bill="200">$200</button>
+          <button type="button" class="bill-opt" data-bill="300">$300+</button>
+        </div>
+
+        <button type="button" class="calc-go" id="analyze-btn" disabled>Analyze My Roof &rarr;</button>
+        <p class="calc-note">No credit check. No door knock. Nothing is shared with an installer until you say so.</p>
+      </div>
+
+      <!-- STEP 2: loading -->
+      <div class="calc-step" id="step-loading">
+        <div class="calc-spin"></div>
+        <div id="loading-text">Analyzing your roof with Google Solar data...</div>
+      </div>
+
+      <!-- STEP 3: error -->
+      <div class="calc-step calc-center" id="step-error">
+        <h2 style="font-size:22px">We could not read that roof.</h2>
+        <p class="calc-hint" id="error-message" style="margin-top:10px">Something went wrong.</p>
+        <button type="button" class="calc-go" id="try-again-btn" style="max-width:320px;margin:14px auto 0">Try another address</button>
+        <p class="calc-note">Or call <a href="tel:+14013586062" style="color:#0B4A8F;font-weight:800;text-decoration:none">(401) 358-6062</a></p>
+      </div>
+
+      <!-- STEP 4: results -->
+      <div class="calc-step" id="step-results">
+        <div class="score-wrap">
+          <div class="score-ring">
+            <svg width="132" height="132" viewBox="0 0 132 132">
+              <circle cx="66" cy="66" r="56" fill="none" stroke="#E4ECF7" stroke-width="12"/>
+              <circle id="score-ring" cx="66" cy="66" r="56" fill="none" stroke="#F59A1B" stroke-width="12" stroke-linecap="round" stroke-dasharray="351.86" stroke-dashoffset="351.86" style="transition:stroke-dashoffset 1s ease"/>
+            </svg>
+            <div class="score-mid"><b id="score-number">0</b><small>Solar Score</small></div>
+          </div>
+          <div class="score-side">
+            <div class="addr" id="result-address"></div>
+            <div class="sub">Measured from aerial imagery of your actual roof.</div>
+          </div>
+        </div>
+
+        <div class="stat-grid">
+          <div class="stat"><div class="k">System Size</div><div class="v" id="stat-system-size">&mdash;</div></div>
+          <div class="stat"><div class="k">Annual Production</div><div class="v" id="stat-production">&mdash;</div></div>
+          <div class="stat"><div class="k">Est. Monthly Savings</div><div class="v" id="stat-savings">&mdash;</div></div>
+          <div class="stat"><div class="k">Payback</div><div class="v" id="stat-payback">&mdash;</div></div>
+        </div>
+
+        <div class="inc-banner" id="inc-banner">
+          <div class="t">You may qualify for up to</div>
+          <div class="b" id="inc-amount">$0</div>
+          <p id="inc-text">in state solar incentives based on your roof.</p>
+          <button type="button" class="inc-cta" id="inc-cta">Check My Eligibility</button>
+        </div>
+
+        <button type="button" class="calc-go" id="get-report-btn" style="margin-top:18px">Get My Full Report &rarr;</button>
+        <p class="calc-note"><button type="button" class="calc-link" id="start-over-btn">Start over</button></p>
+      </div>
+
+      <!-- STEP 5: lead -->
+      <div class="calc-step" id="step-lead">
+        <label class="calc-label">Where should we send the full breakdown?</label>
+        <p class="calc-hint">Roof segments, production month by month, and the incentive math in writing. No calls unless you ask for one.</p>
+        <div class="lead-grid">
+          <input type="text" id="lead-name" placeholder="Full name" autocomplete="name">
+          <input type="tel" id="lead-phone" placeholder="(555) 123-4567" autocomplete="tel">
+          <input type="email" id="lead-email" placeholder="you@email.com" autocomplete="email">
+        </div>
+        <button type="button" class="calc-go" id="lead-submit-btn" style="margin-top:16px">Send Me My Report &rarr;</button>
+        <p class="calc-note">We never sell your info. One broker, three states, no call center.</p>
+      </div>
+
+      <!-- STEP 6: thanks -->
+      <div class="calc-step calc-center" id="step-thanks">
+        <div class="big-check">&#10003;</div>
+        <h2 style="font-size:24px">Report is on the way.</h2>
+        <p class="calc-hint" style="margin-top:10px">Check your inbox in the next few minutes. If you want to walk it through with Joe, the calendar is open.</p>
+        <p style="margin-top:16px"><a href="/book" style="display:inline-block;background:linear-gradient(90deg,#F59A1B,#FFC53D);color:#082B57;padding:13px 24px;border-radius:10px;font-weight:800;font-size:15px;text-decoration:none">Book a call</a></p>
+        <p class="calc-note">Or call <a href="tel:+14013586062" style="color:#0B4A8F;font-weight:800;text-decoration:none">(401) 358-6062</a></p>
+      </div>
+
+    </div>
   </div>
 </div></section>
 
-<section class="section"><div class="sec-inner">
-  <span class="sec-label">Next Step</span>
-  <h2>Rather just talk it through?</h2>
-  <p class="sec-intro">Fifteen minutes on the phone with Joe. Your bill, your roof, and which option actually fits. No pressure, no door knock.</p>
-  <p style="margin-top:18px"><a href="/book" style="display:inline-block;background:linear-gradient(90deg,#F59A1B,#FFC53D);color:#082B57;padding:13px 24px;border-radius:10px;font-weight:800;font-size:15px;text-decoration:none">Book a call</a>
-  <a href="tel:+14013586062" style="display:inline-block;margin-left:10px;color:#0B4DA8;font-weight:800;font-size:15px;text-decoration:none">or call (401) 358-6062</a></p>
+<section class="section band"><div class="sec-inner">
+  <span class="sec-label">How This Works</span>
+  <h2>Real Roof Data. Not a Guess.</h2>
+  <p class="sec-intro">Google Solar measures the actual surface of your roof, including pitch, compass facing and shade from trees. Those numbers decide how many panels fit and what they produce. No salesperson sets them by hand.</p>
+  <p class="sec-intro">When you are ready, a broker shops it across vetted installers in Rhode Island, Massachusetts and Connecticut, and you compare the offers side by side.</p>
 </div></section>
 
 </main>
@@ -328,5 +481,252 @@ footer{border-top:1px solid #E5EAF2;background:#fff;padding:34px 20px;text-align
     });
   })();
 </script>
+
+<script>
+(function(){
+  var API = 'https://solene-fbcc0bb6.base44.app/functions';
+  var selectedAddress = '';
+  var selectedBill = 150;
+  var calcData = null;
+
+  function $(id){ return document.getElementById(id); }
+  function showStep(id){
+    ['step-analyze','step-loading','step-error','step-results','step-lead','step-thanks'].forEach(function(s){
+      $(s).classList.remove('on');
+    });
+    $(id).classList.add('on');
+  }
+
+  // ---- bill options ----
+  var billBtns = document.querySelectorAll('.bill-opt');
+  billBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      billBtns.forEach(function(o){ o.classList.remove('sel'); });
+      b.classList.add('sel');
+      selectedBill = parseInt(b.getAttribute('data-bill'), 10);
+    });
+  });
+
+  // ---- phone formatting ----
+  $('lead-phone').addEventListener('input', function(e){
+    var v = e.target.value.replace(/\D/g,'');
+    if (v.length > 10) v = v.slice(0,10);
+    if (v.length > 6) e.target.value = '(' + v.slice(0,3) + ') ' + v.slice(3,6) + '-' + v.slice(6);
+    else if (v.length > 3) e.target.value = '(' + v.slice(0,3) + ') ' + v.slice(3);
+    else if (v.length > 0) e.target.value = '(' + v;
+  });
+
+  // ---- address autocomplete ----
+  var input = $('address'), list = $('ac-list'), timer = null, items = [], activeIdx = -1;
+
+  function isPhone(){ return window.innerWidth < 600 || /Android|iPhone|iPad|iPod/i.test(navigator.userAgent); }
+
+  function closeList(){ list.classList.remove('show'); list.classList.remove('above'); activeIdx = -1; }
+
+  function choose(addr){
+    selectedAddress = addr;
+    input.value = addr;
+    closeList();
+    $('confirmed-text').textContent = addr;
+    $('confirmed').classList.add('show');
+    $('analyze-btn').disabled = false;
+    input.blur();
+  }
+
+  function render(preds){
+    items = preds;
+    activeIdx = -1;
+    list.innerHTML = preds.map(function(p, i){
+      var main = p.mainText || p.description;
+      var second = p.secondaryText || '';
+      return '<div class="ac-item" role="option" data-i="' + i + '"><strong>' + esc(main) + '</strong>' + (second ? '<em>' + esc(second) + '</em>' : '') + '</div>';
+    }).join('');
+    Array.prototype.forEach.call(list.children, function(el){
+      var pick = function(ev){ ev.preventDefault(); ev.stopPropagation(); choose(items[parseInt(el.getAttribute('data-i'),10)].description); };
+      el.addEventListener('pointerdown', pick);
+      el.addEventListener('mousedown', function(ev){ ev.preventDefault(); });
+      el.addEventListener('touchstart', pick, {passive:false});
+      el.addEventListener('click', function(ev){ ev.preventDefault(); pick(ev); });
+    });
+    list.classList.toggle('above', isPhone());
+    list.classList.add('show');
+  }
+
+  function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+  function fallback(typed){
+    render([{ mainText: typed, secondaryText: 'Use this address', description: typed }]);
+  }
+
+  function fetchSuggestions(q){
+    fetch(API + '/addressAutocomplete', {
+      method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({input:q})
+    }).then(function(r){ return r.json(); }).then(function(d){
+      if (d && d.predictions && d.predictions.length) render(d.predictions);
+      else if (q.length >= 5) fallback(q);
+      else closeList();
+    }).catch(function(){
+      if (q.length >= 5) fallback(q); else closeList();
+    });
+  }
+
+  input.addEventListener('input', function(){
+    selectedAddress = '';
+    $('confirmed').classList.remove('show');
+    $('analyze-btn').disabled = true;
+    var q = input.value.trim();
+    if (q.length < 3){ closeList(); return; }
+    clearTimeout(timer);
+    timer = setTimeout(function(){ fetchSuggestions(q); }, 280);
+  });
+
+  input.addEventListener('keydown', function(e){
+    if (!list.classList.contains('show')) return;
+    var els = list.children;
+    if (e.key === 'ArrowDown' || e.key === 'ArrowUp'){
+      e.preventDefault();
+      activeIdx += (e.key === 'ArrowDown' ? 1 : -1);
+      if (activeIdx < 0) activeIdx = els.length - 1;
+      if (activeIdx >= els.length) activeIdx = 0;
+      Array.prototype.forEach.call(els, function(el, i){ el.classList.toggle('active', i === activeIdx); });
+    } else if (e.key === 'Enter'){
+      if (activeIdx >= 0 && items[activeIdx]){ e.preventDefault(); choose(items[activeIdx].description); }
+    } else if (e.key === 'Escape'){ closeList(); }
+  });
+
+  input.addEventListener('blur', function(){ setTimeout(closeList, 180); });
+
+  // ---- analyze ----
+  var messages = [
+    'Analyzing your roof with Google Solar data...',
+    'Measuring roof area and sun exposure...',
+    'Calculating panel placement...',
+    'Estimating your savings...',
+    'Checking incentive eligibility...'
+  ];
+  var msgTimer = null, msgIdx = 0;
+
+  function startMessages(){
+    msgIdx = 0;
+    $('loading-text').textContent = messages[0];
+    msgTimer = setInterval(function(){
+      msgIdx = (msgIdx + 1) % messages.length;
+      $('loading-text').textContent = messages[msgIdx];
+    }, 1600);
+  }
+
+  $('analyze-btn').addEventListener('click', function(){
+    if (!selectedAddress) return;
+    showStep('step-loading');
+    startMessages();
+    fetch(API + '/solarCalculator', {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ address: selectedAddress, monthlyBill: selectedBill })
+    }).then(function(r){ return r.json(); }).then(function(d){
+      clearInterval(msgTimer);
+      if (d && d.success){ calcData = d; showResults(d); }
+      else { showError((d && d.message) || 'Something went wrong. Please try again.'); }
+    }).catch(function(){
+      clearInterval(msgTimer);
+      showError('Connection problem. Check your internet and try again.');
+    });
+  });
+
+  function showError(m){
+    $('error-message').textContent = m;
+    showStep('step-error');
+  }
+
+  function showResults(d){
+    showStep('step-results');
+    $('result-address').textContent = d.address || selectedAddress;
+
+    var score = Math.max(0, Math.min(100, d.solarScore || 0));
+    var circ = 351.86;
+    var ring = $('score-ring');
+    ring.style.strokeDashoffset = circ;
+    setTimeout(function(){ ring.style.strokeDashoffset = circ - (circ * score / 100); }, 60);
+
+    var n = 0, shown = $('score-number');
+    var t = setInterval(function(){
+      n += 1;
+      if (n >= score){ n = score; clearInterval(t); }
+      shown.textContent = n;
+    }, 18);
+
+    var s = d.summary || {};
+    $('stat-system-size').textContent = (s.systemSizeKw != null ? s.systemSizeKw : '—') + ' kW';
+    $('stat-production').textContent = (s.annualProductionKwh ? s.annualProductionKwh.toLocaleString() : '—') + ' kWh';
+    $('stat-savings').textContent = (s.monthlySavings != null ? '$' + s.monthlySavings : '—');
+    $('stat-payback').textContent = (s.paybackYears != null ? s.paybackYears + ' yrs' : '—');
+
+    var inc = d.incentiveEligibility || {};
+    if (inc.eligible && inc.potentialAmount){
+      $('inc-amount').textContent = '$' + Number(inc.potentialAmount).toLocaleString();
+      $('inc-text').textContent = 'in state solar incentives based on your roof' + (inc.capped ? ' (capped at the program limit)' : '') + '.';
+      $('inc-banner').style.display = 'block';
+    } else {
+      $('inc-banner').style.display = 'none';
+    }
+  }
+
+  $('inc-cta').addEventListener('click', function(){ showStep('step-lead'); });
+  $('get-report-btn').addEventListener('click', function(){ showStep('step-lead'); });
+
+  // ---- lead ----
+  $('lead-submit-btn').addEventListener('click', function(){
+    var name = $('lead-name').value.trim();
+    var phone = $('lead-phone').value.trim();
+    var email = $('lead-email').value.trim();
+    if (!name || !phone || !email){
+      alert('Please fill in your name, phone and email so we can send the report.');
+      return;
+    }
+    var btn = $('lead-submit-btn');
+    btn.disabled = true;
+    btn.textContent = 'Sending...';
+
+    fetch(API + '/solarCalculatorLead', {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({
+        name: name, phone: phone, email: email, source: 'knowsolar.com/calculator',
+        address: (calcData && calcData.address) || selectedAddress,
+        systemSizeKw: calcData && calcData.summary ? calcData.summary.systemSizeKw : null,
+        monthlySavings: calcData && calcData.summary ? calcData.summary.monthlySavings : null,
+        solarScore: calcData ? calcData.solarScore : null,
+        paybackYears: calcData && calcData.summary ? calcData.summary.paybackYears : null,
+        monthlyBill: selectedBill
+      })
+    }).then(function(r){ return r.json(); }).then(function(d){
+      if (d && d.success) showStep('step-thanks');
+      else alert((d && d.message) || 'Something went wrong. Please try again.');
+    }).catch(function(){
+      alert('Connection problem. Please try again.');
+    }).then(function(){
+      btn.disabled = false;
+      btn.textContent = 'Send Me My Report →';
+    });
+  });
+
+  // ---- reset ----
+  function reset(){
+    input.value = '';
+    selectedAddress = '';
+    calcData = null;
+    selectedBill = 150;
+    $('confirmed').classList.remove('show');
+    $('analyze-btn').disabled = true;
+    $('inc-banner').style.display = 'none';
+    $('lead-name').value = ''; $('lead-phone').value = ''; $('lead-email').value = '';
+    billBtns.forEach(function(o){
+      o.classList.toggle('sel', o.getAttribute('data-bill') === '150');
+    });
+    showStep('step-analyze');
+  }
+  $('start-over-btn').addEventListener('click', reset);
+  $('try-again-btn').addEventListener('click', reset);
+})();
+</script>
+
 </body>
 </html>
