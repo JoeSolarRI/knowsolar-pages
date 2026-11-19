@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Solar Load Calculator | KnowSolar</title>
+<meta name="description" content="Estimate a home's electricity use appliance by appliance: continuous load, surge load and summer and winter kWh per day. Built by KnowSolar for RI, MA and CT homes.">
+<meta name="theme-color" content="#0B4DA8">
+<link rel="canonical" href="https://knowsolar.com/load-calculator/">
+<meta property="og:site_name" content="KnowSolar">
+<meta property="og:url" content="https://knowsolar.com/load-calculator/">
+<meta property="og:title" content="Solar Load Calculator | KnowSolar">
+<meta property="og:description" content="Work out what a home actually uses, appliance by appliance, before you size a system.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='7' fill='%23F59A1B'/%3E%3C/svg%3E">
+<style>
+  :root{
+    --navy:#0E1B33; --blue:#0B4DA8; --blue-deep:#082B57;
+    --gold:#F59A1B; --gold-bright:#FFC53D;
+    --gray:#5A6577; --line:#E5EAF2; --wash:#F6F9FF;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:#fff;color:var(--navy);line-height:1.45;-webkit-font-smoothing:antialiased}
+  .strip{height:5px;background:linear-gradient(90deg,var(--blue),var(--gold),var(--gold-bright))}
+  .shell{max-width:1080px;margin:0 auto;padding:0 18px}
+  header.top{border-bottom:1px solid var(--line);padding:16px 0}
+  .brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:19px;color:var(--blue);letter-spacing:-.01em}
+  .dot{width:13px;height:13px;border-radius:50%;background:var(--gold)}
+  h1{font-size:clamp(26px,4.6vw,38px);line-height:1.1;letter-spacing:-.02em;margin:26px 0 8px}
+  .lede{color:var(--gray);font-size:16px;max-width:62ch;margin:0 0 22px}
+
+  .stats{position:sticky;top:0;z-index:20;background:#fff;border:1px solid var(--line);border-radius:14px;
+    box-shadow:0 8px 24px rgba(15,23,42,.07);padding:14px;display:grid;
+    grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:8px}
+  .stat{text-align:center;padding:6px 4px}
+  .stat .k{font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--gray)}
+  .stat .v{font-size:clamp(17px,2.4vw,23px);font-weight:800;color:var(--navy);margin-top:3px;font-variant-numeric:tabular-nums}
+  .stat .u{font-size:11px;color:var(--gray);font-weight:600}
+  .stat.hi .v{color:var(--blue)}
+  @media(max-width:720px){.stats{grid-template-columns:repeat(3,1fr)}.stats .stat:nth-child(4),.stats .stat:nth-child(5){display:none}}
+
+  .toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:14px 0 20px}
+  button{font:inherit;font-weight:800;font-size:14px;padding:11px 16px;border-radius:9px;cursor:pointer;border:2px solid var(--blue)}
+  .primary{background:var(--blue);color:#fff}
+  .ghost{background:#fff;color:var(--blue)}
+  .hint{color:var(--gray);font-size:13px}
+
+  .card{border:1px solid var(--line);border-radius:14px;padding:4px 14px 12px;margin-bottom:16px;background:#fff}
+  .card h2{font-size:15px;letter-spacing:.06em;text-transform:uppercase;color:var(--blue);margin:14px 0 8px}
+  table{width:100%;border-collapse:collapse;font-size:14px}
+  th{font-size:10.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--gray);font-weight:800;
+    padding:6px 4px;text-align:center;border-bottom:1px solid var(--line)}
+  th.nm,th.w{text-align:left}
+  th.grp{background:var(--wash)}
+  td{padding:5px 4px;border-bottom:1px solid #F1F4F9;text-align:center}
+  td.nm{text-align:left;font-weight:600;white-space:nowrap}
+  td.w{text-align:left;color:var(--gray);font-size:12.5px;white-space:nowrap}
+  td.e{font-variant-numeric:tabular-nums;color:var(--gray);font-weight:600}
+  tr.on td.nm{color:var(--blue)}
+  tr.on td.e{color:var(--navy)}
+  input{width:100%;min-width:52px;font:inherit;font-size:14px;text-align:center;padding:6px 4px;
+    border:1px solid #D7DEEA;border-radius:7px;background:#fff;color:var(--navy);outline:none}
+  input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(11,77,168,.12)}
+  tr.on input[data-f="qty"]{font-weight:800;border-color:var(--blue)}
+  @media(max-width:640px){
+    table{font-size:13px} td.nm{white-space:normal} td.w{display:none} th.w{display:none}
+    input{min-width:0;padding:6px 2px;font-size:13px}
+  }
+
+  .method{border:1px solid var(--line);background:var(--wash);border-radius:14px;padding:16px 18px;margin:22px 0 40px;font-size:13.5px;color:var(--gray)}
+  .method b{color:var(--navy)}
+  .method code{background:#fff;border:1px solid var(--line);border-radius:5px;padding:1px 5px;font-size:12.5px}
+  footer{border-top:1px solid var(--line);padding:18px 0 40px;color:var(--gray);font-size:13px}
+
+  @media print{
+    .strip,header.top,.toolbar,footer,.method{display:none}
+    .stats{position:static;box-shadow:none;grid-template-columns:repeat(5,1fr)}
+    .card{break-inside:avoid}
+  }
+</style>
+</head>
+<body>
+<div class="strip"></div>
+<header class="top"><div class="shell"><a class="brand" href="https://knowsolar.com/"><span class="dot"></span>KnowSolar</a></div></header>
+
+<div class="shell">
+  <h1>Solar Load Calculator</h1>
+  <p class="lede">Work out what a home actually uses before you size anything. Enter how many of each load, the hours it runs per day in summer and winter, and how many days a week.</p>
+
+  <div class="stats" aria-live="polite">
+    <div class="stat"><div class="k">Continuous</div><div class="v" id="r-cont">0.00</div><div class="u">kW</div></div>
+    <div class="stat"><div class="k">Surge</div><div class="v" id="r-surge">0.00</div><div class="u">kW</div></div>
+    <div class="stat hi"><div class="k">Summer</div><div class="v" id="r-sum">0.0</div><div class="u">kWh / day</div></div>
+    <div class="stat hi"><div class="k">Winter</div><div class="v" id="r-win">0.0</div><div class="u">kWh / day</div></div>
+    <div class="stat"><div class="k">Est. annual</div><div class="v" id="r-yr">0</div><div class="u">kWh / yr</div></div>
+  </div>
+
+  <div class="toolbar">
+    <button class="primary" type="button" onclick="window.print()">Print / save PDF</button>
+    <button class="ghost" type="button" id="reset">Clear all loads</button>
+    <span class="hint" id="hint">No loads entered yet.</span>
+  </div>
+
+  <section class="card">
+    <h2>Lighting</h2>
+    <table>
+      <thead>
+        <tr>
+          <th rowspan="2" class="nm">Load</th><th rowspan="2" class="w">Running</th>
+          <th rowspan="2">Qty</th>
+          <th colspan="2" class="grp">Summer</th>
+          <th colspan="2" class="grp">Winter</th>
+          <th colspan="2" class="grp">kWh / day</th>
+        </tr>
+        <tr>
+          <th>Hrs / day</th><th>Days / wk</th>
+          <th>Hrs / day</th><th>Days / wk</th>
+          <th class="grp">Sum</th><th class="grp">Win</th>
+        </tr>
+      </thead>
+      <tbody>
+      <tr data-row="kitchen" data-cont="10.0" data-surge="10.0">
+        <td class="nm">Kitchen</td>
+        <td class="w">10 W</td>
+        <td><input type="number" min="0" step="1" value="0" data-f="qty" aria-label="Quantity of Kitchen"></td>
+        <td><input type="number" min="0" step="0.25" value="6" data-f="hs" aria-label="Summer hours per day"></td>
+        <td><input type="number" min="0" max="7" step="1" value="7" data-f="ds" aria-label="Summer days per week"></td>
+        <td><input type="number" min="0" step="0.25" value="8" data-f="hw" aria-label="Winter hours per day"></td>
+        <td><input type="number" min="0" max="7" step="1" value="7" data-f="dw" aria-label="Winter days per week"></td>
+        <td class="e" data-out="s">0.0</td>
+        <td class="e" data-out="w">0.0</td>
+      </tr>
+      <tr data-row="livingroom" data-cont="10.0" data-surge="10.0">
+        <td class="nm">Living Room</td>
+        <td class="w">10 W</td>
+        <td><input type="number" min="0" step="1" value="0" data-f="qty" aria-label="Quantity of Living Room"></td>
+        <td><input type="number" min="0" step="0.25" value="6" data-f="hs" aria-label="Summer hours per day"></td>
+        <td><input type="number" min="0" max="7" step="1" value="7" data-f="ds" aria-label="Summer days per week"></td>
+        <td><input type="number" min="0" step="0.25" value="8" data-f="hw" aria-label="Winter hours per day"></td>
+        <td><input type="number" min="0" max="7" step="1" value="7" data-f="dw" aria-label="Winter days per week"></td>
+        <td class="e" data-out="s">0.0</td>
+        <td class="e" data-out="w">0.0</td>
+      </tr>
+      <tr data-row="bedroom" data-cont="10.0" data-surge="10.0">
+        <td class="nm">Bedroom #1</td>
+        <td class="w">10 W</td>
+        <td><input type="number" min="0" step="1" value="0" data-f="qty" aria-label="Quantity of Bedroom #1"></td>
+        <td><input type="number" min="0" step="0.25" value="6" data-f="hs" aria-label="Summer hours per day"></td>
+        <td><input type="number" min="0" max="7" step="1" value="7" data-f="ds" aria-label="Summer days per week"></td>
+        <td><input type="number" min="0" step="0.25" value="8" data-f="hw" aria-label="Winter hours per day"></td>
+        <td><input type="number" min="0" max="7" step="1" value="7" data-f="dw" aria-label="Winter days per week"></td>
+        <td class="e" data-out="s">0.0</td>
+        <td class="e" data-out="w">0.0</td>
+      </tr>
+      <tr data-row="bedroom2" data-cont="10.0" data-surge="10.0">
+        <td class="nm">Bedroom #2</td>
+        <td class="w">10 W</td>
+        <td><input type="number" min="0" step="1" value="0" data-f="qty" aria-label="Quantity of Bedroom #2"></td>
+        <td><input type="number" min="0" step="0.25" value="6" data-f="hs" aria-label="Summer hours per day"></td>
+        <td><input type="number" min="0" max="7" step="1" value="7" data-f="ds" aria-label="Summer days per week"></td>
+        <td><input type="number" min="0" step="0.25" value="8" data-f="hw" aria-label="Winter hours per day"></td>
+        <td><input type="number" min="0" max="7" step="1" value="7" data-f="dw" aria-label="Winter days per week"></td>
+        <td class="e" data-out="s">0.0</td>
+        <td class="e" data-out="w">0.0</td>
+      </tr>
+      <tr data-row="bedroom3" data-cont="10.0" data-surge="10.0">
+        <td class="nm">Bedroom #3</td>
+        <td class="w">10 W</td>
+        <td><input type="number" min="0" step="1" value="0" data-f="qty" aria-label="Quantity of Bedroom #3"></td>
+        <td><input type="number" min="0" step="0.25" value="6" data-f="hs" aria-label="Summer hours per day"></td>
+        <td><input type="number" min="0" max="7" step="1" value="7" data-f="ds" aria-label="Summer days per week"></td>
+        <td><input type="number" min="0" step="0.25" value="8" data-f="hw" aria-label="Winter hours per day"></td>
+        <td><input type="number" min="0" max="7" step="1" value="7" data-f="dw" aria-label="Winter days per week"></td>
+        <td class="e" data-out="s">0.0</td>
+        <td class="e" data-out="w">0.0</td>
+      </tr>
+      <tr data-row="bathroom1" data-cont="10.0" data-surge="10.0">
+        <td class="nm">Bathroom #1</td>
+        <td class="w">10 W</td>
+        <td><input type="number" min="0" step="1" value="0" data-f="qty" aria-label="Quantity of Bathroom #1"></td>
+        <td><input type="number" min="0" step="0.25" value="6" data-f="hs" aria-label="Summer hours per day"></td>
+        <td><input type="number" min="0" max="7" step="1" value="7" data-f="ds" aria-label="Summer days per week"></td>
+        <td><input type="number" min="0" step="0.25" value="8" data-f="hw" aria-label="Winter hours per day"></td>
+        <td><input type="number" min="0" max="7" step="1" value="7" data-f="dw" aria-label="Winter days per week"></td>
+        <td class="e" data-out="s">0.0</td>
+        <td class="e" data-out="w">0.0</td>
+      </tr>
+      <tr data-row="bathroom2" data-cont="10.0" data-surge="10.0">
+        <td class="nm">Bathroom #2</td>
+        <td class="w">10 W</td>
+        <td><input type="number" min="0" step="1" value="0" data-f="qty" aria-label="Quantity of Bathroom #2"></td>
+        <td><input type="number" min="0" step="0.25" value="6" data-f="hs" aria-label="Summer hours per day"></td>
+        <td><input type="number" min="0" max="7" step="1" value="7" data-f="ds" aria-label="Summer days per week"></td>
+        <td><input type="number" min="0" step="0.25" value="8" data-f="hw" aria-label="Winter hours per day"></td>
+        <td><input type="number" min="0" max="7" step="1" value="7" data-f="dw" aria-label="Winter days per week"></td>
+        <td class="e" data-out="s">0.0</td>
+        <td class="e" data-out="w">0.0</td>
+      </tr>
+      <tr data-row="garage" data-cont="10.0" data-surge="10.0">
+        <td class="nm">Garage</td>
+        <td class="w">10 W</td>
+        <td><input type="number" min="0" step="1" value="0" data-f="qty" aria-label="Quantity of Garage"></td>
+        <td><input type="number" min="0" step="0.25" value="0.5" data-f="hs" aria-label="Summer hours per day"></td>
+        <td><input type="number" min="0" max="7" step="1" value="3" data-f="ds" aria-label="Summer days per week"></td>
+        <td><input type="number" min="0" step="0.25" value="0.5" data-f="hw" aria-label="Winter hours per day"></td>
+        <td><input type="number" min="0" max="7" step="1" value="3" data-f="dw" aria-label="Winter days per week"></td>
+        <td class="e" data-out="s">0.0</td>
+        <td class="e" data-out="w">0.0</td>
+      </tr>
+      <tr data-row="outdoorlights" data-cont="10.0" data-surge="10.0">
+        <td class="nm">Outdoor Lights</td>
+        <td class="w">10 W</td>
+        <td><input type="number" min="0" step="1" value="0" data-f="qty" aria-label="Quantity of Outdoor Lights"></td>
+        <td><input type="number" min="0" step="0.25" value="10" data-f="hs" aria-label="Summer hours per day"></td>
+        <td><input type="number" min="0" max="7" step="1" value="7" data-f="ds" aria-label="Summer days per week"></td>
+        <td><input type="number" min="0" step="0.25" value="12" data-f="hw" aria-label="Winter hours per day"></td>
+        <td><input type="number" min="0" max="7" step="1" value="7" data-f="dw" aria-label="Winter days per week"></td>
+        <td class="e" data-out="s">0.0</td>
+        <td class="e" data-out="w">0.0</td>
+      </tr>
+      </tbody>
+    </table>
+  </section>
+  <section class="card">
+    <h2>Kitchen</h2>
+    <table>
+      <thead>
+        <tr>
+          <th rowspan="2" class="nm">Load</th><th rowspan="2" class="w">Running</th>
+          <th rowspan="2">Qty</th>
+          <th colspan="2" class="grp">Summer</th>
+          <th colspan="2" class="grp">Winter</th>
+          <th colspan="2" class="grp">kWh / day</th>
+        </tr>
+        <tr>
+          <th>Hrs / day</th><th>Days / wk</th>
+          <th>Hrs / day</th><th>Days / wk</th>
+          <th class="grp">Sum</th><th class="grp">Win</th>
+        </tr>
+      </thead>
+      <tbody>
+      <tr data-row="fridgeFreezerCombo" data-cont="300.0" data-surge="600.0">
+        <td class="nm">Fridge/Freezer Combo**</td>
+        <td class="w">300 W</td>
+        <td><input type="number" min="0" step="1" value="0" data-f="qty" aria-label="Quantity of Fridge/Freezer Combo**"></td>
+        <td><input type="number" min="0" step="0.25" value="8" data-f="hs" aria-label="Summer hours per day"></td>
+        <td><input type="number" min="0" max="7" step="1" value="7" data-f="ds" aria-label="Summer days per week"></td>
+        <td><input type="number" min="0" step="0.25" value="8" data-f="hw" aria-label="Winter hours per day"></td>
+        <td><input type="number" min="0" max="7" step="1" value="7" data-f="dw" aria-label="Winter days per week"></td>
+        <td class="e" data-out="s">0.0</td>
+        <td class="e" data-out="w">0.0</td>
+      </tr>
+      <tr data-row="freezer" data-cont="400.0" data-surge="800.0">
+        <td class="nm">Freezer**</td>
+        <td class="w">400 W</td>
+        <td><input type="number" min="0" step="1" value="0" data-f="qty" aria-label="Quantity of Freezer**"></td>
+        <td><input type="number" min="0" step="0.25" value="12" data-f="hs" aria-label="Summer hours per day"></td>
+        <td><input type="number" min="0" max="7" step="1" value="7" data-f="ds" aria-label="Summer days per week"></td>
+        <td><input type="number" min="0" step="0.25" value="12" data-f="hw" aria-label="Winter hours per day"></td>
+        <td><input type="number" min="0" max="7" step="1" value="7" data-f="dw" aria-label="Winter days per week"></td>
+        <td class="e" data-out="s">0.0</td>
+        <td class="e" data-out="w">0.0</td>
+      </tr>
+      <tr data-row="microwave" data-cont="1500.0" data-surge="1500.0">
+        <td class="nm">Microwave</td>
+        <td class="w">1500 W</td>
+        <td><input type="number" min="0" step="1" value="0" data-f="qty" aria-label="Quantity of Microwave"></td>
+        <td><input type="number" min="0" step="0.25" value="0.25" data-f="hs" aria-label="Summer hours per day"></td>
+        <td><input type="number" min="0" max="7" step="1" value="7" data-f="ds" aria-label="Summer days per week"></td>
+        <td><input type="number" min="0" step="0.25" value="0.25" data-f="hw" aria-label="Winter hours per day"></td>
+        <td><input type="number" min="0" max="7" step="1" value="7" data-f="dw" aria-label="Winter days per week"></td>
+        <td class="e" data-out="s">0.0</td>
+        <td class="e" data-out="w">0.0</td>
+      </tr>
+      <tr data-row="electricOven" data-cont="3600.0" data-surge="3600.0">
+        <td class="nm">Electric Oven</td>
+        <td class="w">3600 W</td>
+        <td><input type="number" min="0" step="1" value="0" data-f="qty" aria-label="Quantity of Electric Oven"></td>
+        <td><input type="number" min="0" step="0.25" value="0.5" data-f="hs" aria-label="Summer hours per day"></td>
+        <td><input type="number" min="0" max="7" step="1" value="2" data-f="ds" aria-label="Summer days per week"></td>
+        <td><input type="number" min="0" step="0.25" value="0.5" data-f="hw" aria-label="Winter hours per day"></td>
+        <td><input type="number" min="0" max="7" step="1" value="2" data-f="dw" aria-label="Winter days per week"></td>
+        <td class="e" data-out="s">0.0</td>
+        <td class="e" data-out="w">0.0</td>
+      </tr>
+      <tr data-row="electricStovetop" data-cont="2000.0" data-surge="2000.0">
+        <td class="nm">Electric Stovetop</td>
+        <td class="w">2000 W</td>
+        <td><input type="number" min="0" step="1" value="0" data-f="qty" aria-label="Quantity of Electric Stovetop"></td>
+        <td><input type="number" min="0" step="0.25" value="0.5" data-f="hs" aria-label="Summer hours per day"></td>
+        <td><input type="number" min="0" max="7" step="1" value="2" data-f="ds" aria-label="Summer days per week"></td>
+        <td><input type="number" min="0" step="0.25" value="0.5" data-f="hw" aria-label="Winter hours per day"></td>
+        <td><input type="number" min="0" max="7" step="1" value="2" data-f="dw" aria-label="Winter days per week"></td>
+        <td class="e" data-out="s">0.0</td>
+        <td class="e" data-out="w">0.0</td>
+      </tr>
+      <tr data-row="dishwasher" data-cont="1000.0" data-surge="1000.0">
+        <td class="nm">Dishwasher</td>
+        <td class="w">1000 W</td>
+        <td><input type="number" min="0" step="1" value="0" data-f="qty" aria-label="Quantity of Dishwasher"></td>
+        <td><input type="number" min="0" step="0.25" value="1" data-f="hs" aria-label="Summer hours per day"></td>
+        <td><input type="number" min="0" max="7" step="1" value="2" data-f="ds" aria-label="Summer days per week"></td>
+        <td><input type="number" min="0" step="0.25" value="1" data-f="hw" aria-label="Winter hours per day"></td>
+        <td><input type="number" min="0" max="7" step="1" value="2" data-f="dw" aria-label="Winter days per week"></td>
+        <td class="e" data-out="s">0.0</td>
+        <td class="e" data-out="w">0.0</td>
+      </tr>
+      <tr data-row="disposal" data-cont="1000.0" data-surge="1000.0">
+        <td class="nm">Disposal</td>
+        <td class="w">1000 W</td>
+        <td><input type="number" min="0" step="1" value="0" data-f="qty" aria-label="Quantity of Disposal"></td>
+        <td><input type="number" min="0" step="0.25" value="0.005" data-f="hs" aria-label="Summer hours per day"></td>
+        <td><input type="number" min="0" max="7" step="1" value="3" data-f="ds" aria-label="Summer days per week"></td>
+        <td><input type="number" min="0" step="0.25" value="0.005" data-f="hw" aria-label="Winter hours per day"></td>
+        <td><input type="number" min="0" max="7" step="1" value="3" data-f="dw" aria-label="Winter days per week"></td>
+        <td class="e" data-out="s">0.0</td>
+        <td class="e" data-out="w">0.0</td>
+      </tr>
+      <tr data-row="coffeePot" data-cont="1200.0" data-surge="1200.0">
+        <td class="nm">Coffee Pot</td>
+        <td class="w">1200 W</td>
+        <td><input type="number" min="0" step="1" value="0" data-f="qty" aria-label="Quantity of Coffee Pot"></td>
+        <td><input type="number" min="0" step="0.25" value="0.25" data-f="hs" aria-label="Summer hours per day"></td>
+        <td><input type="number" min="0" max="7" step="1" value="7" data-f="ds" aria-label="Summer days per week"></td>
+        <td><input type="number" min="0" step="0.25" value="0.25" data-f="hw" aria-label="Winter hours per day"></td>
+        <td><input type="number" min="0" max="7" step="1" value="7" data-f="dw" aria-label="Winter days per week"></td>
+        <td class="e" data-out="s">0.0</td>
+        <td class="e" data-out="w">0.0</td>
+      </tr>
+      <tr data-row="blender" data-cont="1000.0" data-surge="1000.0">
+        <td class="nm">Blender</td>
+        <td class="w">1000 W</td>
+        <td><input type="number" min="0" step="1" value="0" data-f="qty" aria-label="Quantity of Blender"></td>
+        <td><input type="number" min="0" step="0.25" value="0.1" data-f="hs" aria-label="Summer hours per day"></td>
+        <td><input type="number" min="0" max="7" step="1" value="1" data-f="ds" aria-label="Summer days per week"></td>
+        <td><input type="number" min="0" step="0.25" value="0.1" data-f="hw" aria-label="Winter hours per day"></td>
+        <td><input type="number" min="0" max="7" step="1" value="1" data-f="dw" aria-label="Winter days per week"></td>
+        <td class="e" data-out="s">0.0</td>
+        <td class="e" data-out="w">0.0</td>
+      </tr>
+      <tr data-row="toaster" data-cont="1200.0" data-surge="1200.0">
+        <td class="nm">Toaster</td>
+        <td class="w">1200 W</td>
+        <td><input type="number" min="0" step="1" value="0" data-f="qty" aria-label="Quantity of Toaster"></td>
+        <td><input type="number" min="0" step="0.25" value="0.1" data-f="hs" aria-label="Summer hours per day"></td>
+        <td><input type="number" min="0" max="7" step="1" value="1" data-f="ds" aria-label="Summer days per week"></td>
+        <td><input type="number" min="0" step="0.25" value="0.1" data-f="hw" aria-label="Winter hours per day"></td>
+        <td><input type="number" min="0" max="7" step="1" value="1" data-f="dw" aria-label="Winter days per week"></td>
+        <td class="e" data-out="s">0.0</td>
+        <td class="e" data-out="w">0.0</td>
+      </tr>
+      </tbody>
+    </table>
+  </section>
+  <section class="card">
+    <h2>Bathroom</h2>
+    <table>
+      <thead>
+        <tr>
+          <th rowspan="2" class="nm">Load</th><th rowspan="2" class="w">Running</th>
+          <th rowspan="2">Qty</th>
+          <th colspan="2" class="grp">Summer</th>
+          <th colspan="2" class="grp">Winter</th>
+          <th colspan="2" class="grp">kWh / day</th>
+        </tr>
+        <tr>
+          <th>Hrs / day</th><th>Days / wk</th>
+          <th>Hrs / day</th><th>Days / wk</th>
+          <th class="grp">Sum</th><th class="grp">Win</th>
+        </tr>
+      </thead>
+      <tbody>
+      <tr data-row="hairDryer" data-cont="1200.0" data-surge="1200.0">
+        <td class="nm">Hair Dryer</td>
+        <td class="w">1200 W</td>
+        <td><input type="number" min="0" step="1" value="0" data-f="qty" aria-label="Quantity of Hair Dryer"></td>
+        <td><input type="number" min="0" step="0.25" value="0.25" data-f="hs" aria-label="Summer hours per day"></td>
+        <td><input type="number" min="0" max="7" step="1" value="1" data-f="ds" aria-label="Summer days per week"></td>
+        <td><input type="number" min="0" step="0.25" value="0.25" data-f="hw" aria-label="Winter hours per day"></td>
+        <td><input type="number" min="0" max="7" step="1" value="3" data-f="dw" aria-label="Winter days per week"></td>
+        <td class="e" data-out="s">0.0</td>
+        <td class="e" data-out="w">0.0</td>
+      </tr>
+      <tr data-row="curlingIron" data-cont="200.0" data-surge="200.0">
+        <td class="nm">Curling Iron</td>
+        <td class="w">200 W</td>
+        <td><input type="number" min="0" step="1" value="0" data-f="qty" aria-label="Quantity of Curling Iron"></td>
+        <td><input type="number" min="0" step="0.25" value="0.25" data-f="hs" aria-label="Summer hours per day"></td>
+        <td><input type="number" min="0" max="7" step="1" value="1" data-f="ds" aria-label="Summer days per week"></td>
+        <td><input type="number" min="0" step="0.25" value="0.25" data-f="hw" aria-label="Winter hours per day"></td>
+        <td><input type="number" min="0" max="7" step="1" value="1" data-f="dw" aria-label="Winter days per week"></td>
+        <td class="e" data-out="s">0.0</td>
+        <td class="e" data-out="w">0.0</td>
+      </tr>
+      <tr data-row="bathroomVentFan" data-cont="120.0" data-surge="120.0">
+        <td class="nm">Bathroom Vent Fan</td>
+        <td class="w">120 W</td>
+        <td><input type="number" min="0" step="1" value="0" data-f="qty" aria-label="Quantity of Bathroom Vent Fan"></td>
+        <td><input type="number" min="0" step="0.25" value="0.25" data-f="hs" aria-label="Summer hours per day"></td>
+        <td><input type="number" min="0" max="7" step="1" value="3" data-f="ds" aria-label="Summer days per week"></td>
+        <td><input type="number" min="0" step="0.25" value="0.25" data-f="hw" aria-label="Winter hours per day"></td>
+        <td><input type="number" min="0" max="7" step="1" value="3" data-f="dw" aria-label="Winter days per week"></td>
+        <td class="e" data-out="s">0.0</td>
+        <td class="e" data-out="w">0.0</td>
+      </tr>
+      </tbody>
+    </table>
+  </section>
+  <section class="card">
+    <h2>Electrical</h2>
+    <table>
+      <thead>
+        <tr>
+          <th rowspan="2" class="nm">Load</th><th rowspan="2" class="w">Running</th>
+          <th rowspan="2">Qty</th>
+          <th colspan="2" class="grp">Summer</th>
+          <th colspan="2" class="grp">Winter</th>
+          <th colspan="2" class="grp">kWh / day</th>
+        </tr>
+        <tr>
+          <th>Hrs / day</th><th>Days / wk</th>
+          <th>Hrs / day</th><th>Days / wk</th>
+          <th class="grp">Sum</th><th class="grp">Win</th>
+        </tr>
+      </thead>
+      <tbody>
+      <tr data-row="modemRouter" data-cont="20.0" data-surge="20.0">
+        <td class="nm">Modem/Router</td>
+        <td class="w">20 W</td>
+        <td><input type="number" min="0" step="1" value="0" data-f="qty" aria-label="Quantity of Modem/Router"></td>
+        <td><input type="number" min="0" step="0.25" value="24" data-f="hs" aria-label="Summer hours per day"></td>
+        <td><input type="number" min="0" max="7" step="1" value="7" data-f="ds" aria-label="Summer days per week"></td>
+        <td><input type="number" min="0" step="0.25" value="24" data-f="hw" aria-label="Winter hours per day"></td>
+        <td><input type="number" min="0" max="7" step="1" value="7" data-f="dw" aria-label="Winter days per week"></td>
+        <td class="e" data-out="s">0.0</td>
+        <td class="e" data-out="w">0.0</td>
+      </tr>
+      <tr data-row="desktopPC" data-cont="250.0" data-surge="250.0">
+        <td class="nm">Desktop PC</td>
+        <td class="w">250 W</td>
+        <td><input type="number" min="0" step="1" value="0" data-f="qty" aria-label="Quantity of Desktop PC"></td>
+        <td><input type="number" min="0" step="0.25" value="8" data-f="hs" aria-label="Summer hours per day"></td>
+        <td><input type="number" min="0" max="7" step="1" value="5" data-f="ds" aria-label="Summer days per week"></td>
+        <td><input type="number" min="0" step="0.25" value="8" data-f="hw" aria-label="Winter hours per day"></td>
+        <td><input type="number" min="0" max="7" step="1" value="5" data-f="dw" aria-label="Winter days per week"></td>
+        <td class="e" data-out="s">0.0</td>
+        <td class="e" data-out="w">0.0</td>
+      </tr>
+      <tr data-row="laptops" data-cont="75.0" data-surge="75.0">
+        <td class="nm">Laptop(s)</td>
+        <td class="w">75 W</td>
+        <td><input type="number" min="0" step="1" value="0" data-f="qty" aria-label="Quantity of Laptop(s)"></td>
+        <td><input type="number" min="0" step="0.25" value="2" data-f="hs" aria-label="Summer hours per day"></td>
+        <td><input type="number" min="0" max="7" step="1" value="2" data-f="ds" aria-label="Summer days per week"></td>
+        <td><input type="number" min="0" step="0.25" value="2" data-f="hw" aria-label="Winter hours per day"></td>
+        <td><input type="number" min="0" max="7" step="1" value="2" data-f="dw" aria-label="Winter days per week"></td>
+        <td class="e" data-out="s">0.0</td>
+        <td class="e" data-out="w">0.0</td>
+      </tr>
+      <tr data-row="printerFax" data-cont="75.0" data-surge="75.0">
+        <td class="nm">Printer/Fax</td>
+        <td class="w">75 W</td>
+        <td><input type="number" min="0" step="1" value="0" data-f="qty" aria-label="Quantity of Printer/Fax"></td>
+        <td><input type="number" min="0" step="0.25" value="0.01" data-f="hs" aria-label="Summer hours per day"></td>
+        <td><input type="number" min="0" max="7" step="1" value="1" data-f="ds" aria-label="Summer days per week"></td>
+        <td><input type="number" min="0" step="0.25" value="0.01" data-f="hw" aria-label="Winter hours per day"></td>
+        <td><input type="number" min="0" max="7" step="1" value="1" data-f="dw" aria-label="Winter days per week"></td>
+        <td class="e" data-out="s">0.0</td>
+        <td class="e" data-out="w">0.0</td>
+      </tr>
+      <tr data-row="tVLED" data-cont="100.0" data-surge="100.0">
+        <td class="nm">TV (LED)</td>
+        <td class="w">100 W</td>
+        <td><input type="number" min="0" step="1" value="0" data-f="qty" aria-label="Quantity of TV (LED)"></td>
+        <td><input type="number" min="0" step="0.25" value="1.5" data-f="hs" aria-label="Summer hours per day"></td>
+        <td><input type="number" min="0" max="7" step="1" value="7" data-f="ds" aria-label="Summer days per week"></td>
+        <td><input type="number" min="0" step="0.25" value="2.5" data-f="hw" aria-label="Winter hours per day"></td>
+        <td><input type="number" min="0" max="7" step="1" value="7" data-f="dw" aria-label="Winter days per week"></td>
+        <td class="e" data-out="s">0.0</td>
+        <td class="e" data-out="w">0.0</td>
+      </tr>
+      <tr data-row="tVLCD" data-cont="150.0" data-surge="150.0">
+        <td class="nm">TV(LCD)</td>
+        <td class="w">150 W</td>
+        <td><input type="number" min="0" step="1" value="0" data-f="qty" aria-label="Quantity of TV(LCD)"></td>
+        <td><input type="number" min="0" step="0.25" value="1.5" data-f="hs" aria-label="Summer hours per day"></td>
+        <td><input type="number" min="0" max="7" step="1" value="7" data-f="ds" aria-label="Summer days per week"></td>
+        <td><input type="number" min="0" step="0.25" value="2.5" data-f="hw" aria-label="Winter hours per day"></td>
+        <td><input type="number" min="0" max="7" step="1" value="7" data-f="dw" aria-label="Winter days per week"></td>
+        <td class="e" data-out="s">0.0</td>
+        <td class="e" data-out="w">0.0</td>
+      </tr>
+      <tr data-row="tVSpeakers" data-cont="45.0" data-surge="45.0">
+        <td class="nm">TV Speakers</td>
+        <td class="w">45 W</td>
+        <td><input type="number" min="0" step="1" value="0" data-f="qty" aria-label="Quantity of TV Speakers"></td>
+        <td><input type="number" min="0" step="0.25" value="4.5" data-f="hs" aria-label="Summer hours per day"></td>
+        <td><input type="number" min="0" max="7" step="1" value="7" data-f="ds" aria-label="Summer days per week"></td>
+        <td><input type="number" min="0" step="0.25" value="7.5" data-f="hw" aria-label="Winter hours per day"></td>
+        <td><input type="number" min="0" max="7" step="1" value="7" data-f="dw" aria-label="Winter days per week"></td>
+        <td class="e" data-out="s">0.0</td>
+        <td class="e" data-out="w">0.0</td>
+      </tr>
+      <tr data-row="phoneChargers" data-cont="20.0" data-surge="20.0">
+        <td class="nm">Phone Chargers</td>
+        <td class="w">20 W</td>
+        <td><input type="number" min="0" step="1" value="0" data-f="qty" aria-label="Quantity of Phone Chargers"></td>
+        <td><input type="number" min="0" step="0.25" value="1.5" data-f="hs" aria-label="Summer hours per day"></td>
+        <td><input type="number" min="0" max="7" step="1" value="7" data-f="ds" aria-label="Summer days per week"></td>
+        <td><input type="number" min="0" step="0.25" value="1.5" data-f="hw" aria-label="Winter hours per day"></td>
+        <td><input type="number" min="0" max="7" step="1" value="7" data-f="dw" aria-label="Winter days per week"></td>
+        <td class="e" data-out="s">0.0</td>
+        <td class="e" data-out="w">0.0</td>
+      </tr>
+      </tbody>
+    </table>
+  </section>
+  <section class="card">
+    <h2>Heating/Cooling</h2>
+    <table>
+      <thead>
+        <tr>
+          <th rowspan="2" class="nm">Load</th><th rowspan="2" class="w">Running</th>
+          <th rowspan="2">Qty</th>
+          <th colspan="2" class="grp">Summer</th>
+          <th colspan="2" class="grp">Winter</th>
+          <th colspan="2" class="grp">kWh / day</th>
+        </tr>
+        <tr>
+          <th>Hrs / day</th><th>Days / wk</th>
+          <th>Hrs / day</th><th>Days / wk</th>
+          <th class="grp">Sum</th><th class="grp">Win</th>
+        </tr>
+      </thead>
+      <tbody>
+      <tr data-row="aCCentral" data-cont="3000.0" data-surge="14000.0">
+        <td class="nm">A/C (Central)**</td>
+        <td class="w">3000 W</td>
+        <td><input type="number" min="0" step="1" value="0" data-f="qty" aria-label="Quantity of A/C (Central)**"></td>
+        <td><input type="number" min="0" step="0.25" value="4" data-f="hs" aria-label="Summer hours per day"></td>
+        <td><input type="number" min="0" max="7" step="1" value="7" data-f="ds" aria-label="Summer days per week"></td>
+        <td><input type="number" min="0" step="0.25" value="0" data-f="hw" aria-label="Winter hours per day"></td>
+        <td><input type="number" min="0" max="7" step="1" value="0" data-f="dw" aria-label="Winter days per week"></td>
+        <td class="e" data-out="s">0.0</td>
+        <td class="e" data-out="w">0.0</td>
+      </tr>
+      <tr data-row="aCWindow" data-cont="1250.0" data-surge="1250.0">
+        <td class="nm">A/C (Window)</td>
+        <td class="w">1250 W</td>
+        <td><input type="number" min="0" step="1" value="0" data-f="qty" aria-label="Quantity of A/C (Window)"></td>
+        <td><input type="number" min="0" step="0.25" value="3" data-f="hs" aria-label="Summer hours per day"></td>
+        <td><input type="number" min="0" max="7" step="1" value="7" data-f="ds" aria-label="Summer days per week"></td>
+        <td><input type="number" min="0" step="0.25" value="0" data-f="hw" aria-label="Winter hours per day"></td>
+        <td><input type="number" min="0" max="7" step="1" value="0" data-f="dw" aria-label="Winter days per week"></td>
+        <td class="e" data-out="s">0.0</td>
+        <td class="e" data-out="w">0.0</td>
+      </tr>
+      <tr data-row="outsideunit" data-cont="1500.0" data-surge="1500.0">
+        <td class="nm">Split / Ductless AC (outside unit)</td>
+        <td class="w">1500 W</td>
+        <td><input type="number" min="0" step="1" value="0" data-f="qty" aria-label="Quantity of Split / Ductless AC (outside unit)"></td>
+        <td><input type="number" min="0" step="0.25" value="3" data-f="hs" aria-label="Summer hours per day"></td>
+        <td><input type="number" min="0" max="7" step="1" value="7" data-f="ds" aria-label="Summer days per week"></td>
+        <td><input type="number" min="0" step="0.25" value="0" data-f="hw" aria-label="Winter hours per day"></td>
+        <td><input type="number" min="0" max="7" step="1" value="0" data-f="dw" aria-label="Winter days per week"></td>
+        <td class="e" data-out="s">0.0</td>
+        <td class="e" data-out="w">0.0</td>
+      </tr>
+      <tr data-row="insideunit" data-cont="400.0" data-surge="400.0">
+        <td class="nm">Split / Ductless AC (inside unit)</td>
+        <td class="w">400 W</td>
+        <td><input type="number" min="0" step="1" value="0" data-f="qty" aria-label="Quantity of Split / Ductless AC (inside unit)"></td>
+        <td><input type="number" min="0" step="0.25" value="3" data-f="hs" aria-label="Summer hours per day"></td>
+        <td><input type="number" min="0" max="7" step="1" value="7" data-f="ds" aria-label="Summer days per week"></td>
+        <td><input type="number" min="0" step="0.25" value="0" data-f="hw" aria-label="Winter hours per day"></td>
+        <td><input type="number" min="0" max="7" step="1" value="0" data-f="dw" aria-label="Winter days per week"></td>
+        <td class="e" data-out="s">0.0</td>
+        <td class="e" data-out="w">0.0</td>
+      </tr>
+      <tr data-row="swampCooler" data-cont="500.0" data-surge="500.0">
+        <td class="nm">Swamp Cooler</td>
+        <td class="w">500 W</td>
+        <td><input type="number" min="0" step="1" value="0" data-f="qty" aria-label="Quantity of Swamp Cooler"></td>
+        <td><input type="number" min="0" step="0.25" value="4" data-f="hs" aria-label="Summer hours per day"></td>
+        <td><input type="number" min="0" max="7" step="1" value="7" data-f="ds" aria-label="Summer days per week"></td>
+        <td><input type="number" min="0" step="0.25" value="0" data-f="hw" aria-label="Winter hours per day"></td>
+        <td><input type="number" min="0" max="7" step="1" value="0" data-f="dw" aria-label="Winter days per week"></td>
+        <td class="e" data-out="s">0.0</td>
+        <td class="e" data-out="w">0.0</td>
+      </tr>
+      <tr data-row="cooling" data-cont="2000.0" data-surge="6000.0">
+        <td class="nm">Heat Pump (Cooling)</td>
+        <td class="w">2000 W</td>
+        <td><input type="number" min="0" step="1" value="0" data-f="qty" aria-label="Quantity of Heat Pump (Cooling)"></td>
+        <td><input type="number" min="0" step="0.25" value="6" data-f="hs" aria-label="Summer hours per day"></td>
+        <td><input type="number" min="0" max="7" step="1" value="7" data-f="ds" aria-label="Summer days per week"></td>
+        <td><input type="number" min="0" step="0.25" value="0" data-f="hw" aria-label="Winter hours per day"></td>
+        <td><input type="number" min="0" max="7" step="1" value="0" data-f="dw" aria-label="Winter days per week"></td>
+        <td class="e" data-out="s">0.0</td>
+        <td class="e" data-out="w">0.0</td>
+      </tr>
+      <tr data-row="heating" data-cont="5000.0" data-surge="15000.0">
+        <td class="nm">Heat Pump (Heating)</td>
+        <td class="w">5000 W</td>
+        <td><input type="number" min="0" step="1" value="0" data-f="qty" aria-label="Quantity of Heat Pump (Heating)"></td>
+        <td><input type="number" min="0" step="0.25" value="0" data-f="hs" aria-label="Summer hours per day"></td>
+        <td><input type="number" min="0" max="7" step="1" value="0" data-f="ds" aria-label="Summer days per week"></td>
+        <td><input type="number" min="0" step="0.25" value="0" data-f="hw" aria-label="Winter hours per day"></td>
+        <td><input type="number" min="0" max="7" step="1" value="0" data-f="dw" aria-label="Winter days per week"></td>
+        <td class="e" data-out="s">0.0</td>
+        <td class="e" data-out="w">0.0</td>
+      </tr>
+      <tr data-row="gasFurnace" data-cont="150.0" data-surge="600.0">
+        <td class="nm">Gas Furnace</td>
+        <td class="w">150 W</td>
+        <td><input type="number" min="0" step="1" value="0" data-f="qty" aria-label="Quantity of Gas Furnace"></td>
+        <td><input type="number" min="0" step="0.25" value="0" data-f="hs" aria-label="Summer hours per day"></td>
+        <td><input type="number" min="0" max="7" step="1" value="0" data-f="ds" aria-label="Summer days per week"></td>
+        <td><input type="number" min="0" step="0.25" value="0" data-f="hw" aria-label="Winter hours per day"></td>
+        <td><input type="number" min="0" max="7" step="1" value="0" data-f="dw" aria-label="Winter days per week"></td>
+        <td class="e" data-out="s">0.0</td>
+        <td class="e" data-out="w">0.0</td>
+      </tr>
+      <tr data-row="spaceHeater" data-cont="1400.0" data-surge="1400.0">
+        <td class="nm">Space Heater</td>
+        <td class="w">1400 W</td>
+        <td><input type="number" min="0" step="1" value="0" data-f="qty" aria-label="Quantity of Space Heater"></td>
+        <td><input type="number" min="0" step="0.25" value="0" data-f="hs" aria-label="Summer hours per day"></td>
+        <td><input type="number" min="0" max="7" step="1" value="0" data-f="ds" aria-label="Summer days per week"></td>
+        <td><input type="number" min="0" step="0.25" value="0" data-f="hw" aria-label="Winter hours per day"></td>
+        <td><input type="number" min="0" max="7" step="1" value="0" data-f="dw" aria-label="Winter days per week"></td>
+        <td class="e" data-out="s">0.0</td>
+        <td class="e" data-out="w">0.0</td>
+      </tr>
+      <tr data-row="waterHeaterGas" data-cont="10.0" data-surge="10.0">
+        <td class="nm">Water Heater (Gas)</td>
+        <td class="w">10 W</td>
+        <td><input type="number" min="0" step="1" value="0" data-f="qty" aria-label="Quantity of Water Heater (Gas)"></td>
+        <td><input type="number" min="0" step="0.25" value="24" data-f="hs" aria-label="Summer hours per day"></td>
+        <td><input type="number" min="0" max="7" step="1" value="7" data-f="ds" aria-label="Summer days per week"></td>
+        <td><input type="number" min="0" step="0.25" value="24" data-f="hw" aria-label="Winter hours per day"></td>
+        <td><input type="number" min="0" max="7" step="1" value="7" data-f="dw" aria-label="Winter days per week"></td>
+        <td class="e" data-out="s">0.0</td>
+        <td class="e" data-out="w">0.0</td>
+      </tr>
+      <tr data-row="waterHeaterElect" data-cont="3000.0" data-surge="4500.0">
+        <td class="nm">Water Heater (Elect)</td>
+        <td class="w">3000 W</td>
+        <td><input type="number" min="0" step="1" value="0" data-f="qty" aria-label="Quantity of Water Heater (Elect)"></td>
+        <td><input type="number" min="0" step="0.25" value="1" data-f="hs" aria-label="Summer hours per day"></td>
+        <td><input type="number" min="0" max="7" step="1" value="7" data-f="ds" aria-label="Summer days per week"></td>
+        <td><input type="number" min="0" step="0.25" value="1" data-f="hw" aria-label="Winter hours per day"></td>
+        <td><input type="number" min="0" max="7" step="1" value="7" data-f="dw" aria-label="Winter days per week"></td>
+        <td class="e" data-out="s">0.0</td>
+        <td class="e" data-out="w">0.0</td>
+      </tr>
+      <tr data-row="ceilingFans" data-cont="35.0" data-surge="35.0">
+        <td class="nm">Ceiling Fans</td>
+        <td class="w">35 W</td>
+        <td><input type="number" min="0" step="1" value="0" data-f="qty" aria-label="Quantity of Ceiling Fans"></td>
+        <td><input type="number" min="0" step="0.25" value="1" data-f="hs" aria-label="Summer hours per day"></td>
+        <td><input type="number" min="0" max="7" step="1" value="7" data-f="ds" aria-label="Summer days per week"></td>
+        <td><input type="number" min="0" step="0.25" value="1" data-f="hw" aria-label="Winter hours per day"></td>
+        <td><input type="number" min="0" max="7" step="1" value="7" data-f="dw" aria-label="Winter days per week"></td>
+        <td class="e" data-out="s">0.0</td>
+        <td class="e" data-out="w">0.0</td>
+      </tr>
+      </tbody>
+    </table>
+  </section>
+  <section class="card">
+    <h2>Cleaning</h2>
+    <table>
+      <thead>
+        <tr>
+          <th rowspan="2" class="nm">Load</th><th rowspan="2" class="w">Running</th>
+          <th rowspan="2">Qty</th>
+          <th colspan="2" class="grp">Summer</th>
+          <th colspan="2" class="grp">Winter</th>
+          <th colspan="2" class="grp">kWh / day</th>
+        </tr>
+        <tr>
+          <th>Hrs / day</th><th>Days / wk</th>
+          <th>Hrs / day</th><th>Days / wk</th>
+          <th class="grp">Sum</th><th class="grp">Win</th>
+        </tr>
+      </thead>
+      <tbody>
+      <tr data-row="vaccum" data-cont="1500.0" data-surge="1500.0">
+        <td class="nm">Vaccum</td>
+        <td class="w">1500 W</td>
+        <td><input type="number" min="0" step="1" value="0" data-f="qty" aria-label="Quantity of Vaccum"></td>
+        <td><input type="number" min="0" step="0.25" value="0.5" data-f="hs" aria-label="Summer hours per day"></td>
+        <td><input type="number" min="0" max="7" step="1" value="0.5" data-f="ds" aria-label="Summer days per week"></td>
+        <td><input type="number" min="0" step="0.25" value="0.5" data-f="hw" aria-label="Winter hours per day"></td>
+        <td><input type="number" min="0" max="7" step="1" value="0.5" data-f="dw" aria-label="Winter days per week"></td>
+        <td class="e" data-out="s">0.0</td>
+        <td class="e" data-out="w">0.0</td>
+      </tr>
+      <tr data-row="clothesIron" data-cont="1000.0" data-surge="1000.0">
+        <td class="nm">Clothes Iron</td>
+        <td class="w">1000 W</td>
+        <td><input type="number" min="0" step="1" value="0" data-f="qty" aria-label="Quantity of Clothes Iron"></td>
+        <td><input type="number" min="0" step="0.25" value="0" data-f="hs" aria-label="Summer hours per day"></td>
+        <td><input type="number" min="0" max="7" step="1" value="0" data-f="ds" aria-label="Summer days per week"></td>
+        <td><input type="number" min="0" step="0.25" value="0" data-f="hw" aria-label="Winter hours per day"></td>
+        <td><input type="number" min="0" max="7" step="1" value="0" data-f="dw" aria-label="Winter days per week"></td>
+        <td class="e" data-out="s">0.0</td>
+        <td class="e" data-out="w">0.0</td>
+      </tr>
+      <tr data-row="washingMachine" data-cont="500.0" data-surge="1000.0">
+        <td class="nm">Washing Machine**</td>
+        <td class="w">500 W</td>
+        <td><input type="number" min="0" step="1" value="0" data-f="qty" aria-label="Quantity of Washing Machine**"></td>
+        <td><input type="number" min="0" step="0.25" value="1" data-f="hs" aria-label="Summer hours per day"></td>
+        <td><input type="number" min="0" max="7" step="1" value="2" data-f="ds" aria-label="Summer days per week"></td>
+        <td><input type="number" min="0" step="0.25" value="1" data-f="hw" aria-label="Winter hours per day"></td>
+        <td><input type="number" min="0" max="7" step="1" value="2" data-f="dw" aria-label="Winter days per week"></td>
+        <td class="e" data-out="s">0.0</td>
+        <td class="e" data-out="w">0.0</td>
+      </tr>
+      <tr data-row="dryerElectric" data-cont="3500.0" data-surge="3500.0">
+        <td class="nm">Dryer (Electric)</td>
+        <td class="w">3500 W</td>
+        <td><input type="number" min="0" step="1" value="0" data-f="qty" aria-label="Quantity of Dryer (Electric)"></td>
+        <td><input type="number" min="0" step="0.25" value="1" data-f="hs" aria-label="Summer hours per day"></td>
+        <td><input type="number" min="0" max="7" step="1" value="2" data-f="ds" aria-label="Summer days per week"></td>
+        <td><input type="number" min="0" step="0.25" value="1" data-f="hw" aria-label="Winter hours per day"></td>
+        <td><input type="number" min="0" max="7" step="1" value="2" data-f="dw" aria-label="Winter days per week"></td>
+        <td class="e" data-out="s">0.0</td>
+        <td class="e" data-out="w">0.0</td>
+      </tr>
+      <tr data-row="dryerGas" data-cont="400.0" data-surge="400.0">
+        <td class="nm">Dryer (Gas)</td>
+        <td class="w">400 W</td>
+        <td><input type="number" min="0" step="1" value="0" data-f="qty" aria-label="Quantity of Dryer (Gas)"></td>
+        <td><input type="number" min="0" step="0.25" value="0" data-f="hs" aria-label="Summer hours per day"></td>
+        <td><input type="number" min="0" max="7" step="1" value="0" data-f="ds" aria-label="Summer days per week"></td>
+        <td><input type="number" min="0" step="0.25" value="0" data-f="hw" aria-label="Winter hours per day"></td>
+        <td><input type="number" min="0" max="7" step="1" value="0" data-f="dw" aria-label="Winter days per week"></td>
+        <td class="e" data-out="s">0.0</td>
+        <td class="e" data-out="w">0.0</td>
+      </tr>
+      </tbody>
+    </table>
+  </section>
+  <section class="card">
+    <h2>Miscellaneous</h2>
+    <table>
+      <thead>
+        <tr>
+          <th rowspan="2" class="nm">Load</th><th rowspan="2" class="w">Running</th>
+          <th rowspan="2">Qty</th>
+          <th colspan="2" class="grp">Summer</th>
+          <th colspan="2" class="grp">Winter</th>
+          <th colspan="2" class="grp">kWh / day</th>
+        </tr>
+        <tr>
+          <th>Hrs / day</th><th>Days / wk</th>
+          <th>Hrs / day</th><th>Days / wk</th>
+          <th class="grp">Sum</th><th class="grp">Win</th>
+        </tr>
+      </thead>
+      <tbody>
+      <tr data-row="wellPump12hp" data-cont="1000.0" data-surge="3500.0">
+        <td class="nm">Well Pump (1/2hp)</td>
+        <td class="w">1000 W</td>
+        <td><input type="number" min="0" step="1" value="0" data-f="qty" aria-label="Quantity of Well Pump (1/2hp)"></td>
+        <td><input type="number" min="0" step="0.25" value="1" data-f="hs" aria-label="Summer hours per day"></td>
+        <td><input type="number" min="0" max="7" step="1" value="7" data-f="ds" aria-label="Summer days per week"></td>
+        <td><input type="number" min="0" step="0.25" value="1" data-f="hw" aria-label="Winter hours per day"></td>
+        <td><input type="number" min="0" max="7" step="1" value="7" data-f="dw" aria-label="Winter days per week"></td>
+        <td class="e" data-out="s">0.0</td>
+        <td class="e" data-out="w">0.0</td>
+      </tr>
+      <tr data-row="waterPurification" data-cont="250.0" data-surge="250.0">
+        <td class="nm">Water Purification</td>
+        <td class="w">250 W</td>
+        <td><input type="number" min="0" step="1" value="0" data-f="qty" aria-label="Quantity of Water Purification"></td>
+        <td><input type="number" min="0" step="0.25" value="1" data-f="hs" aria-label="Summer hours per day"></td>
+        <td><input type="number" min="0" max="7" step="1" value="7" data-f="ds" aria-label="Summer days per week"></td>
+        <td><input type="number" min="0" step="0.25" value="1" data-f="hw" aria-label="Winter hours per day"></td>
+        <td><input type="number" min="0" max="7" step="1" value="7" data-f="dw" aria-label="Winter days per week"></td>
+        <td class="e" data-out="s">0.0</td>
+        <td class="e" data-out="w">0.0</td>
+      </tr>
+      <tr data-row="eVChargerLv232amp" data-cont="7680.0" data-surge="7680.0">
+        <td class="nm">EV Charger - Lv2 32amp</td>
+        <td class="w">7680 W</td>
+        <td><input type="number" min="0" step="1" value="0" data-f="qty" aria-label="Quantity of EV Charger - Lv2 32amp"></td>
+        <td><input type="number" min="0" step="0.25" value="1" data-f="hs" aria-label="Summer hours per day"></td>
+        <td><input type="number" min="0" max="7" step="1" value="7" data-f="ds" aria-label="Summer days per week"></td>
+        <td><input type="number" min="0" step="0.25" value="1" data-f="hw" aria-label="Winter hours per day"></td>
+        <td><input type="number" min="0" max="7" step="1" value="7" data-f="dw" aria-label="Winter days per week"></td>
+        <td class="e" data-out="s">0.0</td>
+        <td class="e" data-out="w">0.0</td>
+      </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <div class="method">
+    <b>How this is calculated.</b> Running watts come from the original KnowSolar load sheet. Continuous kW is quantity times running watts. Surge kW uses the starting watts. Energy per day is quantity times running watts times hours, times days per week over 7, divided by 1,000.<br><br>
+    The right-hand column is the <b>sized</b> figure used for design: demand is taken at <code>40%</code> of connected load (diversity), and energy is divided by <code>0.8</code> for inverter efficiency, then multiplied by <code>1.2</code> for system losses and <code>1.05</code> for a 5% margin. Estimated annual kWh assumes 182 summer days and 183 winter days.<br><br>
+    <b>**</b> Fridge, freezer, central A/C and the washer cycle on and off, so the hours are run hours, not clock hours.<br>
+    Note: the original calculator collected days per week but never used it. Here it is applied, so a load running 2 days a week counts as 2/7.
+  </div>
+</div>
+
+<footer><div class="shell">KnowSolar · Rhode Island, Massachusetts, Connecticut · <a href="https://knowsolar.com/" style="color:var(--blue);font-weight:700">knowsolar.com</a></div></footer>
+
+<script>
+(function () {
+  var rows = Array.prototype.slice.call(document.querySelectorAll('tr[data-row]'));
+  function num(inp) { var v = parseFloat(inp.value); return isFinite(v) && v > 0 ? v : 0; }
+
+  function calc() {
+    var cont = 0, surge = 0, sDay = 0, wDay = 0, active = 0;
+    rows.forEach(function (tr) {
+      var q = tr.querySelector('[data-f="qty"]');
+      var hs = tr.querySelector('[data-f="hs"]'), hw = tr.querySelector('[data-f="hw"]');
+      var ds = tr.querySelector('[data-f="ds"]'), dw = tr.querySelector('[data-f="dw"]');
+      var qty = num(q);
+      var wc = parseFloat(tr.getAttribute('data-cont')) || 0;
+      var ws = parseFloat(tr.getAttribute('data-surge')) || 0;
+      var s = qty * wc * num(hs) * Math.min(num(ds), 7) / 7 / 1000;
+      var w = qty * wc * num(hw) * Math.min(num(dw), 7) / 7 / 1000;
+      tr.querySelector('[data-out="s"]').textContent = s ? s.toFixed(1) : '0.0';
+      tr.querySelector('[data-out="w"]').textContent = w ? w.toFixed(1) : '0.0';
+      tr.classList.toggle('on', qty > 0);
+      if (qty > 0) { active++; cont += qty * wc / 1000; surge += qty * ws / 1000; }
+      sDay += s; wDay += w;
+    });
+    var sSized = sDay / 0.8 * 1.2 * 1.05;
+    var wSized = wDay / 0.8 * 1.2 * 1.05;
+    var annual = sSized * 182 + wSized * 183;
+    document.getElementById('r-cont').textContent = cont.toFixed(2);
+    document.getElementById('r-surge').textContent = surge.toFixed(2);
+    document.getElementById('r-sum').textContent = sDay.toFixed(1);
+    document.getElementById('r-win').textContent = wDay.toFixed(1);
+    document.getElementById('r-yr').textContent = Math.round(annual).toLocaleString('en-US');
+    document.getElementById('hint').textContent = active
+      ? active + ' load' + (active === 1 ? '' : 's') + ' entered. Sized daily use: ' + sSized.toFixed(1) + ' kWh summer, ' + wSized.toFixed(1) + ' kWh winter.'
+      : 'No loads entered yet.';
+  }
+
+  document.addEventListener('input', function (e) {
+    if (e.target.matches('input[data-f]')) calc();
+  });
+
+  document.getElementById('reset').addEventListener('click', function () {
+    rows.forEach(function (tr) {
+      tr.querySelectorAll('input').forEach(function (i) {
+        if (i.getAttribute('data-f') === 'qty') i.value = 0;
+      });
+    });
+    calc();
+  });
+
+  calc();
+})();
+</script>
+</body>
+</html>
