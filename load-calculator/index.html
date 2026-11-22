@@ -73,11 +73,25 @@
   .method code{background:#fff;border:1px solid var(--line);border-radius:5px;padding:1px 5px;font-size:12.5px}
   footer{border-top:1px solid var(--line);padding:18px 0 40px;color:var(--gray);font-size:13px}
 
+  .printhead{display:none}
+  @page{margin:14mm}
   @media print{
-    .strip,header.top,.toolbar,footer,.method{display:none}
-    .stats{position:static;box-shadow:none;grid-template-columns:repeat(5,1fr)}
-    .card{break-inside:avoid}
+    .strip,header.top,.toolbar,footer,.method,.lede{display:none}
+    .printhead{display:flex;justify-content:space-between;align-items:baseline;
+      border-bottom:2px solid #0B2D5A;padding-bottom:8px;margin:0 0 14px}
+    .ph-brand{font-weight:800;font-size:19px;color:#0B2D5A;letter-spacing:-.4px}
+    .ph-meta{font-size:11px;color:#5B6B82}
+    body{background:#fff}
+    .shell{max-width:none;padding:0}
+    h1{font-size:22px;margin:0 0 4px}
+    .stats{position:static;box-shadow:none;border:1px solid #D7DEEA;grid-template-columns:repeat(5,1fr)}
+    .card{break-inside:avoid;box-shadow:none;border:1px solid #D7DEEA;margin-bottom:14px}
+    table{font-size:11px}
+    input{border:0;background:transparent;padding:0;font-size:11px}
+    tr.on input[data-f="qty"]{border:0}
+    .pdfnote{display:block}
   }
+  .pdfnote{display:none;font-size:11px;color:#5B6B82;margin:10px 0 0}
 </style>
 </head>
 <body>
@@ -85,6 +99,7 @@
 <header class="top"><div class="shell"><a class="brand" href="https://knowsolar.com/"><span class="dot"></span>KnowSolar</a></div></header>
 
 <div class="shell">
+  <div class="printhead"><span class="ph-brand">KnowSolar</span><span class="ph-meta" id="ph-meta"></span></div>
   <h1>Solar Load Calculator</h1>
   <p class="lede">Work out what a home actually uses before you size anything. Enter how many of each load, the hours it runs per day in summer and winter, and how many days a week.</p>
 
@@ -97,7 +112,8 @@
   </div>
 
   <div class="toolbar">
-    <button class="primary" type="button" onclick="window.print()">Print / save PDF</button>
+    <button class="primary" type="button" id="savepdf">Save PDF</button>
+    <button class="ghost" type="button" onclick="window.print()">Print</button>
     <button class="ghost" type="button" id="reset">Clear all loads</button>
     <span class="hint" id="hint">No loads entered yet.</span>
   </div>
@@ -813,6 +829,7 @@
 <script>
 (function () {
   var rows = Array.prototype.slice.call(document.querySelectorAll('tr[data-row]'));
+  var last = { cont: 0, surge: 0, sDay: 0, wDay: 0, sSized: 0, wSized: 0, annual: 0, active: 0 };
   function num(inp) { var v = parseFloat(inp.value); return isFinite(v) && v > 0 ? v : 0; }
 
   function calc() {
@@ -840,6 +857,7 @@
     document.getElementById('r-sum').textContent = sDay.toFixed(1);
     document.getElementById('r-win').textContent = wDay.toFixed(1);
     document.getElementById('r-yr').textContent = Math.round(annual).toLocaleString('en-US');
+    last = { cont: cont, surge: surge, sDay: sDay, wDay: wDay, sSized: sSized, wSized: wSized, annual: annual, active: active };
     document.getElementById('hint').textContent = active
       ? active + ' load' + (active === 1 ? '' : 's') + ' entered. Sized daily use: ' + sSized.toFixed(1) + ' kWh summer, ' + wSized.toFixed(1) + ' kWh winter.'
       : 'No loads entered yet.';
@@ -857,6 +875,181 @@
     });
     calc();
   });
+
+
+  // ---------------- PDF export ----------------
+  var JSPDF_SRC = 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js';
+  var loading = null;
+  function loadJsPDF() {
+    if (window.jspdf && window.jspdf.jsPDF) return Promise.resolve(window.jspdf.jsPDF);
+    if (loading) return loading;
+    loading = new Promise(function (resolve, reject) {
+      var sc = document.createElement('script');
+      sc.src = JSPDF_SRC; sc.async = true;
+      sc.onload = function () {
+        if (window.jspdf && window.jspdf.jsPDF) resolve(window.jspdf.jsPDF);
+        else reject(new Error('jspdf not present'));
+      };
+      sc.onerror = function () { reject(new Error('cdn blocked')); };
+      document.head.appendChild(sc);
+    });
+    return loading;
+  }
+
+  function enteredRows() {
+    var out = [];
+    rows.forEach(function (tr) {
+      var qty = num(tr.querySelector('[data-f="qty"]'));
+      if (qty <= 0) return;
+      out.push({
+        name: tr.querySelector('.nm').textContent.replace(/\s+/g, ' ').trim(),
+        qty: qty,
+        wc: parseFloat(tr.getAttribute('data-cont')) || 0,
+        hs: num(tr.querySelector('[data-f="hs"]')),
+        ds: num(tr.querySelector('[data-f="ds"]')),
+        hw: num(tr.querySelector('[data-f="hw"]')),
+        dw: num(tr.querySelector('[data-f="dw"]')),
+        s: tr.querySelector('[data-out="s"]').textContent,
+        w: tr.querySelector('[data-out="w"]').textContent
+      });
+    });
+    return out;
+  }
+
+  function buildPdf(JsPDF) {
+    var doc = new JsPDF({ unit: 'pt', format: 'letter', compress: true });
+    var W = 612, H = 792, M = 48, NAVY = [11, 45, 90], BLUE = [11, 77, 168], GRAY = [91, 107, 130], LINE = [215, 222, 234];
+    var today = new Date();
+    var dateStr = today.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+    var y;
+
+    doc.setFillColor(NAVY[0], NAVY[1], NAVY[2]);
+    doc.rect(0, 0, W, 92, 'F');
+    doc.setTextColor(255, 255, 255);
+    doc.setFont('helvetica', 'bold'); doc.setFontSize(21);
+    doc.text('KnowSolar', M, 42);
+    doc.setFont('helvetica', 'normal'); doc.setFontSize(11);
+    doc.text('Solar Load Calculator', M, 62);
+    doc.setFont('helvetica', 'bold'); doc.setFontSize(10);
+    doc.text(dateStr, W - M, 42, { align: 'right' });
+    doc.setFont('helvetica', 'normal'); doc.setFontSize(9);
+    doc.text('knowsolar.com   (401) 358-6062', W - M, 62, { align: 'right' });
+
+    y = 120;
+    var stats = [
+      ['Continuous', last.cont.toFixed(2), 'kW'],
+      ['Surge', last.surge.toFixed(2), 'kW'],
+      ['Summer', last.sDay.toFixed(1), 'kWh / day'],
+      ['Winter', last.wDay.toFixed(1), 'kWh / day'],
+      ['Est. annual', Math.round(last.annual).toLocaleString('en-US'), 'kWh / yr']
+    ];
+    var gap = 6, bw = (W - M * 2 - gap * 4) / 5, bh = 58;
+    stats.forEach(function (st, i) {
+      var x = M + i * (bw + gap);
+      doc.setFillColor(243, 246, 251); doc.setDrawColor(LINE[0], LINE[1], LINE[2]);
+      doc.roundedRect(x, y, bw, bh, 6, 6, 'FD');
+      doc.setTextColor(GRAY[0], GRAY[1], GRAY[2]); doc.setFont('helvetica', 'normal'); doc.setFontSize(7.5);
+      doc.text(st[0].toUpperCase(), x + 8, y + 16);
+      doc.setTextColor(NAVY[0], NAVY[1], NAVY[2]); doc.setFont('helvetica', 'bold'); doc.setFontSize(16);
+      doc.text(st[1], x + 8, y + 37);
+      doc.setFont('helvetica', 'normal'); doc.setFontSize(7.5); doc.setTextColor(GRAY[0], GRAY[1], GRAY[2]);
+      doc.text(st[2], x + 8, y + 49);
+    });
+    y += bh + 34;
+
+    var data = enteredRows();
+    doc.setTextColor(NAVY[0], NAVY[1], NAVY[2]); doc.setFont('helvetica', 'bold'); doc.setFontSize(12);
+    doc.text(data.length ? 'Loads entered' : 'Loads', M, y);
+    doc.setFont('helvetica', 'normal'); doc.setFontSize(9); doc.setTextColor(GRAY[0], GRAY[1], GRAY[2]);
+    doc.text(data.length + ' of ' + rows.length + ' catalog loads in use', W - M, y, { align: 'right' });
+    y += 12;
+
+    var cols = [
+      { t: 'Load', x: M + 2, a: 'left' },
+      { t: 'Running W', x: 300, a: 'right' },
+      { t: 'Qty', x: 340, a: 'right' },
+      { t: 'Sum hrs', x: 392, a: 'right' },
+      { t: 'Win hrs', x: 442, a: 'right' },
+      { t: 'Sum kWh', x: 500, a: 'right' },
+      { t: 'Win kWh', x: 556, a: 'right' }
+    ];
+
+    function head() {
+      doc.setFillColor(NAVY[0], NAVY[1], NAVY[2]);
+      doc.rect(M, y, W - M * 2, 18, 'F');
+      doc.setTextColor(255, 255, 255); doc.setFont('helvetica', 'bold'); doc.setFontSize(8);
+      cols.forEach(function (c) { doc.text(c.t.toUpperCase(), c.x, y + 12, { align: c.a }); });
+      y += 18;
+    }
+    head();
+
+    doc.setFont('helvetica', 'normal'); doc.setFontSize(8.5);
+    if (!data.length) {
+      doc.setTextColor(GRAY[0], GRAY[1], GRAY[2]);
+      doc.text('No loads were entered, so no system sizing was produced.', M + 2, y + 16);
+      y += 26;
+    } else {
+      data.forEach(function (r, i) {
+        if (y > H - 150) { doc.addPage(); y = 60; head(); doc.setFont('helvetica', 'normal'); doc.setFontSize(8.5); }
+        if (i % 2 === 0) { doc.setFillColor(248, 250, 253); doc.rect(M, y, W - M * 2, 16, 'F'); }
+        doc.setTextColor(NAVY[0], NAVY[1], NAVY[2]);
+        var nm = r.name.length > 42 ? r.name.slice(0, 41) + '...' : r.name;
+        doc.text(nm, cols[0].x, y + 11);
+        doc.setTextColor(GRAY[0], GRAY[1], GRAY[2]);
+        doc.text(String(r.wc), cols[1].x, y + 11, { align: 'right' });
+        doc.text(String(r.qty), cols[2].x, y + 11, { align: 'right' });
+        doc.text(r.hs.toFixed(2) + ' / ' + r.ds.toFixed(1) + 'd', cols[3].x, y + 11, { align: 'right' });
+        doc.text(r.hw.toFixed(2) + ' / ' + r.dw.toFixed(1) + 'd', cols[4].x, y + 11, { align: 'right' });
+        doc.setTextColor(NAVY[0], NAVY[1], NAVY[2]);
+        doc.text(r.s, cols[5].x, y + 11, { align: 'right' });
+        doc.text(r.w, cols[6].x, y + 11, { align: 'right' });
+        y += 16;
+      });
+      doc.setDrawColor(LINE[0], LINE[1], LINE[2]); doc.line(M, y, W - M, y);
+      y += 14;
+      doc.setFont('helvetica', 'bold'); doc.setFontSize(9); doc.setTextColor(NAVY[0], NAVY[1], NAVY[2]);
+      doc.text('Daily use', M + 2, y);
+      doc.text(last.sDay.toFixed(1) + ' kWh summer', 430, y, { align: 'right' });
+      doc.text(last.wDay.toFixed(1) + ' kWh winter', W - M, y, { align: 'right' });
+      y += 24;
+    }
+
+    if (y > H - 170) { doc.addPage(); y = 60; }
+    doc.setFillColor(243, 246, 251); doc.setDrawColor(LINE[0], LINE[1], LINE[2]);
+    doc.roundedRect(M, y, W - M * 2, 74, 6, 6, 'FD');
+    doc.setFont('helvetica', 'bold'); doc.setFontSize(9.5); doc.setTextColor(NAVY[0], NAVY[1], NAVY[2]);
+    doc.text('Sized daily use', M + 12, y + 18);
+    doc.setFont('helvetica', 'normal'); doc.setFontSize(9); doc.setTextColor(GRAY[0], GRAY[1], GRAY[2]);
+    doc.text('Daily kWh divided by 0.8 depth of discharge, times 1.2 inverter and 1.05 conductor losses.', M + 12, y + 33);
+    doc.text('Annual estimate: 182 summer days at ' + last.sSized.toFixed(1) + ' kWh plus 183 winter days at ' + last.wSized.toFixed(1) + ' kWh.', M + 12, y + 47);
+    doc.setFont('helvetica', 'bold'); doc.setFontSize(11); doc.setTextColor(NAVY[0], NAVY[1], NAVY[2]);
+    doc.text(last.sSized.toFixed(1) + ' kWh summer   ' + last.wSized.toFixed(1) + ' kWh winter   ' + Math.round(last.annual).toLocaleString('en-US') + ' kWh / yr', M + 12, y + 65);
+    y += 90;
+
+    doc.setFont('helvetica', 'normal'); doc.setFontSize(8); doc.setTextColor(GRAY[0], GRAY[1], GRAY[2]);
+    doc.text('Loads and run hours are the customer inputs. This is an energy estimate to size against, not a production', M, y);
+    doc.text('or savings guarantee. KnowSolar, knowsolar.com, (401) 358-6062.', M, y + 11);
+
+    doc.save('KnowSolar Load Calculator ' + today.toISOString().slice(0, 10) + '.pdf');
+  }
+
+  var saveBtn = document.getElementById('savepdf');
+  saveBtn.addEventListener('click', function () {
+    var label = saveBtn.textContent;
+    saveBtn.disabled = true;
+    saveBtn.textContent = 'Building PDF...';
+    loadJsPDF().then(function (JsPDF) {
+      buildPdf(JsPDF);
+    }).catch(function () {
+      window.print();
+    }).then(function () {
+      saveBtn.disabled = false;
+      saveBtn.textContent = label;
+    });
+  });
+
+  document.getElementById('ph-meta').textContent = 'Load summary, ' +
+    new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
 
   calc();
 })();
